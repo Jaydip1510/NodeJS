@@ -15,7 +15,6 @@ const employee = {
      age: 25,
      address : "limbdi",
      gender : "male",
-     salary : 25000,
      emp : () =>{
         return this.name+" "+this.age;
      }
