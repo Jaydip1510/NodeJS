@@ -7,6 +7,7 @@ const url = 'mongodb://127.0.0.1:27017/';
 const client = new mongoclient(url);
 
 async function getdata(){
+    
     try{
         await client.connect();
         console.log("connect to db");

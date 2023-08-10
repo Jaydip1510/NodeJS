@@ -80,7 +80,7 @@ app.post("/savedata", bodyparse, (req, res) => {
         i.name = req.body.name;
         i.email = req.body.email;
         i.age = req.body.age;
-        i.gender = req.body.gender;
+        i.gender = req.body.gender
       }
     });
   } else {
