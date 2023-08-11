@@ -14,6 +14,8 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage});
+
+// create folder
 // const upload = multer({dest:'./upload'})
 
 const mainpath = path.join(__dirname, "../public");
