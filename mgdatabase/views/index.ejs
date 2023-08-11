@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 p-5 bg-secondary">
-                <form action="/savedata" method="post">
+                <form action="/savedata" method="post" enctype="multipart/form-data">
 
                     <input type="hidden" name="id" id="id" value="<%= udata.id%>">
                     <label for=""><b>name:-</b></label>
@@ -29,6 +29,9 @@
                     <label for=""><b>Address:-</b></label>
                     <input type="text" name="address" value="<%= udata.address %>"><br><br>
 
+                    <label for=""><b>Image:-</b></label>
+                    <input type="file" name="img"><br><br>
+
                     <input type="submit" class="btn btn-primary" value="Save" name="save">
                 </form>
             </div>
@@ -36,39 +39,41 @@
                 <br><br>
 
                 <table border="2" class="table table-striped">
-                    <tr>
-                        <td><center><b>id</b></center></td>
-                        <td><center><b>Name</b></center></td>
-                        <td><center><b>Age</b></center></td>
-                        <td><center><b>Email</b></center></td>
-                        <td><center><b>Address</b></center></td>
-                        <td><center><b>Action</b></center></td>
+                    <tr align="center">
+                        <td><b>id</b></td>
+                        <td><b>Name</b></td>
+                        <td><b>Age</b></td>
+                        <td><b>Email</b></td>
+                        <td><b>Address</b></td>
+                        <td><b>Image</b></td>
+                        <td><b>Action</b></td>
                     </tr>
                     <% data.forEach((i)=>{ %>
-                        <tr>
-                            <td><center>
+                        <tr align="center">
+                            <td>
                                 <%= i._id %>
-                            </center>
                             </td>
-                            <td><center>
+                            <td>
                                 <%= i.name %>
-                            </center>
                             </td>
-                            <td><center>
+                            <td>
                                 <%= i.age %>
-                            </center>
                             </td>
-                            <td><center>
+                            <td>
                                 <%= i.email %>
-                            </center>
                             </td>
-                            <td><center>
+                            <td>
                                 <%= i.address %>
-                            </center>
                             </td>
-                            <td><center><a class="btn btn-success" href="/edit/<%= i.id %>">Edit</a> <a class="btn btn-danger" href="/del/<%= i.id%>">Delete</a></center></td>
+                            <td>
+                                <img src="<%= i.img %>" alt="user image" height="100px" width="100px">
+                            </td>
+                            <td>
+                                <a class="btn btn-success" href="/edit/<%= i.id %>">Edit</a> <a class="btn btn-danger"
+                                    href="/del/<%= i.id%>">Delete</a>
+                            </td>
                         </tr>
-                        <%}) %>     
+                        <%}) %>
                 </table>
             </div>
         </div>

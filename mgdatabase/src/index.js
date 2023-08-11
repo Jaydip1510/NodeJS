@@ -2,9 +2,23 @@ const express = require('express');
 const app = express();
 const body = require("body-parser");
 const path = require("path");
+const multer = require("multer");
+let imgfilename = '';
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+     return cb(null, "./upload/");
+    },
+    filename: function (req, file, cb) {
+        imgfilename = Date.now()+file.originalname;
+       return cb(null, imgfilename);
+    }
+});
+const upload = multer({storage: storage});
+// const upload = multer({dest:'./upload'})
 
 const mainpath = path.join(__dirname, "../public");
 app.use(express.static(mainpath));
+app.use(express.static('upload'));
 app.set("view engine", "ejs");
 const bodyparse = body.urlencoded({ extended: false });
 const mongo = require('mongodb');
@@ -34,8 +48,9 @@ async function getdata() {
                 udata: udata
             });
         });
-        app.post('/savedata', bodyparse, async (req, res) => {
+        app.post('/savedata', upload.single('img'), async (req, res) => {
             id = req.body.id;
+            console.log(imgfilename);
             if (id != '') {
                 udata = '';
                 userdata.find((i) => {
@@ -44,6 +59,7 @@ async function getdata() {
                         i.age = req.body.age;
                         i.email = req.body.email;
                         i.address = req.body.address;
+                        i.img = imgfilename
                     }
                 });
                 let final = collection.updateOne({
@@ -53,7 +69,8 @@ async function getdata() {
                         name: req.body.name,
                         age: req.body.age,
                         email: req.body.email,
-                        address: req.body.address
+                        address: req.body.address,
+                        img : imgfilename
                     }
                 })
             } else {
@@ -62,7 +79,8 @@ async function getdata() {
                     name: req.body.name,
                     age: req.body.age,
                     email: req.body.email,
-                    address: req.body.address
+                    address: req.body.address,
+                    img : imgfilename
                 }
             userdata.push(data);
 
@@ -70,14 +88,6 @@ async function getdata() {
                 console.log(result);
                     
             }
-            // var data = {
-            //     id:(userdata.length + 1).toString(),
-            //     name: req.body.name,
-            //     age: req.body.age,
-            //     email: req.body.email,
-            //     address: req.body.address
-            // }
-            // userdata.push(data);
             res.redirect('mydb');
         });
 
