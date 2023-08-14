@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 const mainpath = path.join(__dirname, "../public");
 app.use(express.static(mainpath));
 app.use(express.static('upload'));
-// const imgmainpath = path.join(__dirname, "../upload");
+const imgmainpath = path.join(__dirname, "../upload");
 app.set("view engine", "ejs");
 const bodyparse = body.urlencoded({ extended: false });
 const mongo = require('mongodb');
@@ -40,7 +40,7 @@ async function getdata() {
         console.log("connect to db");
         const db = client.db('userinfo')
         const collection = db.collection('userdata');
-        const userdata = await collection.find({}).toArray();
+        var userdata = await collection.find({}).toArray();
         // insert new records
         app.get("/mydb", async (req, res) => {
             console.log("MYDB Request Called");
@@ -57,15 +57,11 @@ async function getdata() {
             console.log(imgfilename);
             if (id != '') {
                 udata = '';
-                userdata.find((i) => {
-                    if (i.id == id) {
-                        i.name = req.body.name;
-                        i.age = req.body.age;
-                        i.email = req.body.email;
-                        i.address = req.body.address;
-                        i.img = imgfilename
-                    }
+                udata = userdata.find((i) => {
+                     return i.id == id;
+                    
                 });
+                oldimagename = (udata.img!='') ? udata.img :"";
                 let final = collection.updateOne({
                     id: id,
                 }, {
@@ -74,7 +70,7 @@ async function getdata() {
                         age: req.body.age,
                         email: req.body.email,
                         address: req.body.address,
-                        img: imgfilename
+                        img: (imgfilename !='')?imgfilename:oldimagename 
                     }
                 })
             } else {
@@ -121,7 +117,7 @@ async function getdata() {
 
         });
         app.get('/edit/:id', async (req, res) => {
-            console.log("Method Edit Success");
+            app.use(express.static(imgmainpath));
             userdata = await collection.find({}).toArray();
             let id = req.params.id;
             udata = userdata.find((i) => {
