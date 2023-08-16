@@ -62,6 +62,12 @@ async function getdata() {
                     
                 });
                 oldimagename = (udata.img!='') ? udata.img :"";
+                if(imgfilename != ''){
+                    let imgname ="upload/"+udata.img;
+                    fs.unlink(imgname,() => {
+                        console.log("image deleted");
+                    });
+                }
                 let final = collection.updateOne({
                     id: id,
                 }, {
