@@ -62,7 +62,7 @@ async function getdata() {
                     
                 });
                 oldimagename = (udata.img!='') ? udata.img :"";
-                if(imgfilename != ''){
+                if(req.file && imgfilename != ''){
                     let imgname ="upload/"+udata.img;
                     fs.unlink(imgname,() => {
                         console.log("image deleted");
@@ -76,7 +76,7 @@ async function getdata() {
                         age: req.body.age,
                         email: req.body.email,
                         address: req.body.address,
-                        img: (imgfilename !='')?imgfilename:oldimagename 
+                        img: (req.file && imgfilename !='')?imgfilename:oldimagename 
                     }
                 })
             } else {
