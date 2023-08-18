@@ -45,7 +45,7 @@ const registerdata = async (req, res) => {
     }
 
 const checkUserData = async(req,res)=>{
-    const checkUser = await userModel.findOne({email: req.body.email,password: req.body.password});
+    const checkUser = await registerModel.findOne({email: req.body.email,password: req.body.password});
     if(checkUser){
         res.redirect('/admin');
     }else{
