@@ -15,7 +15,7 @@ const gettable = (req, res) => {
 
 
 const getpostdata = async (req, res) => {
-    const checkUser = await userModel.findone({ email: req.body.email });
+    const checkUser = await userModel.findOne({ email: req.body.email });
     console.log("Check user" + checkUser);
     if (checkUser) {
         return res.render('Email already exists');
@@ -28,7 +28,7 @@ const getpostdata = async (req, res) => {
         });
         const res1 = await result.save()
         console.log("data saved" + res1);
-        res.send("data saved");
+        res.redirect('login');
     }
 }
 
@@ -41,17 +41,13 @@ const registerdata = async (req, res) => {
         });
         const abc = await res2.save()
         console.log("data saved" + abc);
-        res.send("data saved");
+        res.redirect('login');
     }
 
-const login = (req, res) => {
-    res.render('login');
-}
-
 const checkUserData = async(req,res)=>{
-    const checkUser = await userModel.findone({email: req.body.email,password: req.body.password});
+    const checkUser = await userModel.findOne({email: req.body.email,password: req.body.password});
     if(checkUser){
-        res.redirect('admin');
+        res.redirect('/admin');
     }else{
         res.send("Email or password wrong");
     }
@@ -62,6 +58,5 @@ module.exports = {
     getpostdata,
     gettable,
     checkUserData,
-    login,
     registerdata
 }
