@@ -9,5 +9,5 @@ router.get('/userform',getdata);
 router.post('/userform/savedata',bodyParser,getpostdata);
 router.get('/usertable',gettable);
 router.post('/register',bodyParser,registerdata);
-router.post('/checkUser',bodyParser,checkUserData);
+router.post('/dataUser',bodyParser,checkUserData);
 module.exports = router;
