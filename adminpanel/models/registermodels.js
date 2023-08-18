@@ -7,17 +7,12 @@ const maindata =  async ()=>{
 }
 maindata();
 
-const studentSchema = new mongoose.Schema({
+const registerSchema = new mongoose.Schema({
     id:Number,
-    email:{
-    type:String,
-    required:true,
-    unique:true,
-    },
+    email:{ type:String, required:true, unique:true },
     password:String,
     username:String,
-    
 });
 
-const studentModel = new mongoose.model('registerdata',studentSchema);
-module.exports = studentModel
+const registerModel = new mongoose.model('registerdata',registerSchema);
+module.exports = registerModel

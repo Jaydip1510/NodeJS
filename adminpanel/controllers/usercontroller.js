@@ -18,7 +18,7 @@ const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
     console.log("Check user" + checkUser);
     if (checkUser) {
-        return res.render('Email already exists');
+        return res.send('Email already exists');
     } else {
         const result = new userModel({
             id: 1,
@@ -33,6 +33,8 @@ const getpostdata = async (req, res) => {
 }
 
 const registerdata = async (req, res) => {
+    
+
         const res2 = new registerModel({
             id: 1,
             email: req.body.email,

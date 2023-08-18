@@ -2,6 +2,8 @@ const express = require('express')
 const app = express();
 
 const routes = require('./routes/user');
+const cookie = require('cookie-parser');
+app.use(cookie());
 app.set('view engine','ejs');
 app.use(express.static(__dirname));
 app.use(routes);
