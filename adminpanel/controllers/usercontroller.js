@@ -7,6 +7,10 @@ const getdata = (req,res) => {
     res.render('form');
 }
 
+const gettable = (req,res) => {
+    res.render('table');
+}
+
 const getpostdata = async (req,res) => {
     const result = new userModel({
         id:1,
@@ -22,5 +26,6 @@ const getpostdata = async (req,res) => {
 module.exports = {
     getDashboard,
     getdata,
-    getpostdata
+    getpostdata,
+    gettable
 }
