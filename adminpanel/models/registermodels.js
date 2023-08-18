@@ -9,11 +9,6 @@ maindata();
 
 const studentSchema = new mongoose.Schema({
     id:Number,
-    name:{
-    type:String,
-    required:true,
-    unique:true,
-    },  
     email:{
     type:String,
     required:true,
@@ -24,5 +19,5 @@ const studentSchema = new mongoose.Schema({
     
 });
 
-const studentModel = new mongoose.model('adminstudent',studentSchema);
+const studentModel = new mongoose.model('registerdata',studentSchema);
 module.exports = studentModel
