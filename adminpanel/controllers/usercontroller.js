@@ -50,7 +50,8 @@ const checkUserData = async(req,res)=>{
         res.cookie("UserName",dataUser.username);
         res.redirect('/admin');
     }else{
-        res.send("Email or password wrong");
+        req.flash('danger','Email or password wrong');
+        res.render('login',{message:req.flash('danger')});
     }
 }
 module.exports = {
