@@ -1,24 +1,16 @@
 let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
-const user = async (req, res) => {
-    if(req.cookies && req.cookies.UserName !='admin'){
-        return res.redirect('/login');
-    }
+
+const getDashboard =  (req, res) => {
+    res.render('index');
 }
 
-const getDashboard = async (req, res) => {
-    await user(req, res)
-    res.render('index',{username:req.cookies.UserName});
+const getdata =  (req, res) => {
+    res.render('form');
 }
 
-const getdata = async (req, res) => {
-    await user(req, res)
-    res.render('form',{username:req.cookies.UserName});
-}
-
-const gettable = async (req, res) => {
-    await user(req, res)
-    res.render('table',{username:req.cookies.UserName});
+const gettable =  (req, res) => {
+    res.render('table');
 }
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
@@ -55,7 +47,7 @@ const registerdata = async (req, res) => {
 const checkUserData = async(req,res)=>{
     const dataUser = await registerModel.findOne({email: req.body.email,password: req.body.password});
     if(dataUser){
-        res.cookie("UserName",user.name);
+        res.cookie("UserName",dataUser.name);
         res.redirect('/admin');
     }else{
         res.send("Email or password wrong");
