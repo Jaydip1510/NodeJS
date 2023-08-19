@@ -47,7 +47,7 @@ const registerdata = async (req, res) => {
 const checkUserData = async(req,res)=>{
     const dataUser = await registerModel.findOne({email: req.body.email,password: req.body.password});
     if(dataUser){
-        res.cookie("UserName",dataUser.name);
+        res.cookie("UserName",dataUser.username);
         res.redirect('/admin');
     }else{
         res.send("Email or password wrong");

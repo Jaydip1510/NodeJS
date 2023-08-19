@@ -16,6 +16,12 @@ app.get('/login',(req,res)=>{
     res.render("login");
 })
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('UserName')
+    res.redirect('/')
+
+})
+
 app.get('/register',(req,res)=>{
     res.render('register');
 })
