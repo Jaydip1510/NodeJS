@@ -2,13 +2,19 @@ let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
 const checkUser = async(req,res) => {
     if(req.cookies && req.cookies.UserName != "admin"){
-        return res.redirect('/admin')
+        return false;
     }
+    return true;
 }
 
 const getDashboard = async (req, res) => {
-    await checkUser(req, res)
-    res.render('index',{username:req.cookies.UserName});
+    
+    var a = await checkUser(req, res);
+    if(a === true){
+        res.render('admin');
+    }else{
+    res.render('index',{username:req.cookies.UserName})
+  }
 }
 
 const getdata = async (req, res) => {
