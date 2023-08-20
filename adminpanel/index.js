@@ -19,7 +19,7 @@ app.use(flash());
 app.use(routes);
 
 app.get('/',(req,res)=>{
-    res.render("login",{ message: ''});
+    res.render("login");
 })
 
 app.get('/login',(req,res)=>{
