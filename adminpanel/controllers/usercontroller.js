@@ -1,16 +1,24 @@
 let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
-
-const getDashboard =  (req, res) => {
-    res.render('index');
+const checkUser = async(req,res) => {
+    if(req.cookies && req.cookies.UserName != "admin"){
+        return res.redirect('/')
+    }
 }
 
-const getdata =  (req, res) => {
-    res.render('form');
+const getDashboard = async (req, res) => {
+    await checkUser(req, res)
+    res.render('index',{username:req.cookie.UserName});
 }
 
-const gettable =  (req, res) => {
-    res.render('table');
+const getdata = async (req, res) => {
+    await checkUser(req, res)
+    res.render('form',{username:req.cookie.UserName});
+}
+
+const gettable = async (req, res) => {
+    await checkUser(req, res)
+    res.render('table',{username:req.cookie.UserName});
 }
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
