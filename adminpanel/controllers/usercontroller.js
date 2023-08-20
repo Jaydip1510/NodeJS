@@ -11,7 +11,7 @@ const getDashboard = async (req, res) => {
     
     var a = await checkUser(req, res);
     if(a === true){
-        res.render('admin');
+        res.render('index',{username:req.cookies.UserName});
     }else{
     res.render('index',{username:req.cookies.UserName})
   }
