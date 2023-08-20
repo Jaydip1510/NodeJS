@@ -11,15 +11,15 @@ const getDashboard = async (req, res) => {
     
     var a = await checkUser(req, res);
     if(a === true){
-        res.render('index',{username:req.cookies.UserName});
+        res.render('index',{username:req.cookies.UserName,selected:'admin'});
     }else{
-    res.render('index',{username:req.cookies.UserName})
+    res.render('index',{username:req.cookies.UserName,selected:'admin'})
   }
 }
 
 const getdata = async (req, res) => {
     await checkUser(req, res)
-    res.render('form',{username:req.cookies.UserName});
+    res.render('form',{username:req.cookies.UserName,selected:'form'});
 }
 
 const gettable = async (req, res) => {
