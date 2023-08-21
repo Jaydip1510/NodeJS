@@ -4,6 +4,7 @@ const registerdata = async (req, res) => {
         name: req.body.name,
         relesedate: req.body.date,
         posterimage: req.body.img,
+        character:main,
     });
     const abc = await res2.save()
     console.log("data saved" + abc);
