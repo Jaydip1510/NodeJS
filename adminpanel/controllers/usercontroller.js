@@ -26,6 +26,18 @@ const gettable = async (req, res) => {
     await checkUser(req, res)
     res.render('table',{username:req.cookies.UserName,selected:'table'});
 }
+
+const getchart = async (req, res) => {
+    await checkUser(req, res)
+    res.render('chart',{username:req.cookies.UserName,selected:'chart'});
+}
+
+
+const getwidgets = async (req, res) => {
+    await checkUser(req, res)
+    res.render('widget',{username:req.cookies.UserName,selected:'widget'});
+}
+
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
     console.log("Check user" + checkUser);
@@ -74,5 +86,7 @@ module.exports = {
     getpostdata,
     gettable,
     checkUserData,
-    registerdata
+    registerdata,
+    getchart,
+    getwidgets
 }
