@@ -24,7 +24,7 @@ const getdata = async (req, res) => {
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
-    res.render('table',{username:req.cookies.UserName});
+    res.render('table',{username:req.cookies.UserName,selected:'table'});
 }
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
