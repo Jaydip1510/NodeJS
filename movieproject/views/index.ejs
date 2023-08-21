@@ -1,77 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/index.css">
-    <title>Mongodb6</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>User</title>
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 p-5 bg-secondary">
-                <form action="/savedata" method="post" enctype="multipart/form-data">
+    
+    <form action="/savedata" method="post" name="frm" enctype="multipart/form-data">
 
-                    <input type="hidden" name="id" id="id" value="<%= udata.id%>">
-                    <label for=""><b>name:-</b></label>
-                    <input type="text" name="name" value="<%= udata.name %>"><br><br>
+         <label for="">Movie Name:-</label>
+        <input type="text" name="name"><br><br>
 
-                    <label for=""><b>Release Date</b></label>
-                    <input type="number" name="date" value="<%= udata.date %>"><br><br>
+        <label for="">Release Date</label>
+        <input type="date" name="date"><br><br>
 
-                    <label for=""><b>PosterImage:-</b></label>
-                    <input type="file" name="img"><br><br>
+        <label for="">Character</label>
+        <input type="number" name="character"><br><br>
 
-                    <label for=""><b>noOf mainCharacters</b></label>
-                    <input type="number" name="main" value="<%= udata.main %>"><br><br>
+        <label for="">Poster Image</label>
+        <input type="file" name="image"><br><br>
 
+        <input type="submit" value="save">
+    </form>
 
-                    <input type="submit" class="btn btn-primary" value="Save" name="save">
-                </form>
-            </div>
-            <div class="col-8 p-5 bg-warning  d-flex justify-content-center align-items-center">
-                <br><br>
+    <br><br>
 
-                <table border="2" class="table table-striped">
-                    <tr align="center">
-                        <td><b>id</b></td>
-                        <td><b>Name</b></td>
-                        <td><b>Release Date</b></td>
-                        <td><b>characters</b></td>
-                        <td><b>Image</b></td>
-                        <td><b>Action</b></td>
-                    </tr>
-                    <% data.forEach((i)=>{ %>
-                        <tr align="center">
-                            <td>
-                                <%= i._id %>
-                            </td>
-                            <td>
-                                <%= i.name %>
-                            </td>
-                            <td>
-                                <%= i.date %>
-                            </td>
-                            <td>
-                                <%= i.main %>
-                            </td>
-                            <td>
-                                <img src="../<%= i.img %>" alt="user image" height="100px" width="100px">
-                            </td>
-                            <td>
-                                <a class="btn btn-success" href="/edit/<%= i.id %>">Edit</a> <a class="btn btn-danger"
-                                    href="/del/<%= i.id%>">Delete</a>
-                            </td>
-                        </tr>
-                        <%}) %>
-                </table>
-            </div>
-        </div>
-    </div>
+    <table border="2">
+        <tr>
+            
+            <td>id</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Email</td>
+            <td>Image</td>
+            <td>Action</td>
+           
+        </tr>
+        <% for(let i in data){ %>
+           <tr>
+            <td><%= data[i]._id %></td>
+            <td><%= data[i].moviename %></td>
+            <td><%= data[i].date %></td>
+            <td><%= data[i].charactor %></td>
+      
+            <td><img src="../<%= data[i].pimage %>" height="100px" width="200px"></td>
+            <td><a href="/edit/<%= data[i]._id%>">Edit</a> <a href="/del/<%= data[i]._id%>">Delete</a></td>
+
+           </tr>
+        <%} %>
+    </table>
 </body>
-
 </html>

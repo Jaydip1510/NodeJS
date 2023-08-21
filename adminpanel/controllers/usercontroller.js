@@ -38,6 +38,16 @@ const getwidgets = async (req, res) => {
     res.render('widget',{username:req.cookies.UserName,selected:'widget'});
 }
 
+const getbutton = async (req, res) => {
+    await checkUser(req, res)
+    res.render('button',{username:req.cookies.UserName,selected:'button'});
+}
+
+const gettypography = async (req, res) => {
+    await checkUser(req, res)
+    res.render('typography',{username:req.cookies.UserName,selected:'typography'});
+}
+
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email });
     console.log("Check user" + checkUser);
@@ -76,7 +86,7 @@ const checkUserData = async(req,res)=>{
         res.cookie("UserName",dataUser.username);
         res.redirect('/admin');
     }else{
-        req.flash('danger','Email or password wrong');
+        req.flash('danger','Email or password wrong !!!');
         res.render('login',{message:req.flash('danger')});
     }
 }
@@ -88,5 +98,7 @@ module.exports = {
     checkUserData,
     registerdata,
     getchart,
-    getwidgets
+    getwidgets,
+    getbutton,
+    gettypography
 }
