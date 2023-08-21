@@ -1,8 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
-const {getemp} = require("../controllers/index");
-router.route('/emp').get(getemp);
+const {registerdata} = require("../controllers/index");
+router.route('/movieinfo').get(registerdata);
 
 module.exports = router;
 
