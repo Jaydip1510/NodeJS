@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User</title>
+    <title>movie</title>
 </head>
 <body>
-    
     <form action="/savedata" method="post" name="frm" enctype="multipart/form-data">
-
-         <label for="">Movie Name:-</label>
-        <input type="text" name="name"><br><br>
+        <input type="hidden" name="hid"  value="<%= (user.id!='')?user.id:''%>">
+        <label for="">Movie Name:-</label>
+        <input type="text" name="name"  value="<%= (user.id!='')?user.id:''%>?user.name:'' %>"><br><br>
 
         <label for="">Release Date</label>
-        <input type="date" name="date"><br><br>
+        <input type="date" name="date" value="<%= (user.id!='')?user.id:''%>?user.date:'' %>"><br><br>
 
-        <label for="">Character</label>
-        <input type="number" name="character"><br><br>
+        <label for="">Chractors</label>
+        <input type="number" name="charactor" value="<%= (user.id!='')?user.id:''%>?user.charactor:'' %>"><br><br>
 
-        <label for="">Poster Image</label>
+        <label for="">Poster Image:-</label>
         <input type="file" name="image"><br><br>
 
         <input type="submit" value="save">
+
     </form>
 
     <br><br>
@@ -47,6 +47,8 @@
             <td><img src="../<%= data[i].pimage %>" height="100px" width="200px"></td>
             <td><a href="/edit/<%= data[i]._id%>">Edit</a> <a href="/del/<%= data[i]._id%>">Delete</a></td>
 
+         
+            
            </tr>
         <%} %>
     </table>
