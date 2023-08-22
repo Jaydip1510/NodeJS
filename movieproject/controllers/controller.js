@@ -22,7 +22,7 @@ const deldata = async (req, res) => {
     res.redirect('/moviecrud');
 }
 
-const aditdata = async (req, res) => {
+const editdata = async (req, res) => {
     let user = await model.findOne({_id: req.params.id});
     res.render('index', {
         data: user,
@@ -31,5 +31,5 @@ const aditdata = async (req, res) => {
 
 };
 module.exports = {
-    data, deldata, aditdata
+    data, deldata, editdata
 }
