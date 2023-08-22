@@ -22,12 +22,17 @@ const deldata = async (req, res) => {
 }
 
 const editdata = async (req, res) => {
-    let user = await model.findOne({_id: req.params.id});
+    let id = req.params.id;
+    console.log(id);
+    user = await model.find();
+    userdata2 = await model.find({_id: req.params.id});
+
     res.render('index', {
         data: user,
-        user: user
+        userdata2:userdata2 
     });
 
+    
 };
 module.exports = {
     data, deldata, editdata
