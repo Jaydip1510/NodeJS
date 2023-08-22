@@ -16,20 +16,20 @@
             <div class="col-4 p-5 bg-secondary">
                 <form action="/savedata" method="post" name="frm" enctype="multipart/form-data">
                     <input type="hidden" name="hid" value="<%= (user.id!='')?user.id:''%>">
-                    <label for="">Movie Name:-</label>
+                    <label for=""><b>Movie Name:-</b></label>
                     <input type="text" name="name"><br><br>
 
-                    <label for="">Release Date</label>
+                    <label for=""><b>Release Date:-</b></label>
                     <input type="date" name="date" value="<%= (user.id!='')?user.id:''%>?user.date:'' %>"><br><br>
 
-                    <label for="">Chractors</label>
+                    <label for=""><b>Chractors:-</b></label>
                     <input type="number" name="charactor"
                         value="<%= (user.id!='')?user.id:''%>?user.charactor:'' %>"><br><br>
 
-                    <label for="">Poster Image:-</label>
+                    <label for=""><b>Poster Image:-</b></label>
                     <input type="file" name="image"><br><br>
 
-                    <input type="submit" value="save">
+                    <input type="submit" class="btn btn-success" value="save">
 
                 </form>
             </div>
@@ -40,16 +40,16 @@
                 <table border="2" class="table table-striped">
                     <tr align="center">
 
-                        <td>id</td>
-                        <td>Name</td>
-                        <td>Age</td>
-                        <td>Email</td>
-                        <td>Image</td>
-                        <td>Action</td>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>Action</th>
 
-                    </tr align="center">
+                    </tr>
                     <% for(let i in data){ %>
-                        <tr>
+                        <tr align="center">
                             <td>
                                 <%= data[i]._id %>
                             </td>
@@ -63,8 +63,8 @@
                                 <%= data[i].charactor %>
                             </td>
 
-                            <td><img src="../<%= data[i].pimage %>" height="100px" width="200px"></td>
-                            <td><a href="/edit/<%= data[i]._id%>">Edit</a> <a href="/del/<%= data[i]._id%>">Delete</a>
+                            <td><img src="../<%= data[i].pimage %>" height="100px" width="100px"></td>
+                            <td><a href="/edit/<%= data[i]._id%>" class="btn btn-primary">Edit</a> <a href="/del/<%= data[i]._id%>" class="btn btn-danger">Delete</a>
                             </td>
 
 

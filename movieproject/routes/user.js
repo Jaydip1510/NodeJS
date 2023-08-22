@@ -1,18 +1,26 @@
 const express = require('express');
 const body = require('body-parser');
+app = express();
 const routes = express.Router();
 const multer = require('multer');
 const model = require('../models/usermodel');
 
 const bs = body.urlencoded({ extended: true });
-
+app.use(express.static('uploads'));
 let iname = '';
 const storage = multer.diskStorage({
-
+    destination: function (req, file, cb) {
+        return cb(null, "./uploads/");
+    },
+    filename: function (req, file, cb) {
+        iname = Date.now() + file.originalname;
+        return cb(null, iname);
+    }
  });
  const upload = multer({ storage: storage });
 console.log(iname);
 const { data,deldata, editdata } = require("../controllers/controller");
+const { appendFile } = require('fs');
 routes.get('/moviecrud', data);
 routes.get('/del/:id', deldata);
 routes.get('/edit/:id', editdata);
@@ -28,7 +36,7 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
         old = (user.image != '') ? user.image : '';
 
         if (req.file && iname != '') {
-            let img1 = "uploads/" + user.image;
+            let img1 = "/uploads/" + user.image;
 
             fs.unlink(img1, () => {
                 console.log("delete");

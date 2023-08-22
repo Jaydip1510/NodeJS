@@ -2,7 +2,6 @@
 const model = require('../models/usermodel');
 const fs = require('fs');
 let user = '';
-let iname = '';
 const data = async (req, res) => {
     let user = await model.find(); 
     console.log(user);

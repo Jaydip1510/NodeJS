@@ -122,7 +122,7 @@ async function getdata() {
             }
 
         });
-        app.get('/edit/:id', async (req, res) => {
+        app.get('/edit/:_id', async (req, res) => {
             app.use(express.static(imgmainpath));
             userdata = await collection.find({}).toArray();
             let id = req.params.id;
