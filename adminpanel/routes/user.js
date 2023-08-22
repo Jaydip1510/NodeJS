@@ -15,7 +15,7 @@ router.get('/widget',getwidgets);
 router.get('/button',getbutton);
 router.get('/typography',gettypography);
 router.post('/register',bodyParser,registerdata);
-// router.post('/dataUser',bodyParser,checkUserData);
+//  router.post('/dataUser',bodyParser,checkUserData);
 
 router.post(
     '/login',
