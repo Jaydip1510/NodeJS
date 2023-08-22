@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
  const upload = multer({ storage: storage });
 console.log(iname);
 const { data,deldata, aditdata } = require("../controllers/controller");
-routes.get('/crud', data);
+routes.get('/moviecrud', data);
 routes.get('/del/:id', deldata);
 routes.get('/edit/:id', aditdata);
 routes.post('/savedata', upload.single('image'), async (req, res) => {
@@ -59,6 +59,6 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
         }
     }
     user = '';
-    res.redirect('/crud')
+    res.redirect('/moviecrud')
 });
 module.exports = routes;

@@ -19,7 +19,7 @@ const deldata = async (req, res) => {
     });
 
     await model.findByIdAndDelete({_id: req.params.id});
-    res.redirect('/crud');
+    res.redirect('/moviecrud');
 }
 
 const aditdata = async (req, res) => {
