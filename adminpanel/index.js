@@ -1,20 +1,35 @@
 const express = require('express')
 const app = express();
-
 const routes = require('./routes/user');
 const cookie = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
-const passport = require('passport');
-const initializingPassport = require('./controllers/passportconfig')
-app.use(cookie());
+// const passport = require('passport');
+// const bodyParser = require('body-parser');
+// const initializingPassport = require('./controllers/passportconfig');
+// const MongoStore = require('connect-mongo')(session);
 
+
+app.use(cookie());
 app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
 
-initializingPassport(passport);
+// initializingPassport(passport);
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+// app.use(session({
+//     secret: 'testSecret',
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+//   }));
+
+
+//   app.use(passport.initialize());
+//   app.use(passport.session());
 
 app.set('view engine','ejs');
 app.use(express.static(__dirname));
