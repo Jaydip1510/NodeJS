@@ -1,38 +1,41 @@
-const express = require('express')
+const express = require('express');
+const initializingPassport = require('./controllers/passportconfig');
 const app = express();
 const routes = require('./routes/user');
 const cookie = require('cookie-parser');
 const session = require('express-session');
+const MongoStore  = require('connect-mongo');
 const flash = require('connect-flash');
-// const passport = require('passport');
-// const bodyParser = require('body-parser');
-// const initializingPassport = require('./controllers/passportconfig');
-// const MongoStore = require('connect-mongo')(session);
-
+const passport = require('passport');
+const bodyParser = require('body-parser');
 
 app.use(cookie());
 app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
 
-// initializingPassport(passport);
+initializingPassport(passport);
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+const dbUrl = "mongodb://127.0.0.1:27017/admin";
+app.use(session({
+    secret: 'testSecret',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create( {
+        mongoUrl: dbUrl,
+        touchAfter: 24 * 3600 
+     }) 
+    //store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  }));
 
-// app.use(session({
-//     secret: 'testSecret',
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-//   }));
 
+ app.use(passport.initialize());
+ app.use(passport.session());
 
-//   app.use(passport.initialize());
-//   app.use(passport.session());
-
-app.set('view engine','ejs');
-app.use(express.static(__dirname));
+ app.set('view engine','ejs');
+ app.use(express.static(__dirname));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
