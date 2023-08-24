@@ -22,7 +22,7 @@ const dataUser = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-    console.log("getDashboard called");
+   
     var a = await checkUser(req, res);
     if(a === true){
         res.render('index',{username:req.cookies.UserName,selected:'admin'});
@@ -121,15 +121,19 @@ const checkUserData = async(req,res)=>{
 const checkLogindata = async (req, res) => {
     let userdata = await registerModel.findOne({email:req.body.email});
     if(!userdata){
-        res.send("User not found");
+        res.send("User not founde");
     }else{
+        
         const isPasswordValid = await bcrypt.compare(req.body.password,userdata.password);
 
         if(!isPasswordValid){
-          res.send("Invalid password");
+          res.send("Invalid passworda");
+        }else{
+            res.cookie('UserName',userdata.username);
         }
     }
     res.redirect('admin');
+    
 }
 
 module.exports = {
