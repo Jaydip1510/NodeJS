@@ -3,7 +3,7 @@ const body = require('body-parser');
 const bodyParser = body.urlencoded({ extended: false });
 // const passport = require('passport');
 const router = express.Router();
-const { getDashboard, getdata, getpostdata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement} = require("../controllers/usercontroller");
+const { getDashboard, getdata, getpostdata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata} = require("../controllers/usercontroller");
 
 
 router.get('/admin', getDashboard);
@@ -16,10 +16,11 @@ router.get('/button', getbutton);
 router.get('/typography', gettypography);
 router.get('/element',getotherElement);
 router.post('/register', bodyParser, registerdata);
-router.post('/dataUser',bodyParser,checkUserData);
 
-// router.post("/login", (req, res) => {
-  
+
+router.post(
+    "/login",bodyParser,checkLogindata
+  );
 //   passport.authenticate('local', (err, user, info) => {
     
 //     if (err) {

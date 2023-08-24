@@ -1,5 +1,8 @@
 let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+let plainpassword = '';
 const checkUser = async(req,res) => {
     if(req.cookies)
     {
@@ -8,10 +11,8 @@ const checkUser = async(req,res) => {
             res.redirect('/');
             return false;  
         }
-        // console.log(req.cookies.UserName);
         return true;
-    }
-    
+    }  
 }
 
 const dataUser = async (req, res) => {
@@ -86,22 +87,28 @@ const getpostdata = async (req, res) => {
 }
 
 const registerdata = async (req, res) => {
-    
-
+    const {username, password,email} = req.body
+     const chackdata = await registerModel.findOne({email});
+     console.log("chack User"+chackdata);
+     if(chackdata){
+        return res.send("Email already registered");
+     }else{
+        const crypted = await bcrypt.hash(password,saltRounds)
         const res2 = new registerModel({
             id: 1,
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
+            email:email,
+            password:crypted,
+            username:username,
         });
         const abc = await res2.save()
         console.log("data saved" + abc);
         res.redirect('login');
-    }
+     }
+   
+}
 
 const checkUserData = async(req,res)=>{
     const dataUser = await registerModel.findOne({email: req.body.email,password: req.body.password});
-    //  console.log(email+""+password);
     if(dataUser){
         res.cookie('UserName',dataUser.username);
         res.redirect('/admin');
@@ -110,6 +117,21 @@ const checkUserData = async(req,res)=>{
         res.render('login',{message:req.flash('danger')});
     }
 }
+
+const checkLogindata = async (req, res) => {
+    let userdata = await registerModel.findOne({email:req.body.email});
+    if(!userdata){
+        res.send("User not found");
+    }else{
+        const isPasswordValid = await bcrypt.compare(req.body.password,userdata.password);
+
+        if(!isPasswordValid){
+          res.send("Invalid password");
+        }
+    }
+    res.redirect('admin');
+}
+
 module.exports = {
     getDashboard,
     getdata,
@@ -122,5 +144,6 @@ module.exports = {
     getbutton,
     gettypography,
     getotherElement,
-    dataUser
+    dataUser,
+    checkLogindata
 }
