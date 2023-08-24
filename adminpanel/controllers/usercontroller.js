@@ -1,21 +1,34 @@
 let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
 const checkUser = async(req,res) => {
-    if(req.cookies && req.cookies.UserName != "admin"){
-        return false;
+    if(req.cookies)
+    {
+      if(req.cookies.UserName === undefined || req.cookies.UserName === 'undefined') {
+            res.clearCookie('UserName');
+            res.redirect('/');
+            return false;  
+        }
+        // console.log(req.cookies.UserName);
+        return true;
     }
-    return true;
+    
 }
 
+const dataUser = async (req, res) => {
+    if(req.cookies && req.cookies.UserName !='admin'){
+        return res.redirect('/');
+    }
+};
+
 const getDashboard = async (req, res) => {
-    
+    console.log("getDashboard called");
     var a = await checkUser(req, res);
     if(a === true){
         res.render('index',{username:req.cookies.UserName,selected:'admin'});
     }else{
     res.render('index',{username:req.cookies.UserName,selected:'admin'})
   }
-}
+};
 
 const getdata = async (req, res) => {
     await checkUser(req, res)
@@ -46,6 +59,12 @@ const getbutton = async (req, res) => {
 const gettypography = async (req, res) => {
     await checkUser(req, res)
     res.render('typography',{username:req.cookies.UserName,selected:'typography'});
+}
+
+
+const getotherElement = async (req, res) => {
+    await checkUser(req, res)
+    res.render('element',{username:req.cookies.UserName,selected:'element'});
 }
 
 const getpostdata = async (req, res) => {
@@ -82,9 +101,9 @@ const registerdata = async (req, res) => {
 
 const checkUserData = async(req,res)=>{
     const dataUser = await registerModel.findOne({email: req.body.email,password: req.body.password});
-     console.log(email+""+password);
+    //  console.log(email+""+password);
     if(dataUser){
-        res.cookie("UserName",dataUser.username);
+        res.cookie('UserName',dataUser.username);
         res.redirect('/admin');
     }else{
         req.flash('danger','Email or password wrong !!!');
@@ -101,5 +120,7 @@ module.exports = {
     getchart,
     getwidgets,
     getbutton,
-    gettypography
+    gettypography,
+    getotherElement,
+    dataUser
 }
