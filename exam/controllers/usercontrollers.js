@@ -5,7 +5,7 @@ const getDashboard = (req,res) =>{
 }
 
 const getform = (req,res) =>{
-    red.render('form');
+    res.render('form');
 }
 
 // inserted data from register model

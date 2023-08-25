@@ -27,6 +27,10 @@ app.get('/login', (req, res) => {
     res.render('login',{ message:''});
 })
 
+app.get('/logout', (req, res) => {
+    res.redirect('/')
+});
+
 app.get('/', (req, res) => {
     res.render('login',{ message:''});
 });
