@@ -44,6 +44,10 @@ app.get('/login',(req,res)=>{
     res.render("login",{ message: ''});
 })
 
+// app.get('/profile',(req,res)=>{
+//     res.render("profile",{ username:'jaydip123',selected:'profile'});
+// })
+
 app.get('/logout', (req, res) => {
     res.clearCookie('UserName')
     res.redirect('/')

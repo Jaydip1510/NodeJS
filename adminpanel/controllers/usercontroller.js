@@ -69,6 +69,11 @@ const getotherElement = async (req, res) => {
     res.render('element',{username:req.cookies.UserName,selected:'element'});
 }
 
+const getprofile = async (req, res) => {
+    await checkUser(req, res)
+    res.render('profile',{username:req.cookies.UserName,selected:'profile'});
+}
+
 const transpoter = nodemailer.createTransport({
     port:465,
     host:"smtp.gmail.com",
@@ -168,5 +173,6 @@ module.exports = {
     gettypography,
     getotherElement,
     dataUser,
-    checkLogindata
+    checkLogindata,
+    getprofile
 }
