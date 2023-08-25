@@ -1,6 +1,7 @@
 let userModel = require('../models/usermodels');
 let registerModel = require('../models/registermodels');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 const saltRounds = 10;
 let plainpassword = '';
 const checkUser = async(req,res) => {
@@ -68,17 +69,27 @@ const getotherElement = async (req, res) => {
     res.render('element',{username:req.cookies.UserName,selected:'element'});
 }
 
+const transpoter = nodemailer.createTransport({
+    port:465,
+    host:"smtp.gmail.com",
+      auth:{
+             user:"jaydipmakwana1510@gmail.com",
+             pass:'wsarejrsgwjwivcd',
+      },
+      secure:true,
+});
+
 const getpostdata = async (req, res) => {
-    const checkUser = await userModel.findOne({ email: req.body.email });
+    const checkUser = await userModel.findOne({email: req.body.email,password: req.body.password});
     console.log("Check user" + checkUser);
     if (checkUser) {
         return res.send('Email already exists');
     } else {
         const result = new userModel({
             id: 1,
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
+            email:email,
+            password:password,
+            username:username,
         });
         const res1 = await result.save()
         console.log("data saved" + res1);
@@ -100,6 +111,14 @@ const registerdata = async (req, res) => {
             password:crypted,
             username:username,
         });
+        const mailInfo = {
+            from:"jaydipmakwana1510@gmail.com",
+            to:email,
+            subject:"Admin Panel",
+            text:"Regidtration",
+            html:"<p>You are successfully registered"
+        }
+        await transpoter.sendMail(mailInfo);
         const abc = await res2.save()
         console.log("data saved" + abc);
         res.redirect('login');

@@ -9,11 +9,6 @@ maindata();
 
 const studentSchema = new mongoose.Schema({
     id:Number,
-    name:{
-    type:String,
-    required:true,
-    unique:true,
-    },  
     email:{
     type:String,
     required:true,

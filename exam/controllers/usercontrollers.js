@@ -4,6 +4,10 @@ const getDashboard = (req,res) =>{
     res.render('index');
 }
 
+const getform = (req,res) =>{
+    red.render('form');
+}
+
 // inserted data from register model
 
 const register = async(req, res) =>{
@@ -35,10 +39,9 @@ const checkUserData = async(req,res)=>{
     }
 }
 
-
-
 module.exports = {
     getDashboard,
     register,
-    checkUserData
+    checkUserData,
+    getform
 }
