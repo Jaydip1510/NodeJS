@@ -73,15 +73,15 @@ const transpoter = nodemailer.createTransport({
     port:465,
     host:"smtp.gmail.com",
       auth:{
-             user:"jaydipmakwana1510@gmail.com",
-             pass:'wsarejrsgwjwivcd',
+             user:"makwanajaydip1510@gmail.com",
+             pass:'iovdaxolhzltlptu',
       },
       secure:true,
 });
 
 const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({email: req.body.email,password: req.body.password});
-    console.log("Check user" + checkUser);
+    // console.log("Check user" + checkUser);
     if (checkUser) {
         return res.send('Email already exists');
     } else {
@@ -112,11 +112,11 @@ const registerdata = async (req, res) => {
             username:username,
         });
         const mailInfo = {
-            from:"jaydipmakwana1510@gmail.com",
+            from:"makwanajaydip1510@gmail.com",
             to:email,
             subject:"Admin Panel",
             text:"Regidtration",
-            html:"<p>You are successfully registered"
+            html:"<a>click here registere"
         }
         await transpoter.sendMail(mailInfo);
         const abc = await res2.save()
