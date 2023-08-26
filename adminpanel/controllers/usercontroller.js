@@ -160,6 +160,42 @@ const checkLogindata = async (req, res) => {
     
 }
 
+function createOtp(){
+    var min = 100000;
+    var max = 999999;
+    otp = Math.floor(Math.random() * (max - min)) + min;
+    return otp;
+}
+
+const sendOtp = async(req,res) =>{
+    email = req.body.email;
+    let getdata = await registerModel.findOne({email: req.body.email})
+    if(!getdata){
+        res.send("user not found");
+    }else{
+        otp = createOtp();
+        console.log(otp);
+        const transporter = nodemailer.createTransport({
+            port:465,
+            host:"smtp.gmail.com",
+             auth:{
+                user:"makwanajaydip1510@gmail.com",
+                pass:'iovdaxolhzltlptu',
+             },
+             secure:true,
+        });
+        const mailInfo = {
+            from:"kanjariyanilesh@gmail.com",
+            to :email,
+            subject : "Admin panel",
+            text:"Forgot your password",
+            html:`<p>your OTP is ${otp} </p>`
+        }
+        await transporter.sendMail(mailInfo)
+    }
+    res.redirect('/admin');
+}
+
 module.exports = {
     getDashboard,
     getdata,
@@ -174,5 +210,6 @@ module.exports = {
     getotherElement,
     dataUser,
     checkLogindata,
-    getprofile
+    getprofile,
+    sendOtp
 }

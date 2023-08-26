@@ -3,8 +3,13 @@ const body = require('body-parser');
 const bodyParser = body.urlencoded({ extended: false });
 const passport = require('passport');
 const router = express.Router();
-const { getDashboard, getdata, getpostdata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile} = require("../controllers/usercontroller");
+const { getDashboard, getdata, getpostdata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp} = require("../controllers/usercontroller");
 
+router.get('/forgetpassword',(req,res)=>{
+  res.render('forget')
+})
+
+router.post('/forgetotp',bodyParser,sendOtp)
 
 router.get('/admin', getDashboard);
 router.get('/userform', getdata);
