@@ -10,6 +10,13 @@
         }, 1);
     };
     spinner();
+
+    window.setTimeout(function () {
+        $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
+            $(this).remove();
+        });
+    }, 5000);
+    
     
     
     // Back to top button
@@ -121,7 +128,7 @@
 
 
     // Single Line Chart
-    var ctx3 = $("#line-chart").get(0).getContext("2d");
+   /* var ctx3 = $("#line-chart").get(0).getContext("2d");
     var myChart3 = new Chart(ctx3, {
         type: "line",
         data: {
@@ -206,7 +213,7 @@
             responsive: true
         }
     });
-
-    
+*/
+   
 })(jQuery);
 

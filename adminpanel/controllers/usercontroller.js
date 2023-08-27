@@ -184,7 +184,7 @@ const checkLogindata = async (req, res) => {
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login",{ message: emsg_token});
+        res.render("login",{ message: emsg_token,message_class:'alert-danger'});
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -192,7 +192,7 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login",{ message: emsg_token});
+            res.render("login",{ message: emsg_token,message_class:'alert-danger'});
         } else {
             res.cookie('UserName', userdata.username);
             res.redirect('admin');
@@ -299,7 +299,7 @@ const vaildtoken = async (req, res) => {
                     const updata = await registerModel.updateOne({ email: email }, { $set: { password: hash_pwd } });
                     req.flash('emsg_token', 'Password sucessfully reset, kindy use new password to login.');
                     emsg_token = req.flash('emsg_token');
-                    res.render('login',{message:'',message_class:'alert-success'});
+                    res.render('login',{message:emsg_token,message_class:'alert-success'});
                 }
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
