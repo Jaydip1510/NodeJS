@@ -21,7 +21,7 @@
                             <label for="floatingPassword">Password</label>
                         </div>
                         <% if(message){ %>
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert <%= message_class %>" role="alert">
                                 <%= message %>
                             </div>
                             <% } %>
