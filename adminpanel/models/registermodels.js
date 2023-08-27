@@ -22,4 +22,5 @@ const registerSchema = new mongoose.Schema({
 });
 
 const registerModel = new mongoose.model('registerdata',registerSchema);
+
 module.exports = registerModel
