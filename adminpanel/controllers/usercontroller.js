@@ -9,37 +9,37 @@ const saltRounds = 10;
 const crypto = require('crypto');
 const secret_key = "secret1234";
 //Encrypting text
-const encrypt_text = async (plainText,password) => {
+const encrypt_text = async (plainText, password) => {
     try {
         const iv = crypto.randomBytes(16);
         const key = crypto.createHash('sha256').update(password).digest('base64').substr(0, 32);
         const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-    
+
         let encrypted = cipher.update(plainText);
         encrypted = Buffer.concat([encrypted, cipher.final()])
         return iv.toString('hex') + ':' + encrypted.toString('hex');
-    
-      } catch (error) {
+
+    } catch (error) {
         console.log(error);
-      }
- }
- // Decrypting text
-const decrypt_text = async (encryptedText,password) => {
+    }
+}
+// Decrypting text
+const decrypt_text = async (encryptedText, password) => {
     try {
         const textParts = encryptedText.split(':');
         const iv = Buffer.from(textParts.shift(), 'hex');
-    
+
         const encryptedData = Buffer.from(textParts.join(':'), 'hex');
         const key = crypto.createHash('sha256').update(password).digest('base64').substr(0, 32);
         const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-        
+
         const decrypted = decipher.update(encryptedData);
         const decryptedText = Buffer.concat([decrypted, decipher.final()]);
         return decryptedText.toString();
-      } catch (error) {
+    } catch (error) {
         console.log(error)
-      }
- }
+    }
+}
 
 const checkUser = async (req, res) => {
     if (req.cookies) {
@@ -124,7 +124,8 @@ const getpostdata = async (req, res) => {
     const checkUser = await userModel.findOne({ email: req.body.email, password: req.body.password });
     // console.log("Check user" + checkUser);
     if (checkUser) {
-        return res.send('Email already exists');
+        req.flash('emsg_token', 'Email already registered');
+        emsg_token = req.flash('emsg_token');
     } else {
         const result = new userModel({
             id: 1,
@@ -181,7 +182,8 @@ const checkUserData = async (req, res) => {
 const checkLogindata = async (req, res) => {
     let userdata = await registerModel.findOne({ email: req.body.email });
     if (!userdata) {
-        res.send("User not founde");
+        req.flash('emsg_token', 'user not found');
+        emsg_token = req.flash('emsg_token');
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -207,7 +209,8 @@ const sendOtp = async (req, res) => {
     email = req.body.email;
     let getdata = await registerModel.findOne({ email: req.body.email })
     if (!getdata) {
-        res.send("user not found");
+        req.flash('emsg_token', 'User not found');
+        emsg_token = req.flash('emsg_token');
     } else {
         otp = createOtp();
         /**
@@ -239,9 +242,9 @@ const sendOtp = async (req, res) => {
             },
             secure: true,
         });
-        const crypted = await encrypt_text(email,secret_key);
+        const crypted = await encrypt_text(email, secret_key);
 
-        var href=`http://localhost:8004/resetcred?token=${crypted}`;
+        var href = `http://localhost:8004/resetcred?token=${crypted}`;
         const mailInfo = {
             from: "kanjariyanilesh@gmail.com",
             to: email,
@@ -249,50 +252,60 @@ const sendOtp = async (req, res) => {
             html: `<p>your OTP is ${otp} <a href="${href}">Reset Password</a></p>`
         }
         await transporter.sendMail(mailInfo)
-        req.flash('smsg_forget','please check your email to reset your account password');
+        req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
         res.render('forget', { message: req.flash('smsg_forget') });
     }
-   
+
 }
 
-const vaildtoken = async (req,res) => {
+const vaildtoken = async (req, res) => {
     var emsg_token = '';
     console.log(req.query.token);
-    if(req.query.token){
+    if (req.query.token) {
         var token = req.query.token.toString();
-        const dcrypted = await decrypt_text(token,secret_key);
+        const dcrypted = await decrypt_text(token, secret_key);
         console.log(dcrypted);
-       if(!dcrypted){
-        req.flash('emsg_token','Invaild token');
-        emsg_token = req.flash('emsg_token');
-       }
-        res.render('resetpassword',{email:dcrypted,message: emsg_token});
-    }else{
+        if (!dcrypted) {
+            req.flash('emsg_token', 'Invaild token');
+            emsg_token = req.flash('emsg_token');
+        }
+        res.render('resetpassword', { email: dcrypted, message: emsg_token });
+    } else {
         console.log("body is:-");
-         console.log(req.body.email);
-         console.log(req.body.otp);
-         console.log(req.body.password);
-         console.log(req.body.cpassword);
+        console.log(req.body.email);
+        console.log(req.body.otp);
+        console.log(req.body.password);
+        console.log(req.body.cpassword);
         // step 1: check otp in schema: tokendatas
-        let tok_exists = await tokenModel.findOne({ email:req.body.email })
-            if (tok_exists) {
-                console.log(tok_exists);
-                if(req.body.otp==tok_exists.otp){
-                //   let del_tok = await tokenModel.deleteMany({ email: req.body.email });
-                //   console.log(del_tok);
-                  console.log("otp ok");
-                }else{
-                    console.log("otp not found");
+        let tok_exists = await tokenModel.findOne({ email: req.body.email })
+        if (tok_exists) {
+            console.log(tok_exists);
+            if (req.body.otp == tok_exists.otp) {
+                let del_tok = await tokenModel.deleteMany({ email: req.body.email });
+                console.log(del_tok);
+                // step 2 : password update in schema registerdatas
+                let getdata = await registerModel.findOne({ email: req.body.email })
+                if (!getdata) {
+                    req.flash('emsg_token', 'User not found');
+                    emsg_token = req.flash('emsg_token');
+                } else {
+                    const hash_pwd = await bcrypt.hash(req.body.password, saltRounds)
+                    const updata = await registerModel.updateOne({ email: email }, { $set: { password: hash_pwd } });
+                    res.render('login',{message:''});
+                    console.log(updata);
                 }
-                
-            } else{
-                console.log("Invalid token");
+            } else {
+                console.log("otp not found");
             }
+
+        } else {
+            console.log("Invalid token");
+        }
 
 
     }
-   
-     //let token = await
+
+    //let token = await
 
 }
 
