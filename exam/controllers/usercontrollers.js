@@ -1,11 +1,16 @@
 let registerModel = require('../models/registermodel');
+let categoryModel = require('../models/categorymodel');
 
 const getDashboard = (req,res) =>{
     res.render('index');
 }
 
 const getform = (req,res) =>{
-    res.render('form');
+    res.render('category');
+}
+
+const getproduct = (req,res) =>{
+    res.render('product');
 }
 
 // inserted data from register model
@@ -14,7 +19,6 @@ const register = async(req, res) =>{
     console.log(req.body);
     const res2 = new registerModel({
         id: 1,
-
         username:req.body.username,
         email:req.body.email,
         password:req.body.password,
@@ -23,7 +27,7 @@ const register = async(req, res) =>{
     });
     const abc = await res2.save()
     console.log("data saved" + abc);
-    res.redirect('/login');
+    res.render('/login');
 }
 
 // check data from login page
@@ -39,9 +43,25 @@ const checkUserData = async(req,res)=>{
     }
 }
 
+const categorydata = async(req,res) =>{ 
+//   console.log("body is:-"+req.body);
+
+var totdata = await categoryModel.countDocuments();
+
+    const result = new categoryModel({
+        id:(totdata+1),
+        categoryname:req.body.categoryname,
+    });
+    const cat = await result.save();
+    console.log("data saved"+ cat);
+    res.send('data inserted successfully');
+}
+
 module.exports = {
     getDashboard,
     register,
     checkUserData,
-    getform
+    getform,
+    categorydata,
+    getproduct
 }

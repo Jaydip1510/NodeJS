@@ -1,0 +1,42 @@
+<%- include('./partials/header') %>
+<%- include('./partials/sidebar') %>
+<div class="page-wrapper">      
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form class="form-horizontal" name="categoryform" action="categorydata" method="post" >
+                                <div class="card-body">
+                                    <h4 class="card-title" style="text-align: center;">Cetagory</h4>
+                                    <div class="form-group row">
+                                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">Category Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="categoryname" class="form-control" id="lname"
+                                                placeholder="Enter Category Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                      
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+        </div>
+        <%- include('./partials/footer') %>
