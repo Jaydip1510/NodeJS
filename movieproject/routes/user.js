@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         return cb(null, iname);
     }
  });
- const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 console.log(iname);
 const { data,deldata, editdata } = require("../controllers/controller");
 const { appendFile } = require('fs');
