@@ -59,10 +59,18 @@ var totdata = await categoryModel.countDocuments();
 }
 
 const productdetails = async(req,res)=>{
-   
-        
- }
+     
+    var totdata = await productModel.countDocuments();
 
+    const result = new productModel({
+        id:(totdata+1),
+        productname:req.body.productname,
+        productprice:req.body.productprice
+    });
+    const cat = await result.save();
+    console.log("data saved"+ cat);
+    res.send('data inserted successfully');
+}
 module.exports = {
     getDashboard,
     register,
