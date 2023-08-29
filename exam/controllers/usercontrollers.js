@@ -31,6 +31,10 @@ const getproduct = (req,res) =>{
     res.render('product');
 }
 
+const categorydisplay = (req,res) =>{
+    res.render('categorydata');
+}
+
 // inserted data from register model
 
 const register = async(req, res) =>{
@@ -108,5 +112,6 @@ module.exports = {
     getform,
     categorydata,
     getproduct,
-    productdetails
+    productdetails,
+    categorydisplay
 }
