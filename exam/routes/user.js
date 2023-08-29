@@ -11,6 +11,6 @@ router.post('/register',register);
 router.post('/login',checkUserData);
 router.post('/categorydata',bodyParser,categorydata);
 router.get('/product',getproduct);
-router.post('/productdetails',bodyParser,productdetails);
+router.post('/productdetails',productdetails);
 
 module.exports = router;

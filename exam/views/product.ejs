@@ -9,13 +9,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form action="productdetails" method="post">
+                            <form action="productdetails" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     <h5 class="card-title">Product Details</h5>
                                     <div class="form-group row">
                                         <label class="col-md-3 m-t-15">Select Category</label>
                                         <div class="col-md-9">
                                             <select class="select2 form-control custom-select"
+                                            name="category"
                                                 style="width: 100%; height:36px;">
                                                 <option>Select</option>
                                                 <option value="AK">Alaska</option>
@@ -32,7 +33,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="lname" name="productprice"
+                                        <label for="lname" name="lblproductprice"
                                             class="col-md-3  control-label col-form-label">Product Price</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="productprice" class="form-control" id="lname"
@@ -40,10 +41,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3" name="image">File Upload</label>
+                                        <label class="col-md-3"  >File Upload</label>
                                         <div class="col-md-9">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="validatedCustomFile"
+                                                <input type="file" name="image" class="custom-file-input" id="validatedCustomFile"
                                                     required>
                                                 <label class="custom-file-label" for="validatedCustomFile">Choose
                                                     file...</label>
@@ -67,7 +68,7 @@
                         <!-- ============================================================== -->
                         <!-- .right-sidebar -->
                         <!-- ============================================================== -->
-                        <!-- End Right sidebar        <!-- ============================================================== -->
+                        <!-- End Right sidebar============================================================== -->
                     </div>
                 </div>
 

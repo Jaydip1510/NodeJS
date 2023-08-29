@@ -3,8 +3,6 @@ let categoryModel = require('../models/categorymodel');
 let productModel= require('../models/productmodel');
 const multer = require('multer');
 const fs = require('fs');
-// const bodyparser = body.urlencoded({ extended: true });
-
 let imgname = '';
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,8 +13,11 @@ const storage = multer.diskStorage({
        return cb(null, imgname);
     }
  });
- const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 console.log(imgname);
+
+// create folder
+// const upload = multer({dest:'./upload'})
 
 const getDashboard = (req,res) =>{
     res.render('index');
@@ -61,7 +62,7 @@ const checkUserData = async(req,res)=>{
 }
 
 const categorydata = async(req,res) =>{ 
-//   console.log("body is:-"+req.body);
+
 
 var totdata = await categoryModel.countDocuments();
 
@@ -74,20 +75,32 @@ var totdata = await categoryModel.countDocuments();
     res.send('data inserted successfully');
 }
 
-const productdetails = (upload.single('image'),async(req,res)=>{
-     
-    var totdata = await productModel.countDocuments();
+const productdetails = async(req,res)=>{
+     const upload_file =await upload.single('image');
+     upload_file(req, res, async function(error){
+        
+		if(error)
+		{
+			return response.end('Error Uploading File');
+		}
+		else
+		{
+            var totdata = await productModel.countDocuments();
 
-    const result = new productModel({
-        id:(totdata+1),
-        productname:req.body.productname,
-        productprice:req.body.productprice,
-        image:imgname
-    });
-    const cat = await result.save();
-    console.log("data saved"+ cat);
-    res.send('data inserted successfully');
-});
+            const result = new productModel({
+                id:(totdata+1),
+                productname:req.body.productname,
+                productprice:req.body.productprice,
+                image:imgname
+            });
+            const cat = await result.save();
+            console.log("data saved"+ cat);
+            res.send('data inserted successfully');	
+		}
+
+	});
+   
+};
 module.exports = {
     getDashboard,
     register,
