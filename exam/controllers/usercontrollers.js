@@ -1,5 +1,6 @@
 let registerModel = require('../models/registermodel');
 let categoryModel = require('../models/categorymodel');
+let productModel= require('../models/productmodel');
 
 const getDashboard = (req,res) =>{
     res.render('index');
@@ -57,11 +58,17 @@ var totdata = await categoryModel.countDocuments();
     res.send('data inserted successfully');
 }
 
+const productdetails = async(req,res)=>{
+   
+        
+ }
+
 module.exports = {
     getDashboard,
     register,
     checkUserData,
     getform,
     categorydata,
-    getproduct
+    getproduct,
+    productdetails
 }

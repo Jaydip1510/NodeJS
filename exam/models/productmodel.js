@@ -7,7 +7,7 @@ const maindata =  async ()=>{
 }
 maindata();
 
-const categorySchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     id:Number,
     selectcategory:String,
     productname:String,
@@ -16,5 +16,5 @@ const categorySchema = new mongoose.Schema({
     
 });
 
-const categoryModel= new mongoose.model('productdatas',categorySchema);
-module.exports = categoryModel
+const productModel= new mongoose.model('productdatas',productSchema);
+module.exports = productModel

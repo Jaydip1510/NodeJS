@@ -1,6 +1,7 @@
-let userModel = require('../models/usermodels');
+let categoryModel = require('../models/categorymodel');
 let registerModel = require('../models/registermodels');
 let tokenModel = require('../models/tokenmodels');
+
 
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
@@ -121,23 +122,17 @@ const transpoter = nodemailer.createTransport({
 });
 
 const getpostdata = async (req, res) => {
-    const checkUser = await userModel.findOne({ email: req.body.email, password: req.body.password });
-    // console.log("Check user" + checkUser);
-    if (checkUser) {
-        req.flash('emsg_token', 'Email already registered');
-        emsg_token = req.flash('emsg_token');
-    } else {
-        const result = new userModel({
-            id: 1,
-            email: email,
-            password: password,
-            username: username,
-        });
+    var totdata = await categoryModel.countDocuments();
+
+    const result = new categoryModel({
+        id:(totdata+1),
+        categoryname:req.body.categoryname,
+    });
         const res1 = await result.save()
         console.log("data saved" + res1);
-        res.redirect('login',{message:'',message_class:'alert-danger'});
+        res.send("data inserted successfully");
     }
-}
+
 
 const registerdata = async (req, res) => {
     const { username, password, email } = req.body

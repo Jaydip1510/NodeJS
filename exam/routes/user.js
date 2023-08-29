@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
  });
 const upload = multer({ storage: storage });
 console.log(iname);
-const {getDashboard,register,checkUserData,getform,categorydata,getproduct} = require("../controllers/usercontrollers");
+const {getDashboard,register,checkUserData,getform,categorydata,getproduct,productdetails} = require("../controllers/usercontrollers");
 
 router.get('/dashboard',getDashboard);
 router.get('/userform',getform);
@@ -26,5 +26,6 @@ router.post('/register',register);
 router.post('/login',checkUserData);
 router.post('/categorydata',bodyParser,categorydata);
 router.get('/product',getproduct);
+router.post('/productdetails',bodyParser,productdetails);
 
 module.exports = router;
