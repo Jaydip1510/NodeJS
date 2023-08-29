@@ -9,50 +9,56 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Product Details</h5>
-                                <div class="form-group row">
-                                    <label class="col-md-3 m-t-15">Select Category</label>
-                                    <div class="col-md-9">
-                                        <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
-                                            <option>Select</option>
+                            <form action="productdetails" method="post">
+                                <div class="card-body">
+                                    <h5 class="card-title">Product Details</h5>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 m-t-15">Select Category</label>
+                                        <div class="col-md-9">
+                                            <select class="select2 form-control custom-select"
+                                                style="width: 100%; height:36px;">
+                                                <option>Select</option>
                                                 <option value="AK">Alaska</option>
                                                 <option value="HI">Hawaii</option>
-                                        </select>
-                                    </div>   
-                                </div>
-                                <div class="form-group row">
-                                    <label for="lname" class="col-md-3  control-label col-form-label">Product Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="productname" class="form-control" id="lname"
-                                            placeholder="Enter Product Name">
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="lname" name="productprice" class="col-md-3  control-label col-form-label">Product Price</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="productprice" class="form-control" id="lname"
-                                            placeholder="Enter Product Name">
+                                    <div class="form-group row">
+                                        <label for="lname" class="col-md-3  control-label col-form-label">Product
+                                            Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="productname" class="form-control" id="lname"
+                                                placeholder="Enter Product Name">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3" name="image">File Upload</label>
-                                    <div class="col-md-9">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                    <div class="form-group row">
+                                        <label for="lname" name="productprice"
+                                            class="col-md-3  control-label col-form-label">Product Price</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="productprice" class="form-control" id="lname"
+                                                placeholder="Enter Product Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3" name="image">File Upload</label>
+                                        <div class="col-md-9">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="validatedCustomFile"
+                                                    required>
+                                                <label class="custom-file-label" for="validatedCustomFile">Choose
+                                                    file...</label>
+                                                <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="border-top">
-                                <div class="card-body">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
-                    </form> 
+                        </form>
                         <!-- ============================================================== -->
                         <!-- End PAge Content -->
                         <!-- ============================================================== -->

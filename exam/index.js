@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const cookie     = require('cookie-parser');
 const session    = require('express-session');
 const flash      = require('connect-flash');
-
 const routes     = require('./routes/user');
 
 app.set('view engine','ejs');

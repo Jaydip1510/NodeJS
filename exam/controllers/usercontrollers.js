@@ -1,6 +1,22 @@
 let registerModel = require('../models/registermodel');
 let categoryModel = require('../models/categorymodel');
 let productModel= require('../models/productmodel');
+const multer = require('multer');
+const fs = require('fs');
+// const bodyparser = body.urlencoded({ extended: true });
+
+let imgname = '';
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+       return cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+       imgname = Date.now() + file.originalname;
+       return cb(null, imgname);
+    }
+ });
+ const upload = multer({ storage: storage });
+console.log(imgname);
 
 const getDashboard = (req,res) =>{
     res.render('index');
@@ -29,8 +45,8 @@ const register = async(req, res) =>{
     const abc = await res2.save()
     console.log("data saved" + abc);
     res.render('/login');
+    
 }
-
 // check data from login page
 
 const checkUserData = async(req,res)=>{
@@ -58,19 +74,20 @@ var totdata = await categoryModel.countDocuments();
     res.send('data inserted successfully');
 }
 
-const productdetails = async(req,res)=>{
+const productdetails = (upload.single('image'),async(req,res)=>{
      
     var totdata = await productModel.countDocuments();
 
     const result = new productModel({
         id:(totdata+1),
         productname:req.body.productname,
-        productprice:req.body.productprice
+        productprice:req.body.productprice,
+        image:imgname
     });
     const cat = await result.save();
     console.log("data saved"+ cat);
     res.send('data inserted successfully');
-}
+});
 module.exports = {
     getDashboard,
     register,
