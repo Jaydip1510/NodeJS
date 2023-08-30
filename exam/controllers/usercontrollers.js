@@ -33,7 +33,7 @@ const getform = (req, res) => {
 }
 
 const getproduct = (req, res) => {
-    res.render('product');
+    res.render('product',{ data: '' });
 }
 // display data in category tables
 const categorydisplay = async (req, res) => {
@@ -149,9 +149,20 @@ const categorydata = async (req, res) => {
 const productdetails = async (req, res) => {
     const upload_file = await upload.single('image');
     upload_file(req, res, async function (error) {
-
-        if (error) {
-            return response.end('Error Uploading File');
+        if (ereq.body.id != "") {
+            //edit product data
+            let chk_data = await productModel.findOne({_id:req.body.id});
+            if(chk_data){
+                let final = await productModel.updateOne({_id:req.body.id},
+                    {$set:
+                        { 
+                            productname:req.body.productname,
+                            productprice:req.body.productprice,
+                            productimage:req.body.productimage
+                        }
+                    })
+                    res.redirect('productlist');
+            }
         }
         else {
             var totdata = await productModel.countDocuments();
