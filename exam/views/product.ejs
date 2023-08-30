@@ -20,8 +20,9 @@
                                             name="category"
                                                 style="width: 100%; height:36px;">
                                                 <option>Select</option>
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
+                                                <% category.forEach(function(item,index){ %>
+                                                    <option value="<%= item._id%>"><%=  item.categoryname%></option>   
+                                                 <% }) %>
                                             </select>
                                         </div>
                                     </div>

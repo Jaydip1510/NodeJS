@@ -32,8 +32,9 @@ const getform = (req, res) => {
     res.render('category', { data: '' });
 }
 
-const getproduct = (req, res) => {
-    res.render('product',{ data: '' });
+const getproduct = async(req, res) => {
+    const allDetails = await categoryModel.find({});
+    res.render('product',{ data: '',category:allDetails});
 }
 // display data in category tables
 const categorydisplay = async (req, res) => {
@@ -52,6 +53,8 @@ const categorydelete = async (req, res) => {
     await categoryModel.deleteOne({ _id: id });
     res.redirect('/categorylist');
 }
+
+//edit category
 
 const categoryedit = async (req, res) => {
     let id = req.query.id;
@@ -158,9 +161,10 @@ const productdetails = async (req, res) => {
                         { 
                             productname:req.body.productname,
                             productprice:req.body.productprice,
-                            productimage:req.body.imgname
+                            image:imgname
                         }
                     })
+                    console.log(final);
                     res.redirect('productlist');
             }
         }
