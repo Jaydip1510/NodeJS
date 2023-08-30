@@ -149,7 +149,7 @@ const categorydata = async (req, res) => {
 const productdetails = async (req, res) => {
     const upload_file = await upload.single('image');
     upload_file(req, res, async function (error) {
-        if (ereq.body.id != "") {
+        if (req.body.id != "") {
             //edit product data
             let chk_data = await productModel.findOne({_id:req.body.id});
             if(chk_data){
@@ -158,7 +158,7 @@ const productdetails = async (req, res) => {
                         { 
                             productname:req.body.productname,
                             productprice:req.body.productprice,
-                            productimage:req.body.productimage
+                            productimage:req.body.imgname
                         }
                     })
                     res.redirect('productlist');
