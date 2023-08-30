@@ -147,7 +147,7 @@ const productdetails = async (req, res) => {
             });
             const cat = await result.save();
             console.log("data saved" + cat);
-            res.send('data inserted successfully');
+            res.redirect('productlist');
         }
 
     });

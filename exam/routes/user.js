@@ -12,7 +12,7 @@ router.post('/register',register);
 router.post('/login',checkUserData);
 router.post('/categorydata',bodyParser,categorydata);
 router.get('/product',getproduct);
-router.post('/productdetails',productdetails);
+router.post('/productdata',productdetails);
 router.get('/categorylist',categorydisplay);
 router.get('/catdelete/:uniqe_id',categorydelete);
 router.get('/catedit',categoryedit);
