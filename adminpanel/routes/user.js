@@ -1,9 +1,17 @@
 const express = require('express');
 const body = require('body-parser');
 const bodyParser = body.urlencoded({ extended: false });
+const mongoose = require('mongoose');
+const maindata =  async ()=>{
+    const url = "mongodb://127.0.0.1:27017/adminpanel";
+    await mongoose.connect(url);
+    console.log('established connection');
+    
+}
+maindata();
 const passport = require('passport');
 const router = express.Router();
-const { getDashboard, getdata, getpostdata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
+const { getDashboard, getdata, getcategorydata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
 
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
@@ -17,7 +25,7 @@ router.post('/forgetotp',bodyParser,sendOtp)
 
 router.get('/admin', getDashboard);
 router.get('/userform', getdata);
-router.post('/userform/savedata', bodyParser, getpostdata);
+router.post('/userform/savedata', bodyParser, getcategorydata);
 router.get('/usertable', gettable);
 router.get('/chart', getchart);
 router.get('/widget', getwidgets);

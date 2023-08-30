@@ -62,6 +62,12 @@ const categoryedit = async (req, res) => {
 
 };
 
+// product display in prduct table
+
+const productdisplay = async(req,res) =>{
+    res.render('productdata');
+}
+
 
 // inserted data from register model
 
@@ -152,5 +158,6 @@ module.exports = {
     productdetails,
     categorydisplay,
     categorydelete,
-    categoryedit
+    categoryedit,
+    productdisplay
 }

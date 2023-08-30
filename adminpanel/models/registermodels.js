@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const maindata =  async ()=>{
-    const url = "mongodb://127.0.0.1:27017/admin";
-    await mongoose.connect(url);
-    console.log('established connection');
+// const maindata =  async ()=>{
+//     const url = "mongodb://127.0.0.1:27017/admin";
+//     await mongoose.connect(url);
+//     console.log('established connection');
     
-}
-maindata();
+// }
+// maindata();
 
 const registerSchema = new mongoose.Schema({
     id:Number,

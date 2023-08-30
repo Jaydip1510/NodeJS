@@ -121,7 +121,7 @@ const transpoter = nodemailer.createTransport({
     secure: true,
 });
 
-const getpostdata = async (req, res) => {
+const getcategorydata = async (req, res) => {
     var totdata = await categoryModel.countDocuments();
 
     const result = new categoryModel({
@@ -318,7 +318,7 @@ const vaildtoken = async (req, res) => {
 module.exports = {
     getDashboard,
     getdata,
-    getpostdata,
+    getcategorydata,
     gettable,
     checkUserData,
     registerdata,
