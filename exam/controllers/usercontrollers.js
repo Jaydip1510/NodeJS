@@ -38,7 +38,20 @@ const getproduct = async(req, res) => {
 }
 // display data in category tables
 const categorydisplay = async (req, res) => {
-    const allDetails = await categoryModel.find({})
+    const categoryData = await categoryModel.find({})
+/**
+ * Loop through all available categories
+ */
+    let allDetails = [];
+    for (const category of categoryData)  {
+        let copiedcategory = JSON.parse(JSON.stringify(category));
+        copiedcategory.count = 0;
+        let cnt = await productModel.countDocuments({selectcategory:copiedcategory._id});
+        copiedcategory.count = cnt;
+        
+        allDetails.push(copiedcategory);
+    }
+
     if (!allDetails) {
         console.log(err);
     } else {
