@@ -73,6 +73,13 @@ const productdisplay = async(req,res) =>{
     }
 }
 
+//product delete from product table
+
+const productdelete = async (req, res) => {
+    let id = req.params.uniqe_id;
+    await productModel.deleteOne({ _id: id });
+    res.redirect('/productlist');
+}
 
 // inserted data from register model
 
@@ -164,5 +171,6 @@ module.exports = {
     categorydisplay,
     categorydelete,
     categoryedit,
-    productdisplay
+    productdisplay,
+    productdelete
 }
