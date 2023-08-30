@@ -89,9 +89,10 @@ const productdelete = async (req, res) => {
 const productedit = async (req,res) => {
     let id = req.query.id;
     console.log(id);
+    const allDetails = await categoryModel.find({});
     let data = await productModel.findOne({ _id: id });
     console.log(data);
-    res.render('product', { data: data });
+    res.render('product',{ data: data,category:allDetails});
 };
 
 // inserted data from register model
