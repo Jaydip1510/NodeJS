@@ -38,6 +38,7 @@
                         <thead>
                             <tr align="center">
                                 <th scope="col">Pid</th>
+                                <th scope="col">Category Name</th>
                                 <th scope="col">Product Name</th>
                                 <th scope="col">Product Price</th>
                                 <th scope="col">Product Image</th>
@@ -49,6 +50,9 @@
                             <tr align="center">
                                 <td>
                                     <%= index + 1 %>
+                                </td>
+                                <td>
+                                    <%= item.selectcategory %>
                                 </td>
                                 <td>
                                     <%= item.productname %>

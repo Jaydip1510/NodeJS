@@ -173,6 +173,7 @@ const productdetails = async (req, res) => {
 
             const result = new productModel({
                 id: (totdata + 1),
+                selectcategory:req.body.category,
                 productname: req.body.productname,
                 productprice: req.body.productprice,
                 image: imgname
