@@ -65,7 +65,12 @@ const categoryedit = async (req, res) => {
 // product display in prduct table
 
 const productdisplay = async(req,res) =>{
-    res.render('productdata');
+    const allDetails = await productModel.find({})
+    if (!allDetails) {
+        console.log(err);
+    } else {
+        res.render("productdata", { details: allDetails })
+    }
 }
 
 
