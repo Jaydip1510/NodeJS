@@ -10,6 +10,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <form action="productdata" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="<%= data._id %>">
                                 <div class="card-body">
                                     <h5 class="card-title">Product Details</h5>
                                     <div class="form-group row">
@@ -28,7 +29,7 @@
                                         <label for="lname" class="col-md-3  control-label col-form-label">Product
                                             Name</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="productname" class="form-control" id="lname"
+                                            <input type="text" name="productname" class="form-control" value="<%= data.productyname %>" id="lname"
                                                 placeholder="Enter Product Name">
                                         </div>
                                     </div>
@@ -36,7 +37,7 @@
                                         <label for="lname" name="lblproductprice"
                                             class="col-md-3  control-label col-form-label">Product Price</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="productprice" class="form-control" id="lname"
+                                            <input type="text" name="productprice" value="<%= data.productprice %> "class="form-control" id="lname"
                                                 placeholder="Enter Product Name">
                                         </div>
                                     </div>
@@ -44,7 +45,7 @@
                                         <label class="col-md-3"  >File Upload</label>
                                         <div class="col-md-9">
                                             <div class="custom-file">
-                                                <input type="file" name="image" class="custom-file-input" id="validatedCustomFile"
+                                                <input type="file" name="image" class="custom-file-input" value="<%= data.image %>" id="validatedCustomFile"
                                                     required>
                                                 <label class="custom-file-label" for="validatedCustomFile">Choose
                                                     file...</label>

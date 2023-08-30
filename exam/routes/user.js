@@ -3,7 +3,7 @@ const body = require('body-parser');
 const router = express.Router();
 const model = require('../models/productmodel');
 const bodyParser = body.urlencoded({ extended: false });
-const {getDashboard,register,checkUserData,getform,categorydata,getproduct,productdetails,categorydisplay,categorydelete,categoryedit,productdisplay,productdelete} = require("../controllers/usercontrollers");
+const {getDashboard,register,checkUserData,getform,categorydata,getproduct,productdetails,categorydisplay,categorydelete,categoryedit,productdisplay,productdelete,productedit} = require("../controllers/usercontrollers");
 
 router.get('/dashboard',getDashboard);
 router.get('/userform',getform);
@@ -18,4 +18,5 @@ router.get('/catdelete/:uniqe_id',categorydelete);
 router.get('/catedit',categoryedit);
 router.get('/productlist',productdisplay);
 router.get('/productdelete/:uniqe_id',productdelete);
+router.get('/productedit',productedit);
 module.exports = router;

@@ -81,6 +81,16 @@ const productdelete = async (req, res) => {
     res.redirect('/productlist');
 }
 
+//product update from product table
+
+const productedit = async (req,res) => {
+    let id = req.query.id;
+    console.log(id);
+    let data = await productModel.findOne({ _id: id });
+    console.log(data);
+    res.render('product', { data: data });
+};
+
 // inserted data from register model
 
 const register = async (req, res) => {
@@ -172,5 +182,6 @@ module.exports = {
     categorydelete,
     categoryedit,
     productdisplay,
-    productdelete
+    productdelete,
+    productedit
 }
