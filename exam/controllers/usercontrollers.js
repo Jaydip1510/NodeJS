@@ -32,23 +32,23 @@ const getform = (req, res) => {
     res.render('category', { data: '' });
 }
 
-const getproduct = async(req, res) => {
+const getproduct = async (req, res) => {
     const allDetails = await categoryModel.find({});
-    res.render('product',{ data: '',category:allDetails});
+    res.render('product', { data: '', category: allDetails });
 }
 // display data in category tables
 const categorydisplay = async (req, res) => {
     const categoryData = await categoryModel.find({})
-/**
- * Loop through all available categories
- */
+    /**
+     * Loop through all available categories
+     */
     let allDetails = [];
-    for (const category of categoryData)  {
+    for (const category of categoryData) {
         let copiedcategory = JSON.parse(JSON.stringify(category));
         copiedcategory.count = 0;
-        let cnt = await productModel.countDocuments({selectcategory:copiedcategory._id});
+        let cnt = await productModel.countDocuments({ selectcategory: copiedcategory._id });
         copiedcategory.count = cnt;
-        
+
         allDetails.push(copiedcategory);
     }
 
@@ -80,9 +80,9 @@ const categoryedit = async (req, res) => {
 
 // product display in prduct table
 
-const productdisplay = async(req,res) =>{
+const productdisplay = async (req, res) => {
     const allDetails = await productModel.find({})
-  
+
     if (!allDetails) {
         console.log(err);
     } else {
@@ -100,13 +100,13 @@ const productdelete = async (req, res) => {
 
 //product update from product table
 
-const productedit = async (req,res) => {
+const productedit = async (req, res) => {
     let id = req.query.id;
     console.log(id);
     const allDetails = await categoryModel.find({});
     let data = await productModel.findOne({ _id: id });
     console.log(data);
-    res.render('product',{ data: data,category:allDetails});
+    res.render('product', { data: data, category: allDetails });
 };
 
 // inserted data from register model
@@ -146,7 +146,7 @@ const categorydata = async (req, res) => {
         //Edit Data
         let chk_data = await categoryModel.findOne({ _id: req.body.id });
         if (chk_data) {
-            let final = await categoryModel.updateOne({_id: req.body.id,}, {$set: { categoryname: req.body.categoryname,} })
+            let final = await categoryModel.updateOne({ _id: req.body.id, }, { $set: { categoryname: req.body.categoryname, } })
             console.log(final);
         }
         res.redirect('/categorylist');
@@ -161,7 +161,7 @@ const categorydata = async (req, res) => {
         console.log("data saved" + cat);
         res.redirect('/categorylist');
     }
-    
+
 }
 
 const productdetails = async (req, res) => {
@@ -169,18 +169,19 @@ const productdetails = async (req, res) => {
     upload_file(req, res, async function (error) {
         if (req.body.id != "") {
             //edit product data
-            let chk_data = await productModel.findOne({_id:req.body.id});
-            if(chk_data){
-                let final = await productModel.updateOne({_id:req.body.id},
-                    {$set:
-                        { 
-                            productname:req.body.productname,
-                            productprice:req.body.productprice,
-                            image:imgname
+            let chk_data = await productModel.findOne({ _id: req.body.id });
+            if (chk_data) {
+                let final = await productModel.updateOne({ _id: req.body.id },
+                    {
+                        $set:
+                        {
+                            productname: req.body.productname,
+                            productprice: req.body.productprice,
+                            image: imgname
                         }
                     })
-                    console.log(final);
-                    res.redirect('productlist');
+                console.log(final);
+                res.redirect('productlist');
             }
         }
         else {
@@ -188,7 +189,7 @@ const productdetails = async (req, res) => {
 
             const result = new productModel({
                 id: (totdata + 1),
-                selectcategory:req.body.category,
+                selectcategory: req.body.category,
                 productname: req.body.productname,
                 productprice: req.body.productprice,
                 image: imgname
