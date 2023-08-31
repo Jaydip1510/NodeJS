@@ -82,15 +82,7 @@ const categoryedit = async (req, res) => {
 
 const productdisplay = async(req,res) =>{
     const allDetails = await productModel.find({})
-    // let Details = [];
-    // for (const product of allDetails)  {
-    //     let copiedcategory = JSON.parse(JSON.stringify(product));
-    //     copiedcategory.count = 0;
-    //     let cnt = await categoryModel.countDocuments({selectcategory:copiedcategory._name});
-    //     copiedcategory.count = cnt;
-        
-    //     Details.push(copiedcategory);
-    // }
+  
     if (!allDetails) {
         console.log(err);
     } else {
