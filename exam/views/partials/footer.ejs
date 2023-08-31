@@ -17,6 +17,31 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="exampleModal-body">&nbsp;</div>
+            </div>
+            <div class="modal-footer text-center">
+                <a href="#" class="logout-yes-no exampleModal-yes">Yes</a>
+                <a href="#" title="" data-dismiss="modal"
+                    class="logout-yes-no exampleModal-no">No</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -40,7 +65,30 @@
     <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="dist/js/pages/chart/chart-page-init.js"></script>
+    <script type="text/javascript">
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var modal = $(this)
+            var button = $(event.relatedTarget),
+                bodymessage = ''; // Button that triggered the modal
+            console.log(button);
+            var href = button.data('href') // Extract info from data-* attributes
+            var data_delete = button.data('delete') // Extract info from data-* attributes
+            console.log(data_delete);
+            if (data_delete == 'no') {
+                bodymessage = 'You can not delete catogory, as it is used in product.';
+                bodymessage += '(Count must be zero to delete) ';
+                modal.find('.modal-footer .exampleModal-yes').attr('style', 'visibility:hidden');
+                modal.find('.modal-footer .exampleModal-no').html('Ok');
 
+            } else {
+                bodymessage = 'Are you sure you want to delete ?';
+                modal.find('.modal-footer .exampleModal-yes').attr('href', href);
+            }
+            modal.find('.modal-body .exampleModal-body').html(bodymessage);
+            //modal.find('.modal-body .exampleModal-no')
+            //
+        })
+    </script>
 </body>
 
 </html>
