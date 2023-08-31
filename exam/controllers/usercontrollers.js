@@ -81,7 +81,17 @@ const categoryedit = async (req, res) => {
 // product display in prduct table
 
 const productdisplay = async (req, res) => {
-    const allDetails = await productModel.find({})
+    const productdata = await productModel.find({})
+
+    let  allDetails= [];
+    for (const product  of productdata) {
+        let copiedproduct = JSON.parse(JSON.stringify(product));
+        copiedproduct.catname = '';
+        let catdata = await categoryModel.findOne({ _id: product.selectcategory });
+        copiedproduct.catname = catdata.categoryname;
+
+        allDetails.push(copiedproduct);
+    }
 
     if (!allDetails) {
         console.log(err);

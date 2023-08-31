@@ -52,25 +52,40 @@
                                                 <td>
                                                     <a class="btn btn-success"
                                                         href="/catedit?id=<%= item._id%>">Edit</a>
-                                                    <a class="btn btn-danger"
-                                                        href="#open-modal">Delete</a>
-                                                        <div id="open-modal" class="modal-window">
-                                                            <div>
-                                                                <a href="#" title="Close" class="modal-close">Close</a>
-                                                                <div class="logout-body">Are you sure?</div>
-                                                                <div>
-                                                                    <a href="/catdelete/<%= item._id%>" class="logout-yes-no">Yes</a>
-                                                                    <a href="#" title="" class=" logout-yes-no ">No</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                </td>
 
+                                                    <a class="btn btn-danger"  onclick="popupmodal()"<% if(item.count==0) { %>
+                                                        href="#stop-modal"
+                                                        <% } else { %>
+                                                            href="#delete-modal"
+                                                            <% } %>
+                                                                >Delete
+                                                    </a>
+                                                </td>
                                             </tr>
+                                            <% }) %>
                                     </tbody>
-                                    <% }) %>
                                 </table>
                                 <% } %>
+
+                                    <div id="delete-modal" class="modal-window">
+                                        <div>
+                                            <a href="#" title="Close" class="modal-close">Close</a>
+
+                                            <div class="logout-body">Are you sure?</div>
+                                            <div>
+                                                <a href="/catdelete/<%= item.id%>" class="logout-yes-no">Yes</a>
+                                                <a href="#" title="" class=" logout-yes-no ">No</a>
+                                            </div>
+
+                                            <div class="logout-body">You can not delete catogory, as it is used in
+                                                product.(Count must be zero to delete)</div>
+                                            <div>
+                                                <a href="#" class="logout-yes-no">Ok</a>
+                                            </div>
+
+                                        </div>
+                                                  
+                                    </div>
                         </div>
                     </div>
 
