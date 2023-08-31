@@ -53,8 +53,19 @@
                                                     <a class="btn btn-success"
                                                         href="/catedit?id=<%= item._id%>">Edit</a>
                                                     <a class="btn btn-danger"
-                                                        href="/catdelete/<%= item._id%>">Delete</a>
+                                                        href="#open-modal">Delete</a>
+                                                        <div id="open-modal" class="modal-window">
+                                                            <div>
+                                                                <a href="#" title="Close" class="modal-close">Close</a>
+                                                                <div class="logout-body">Are you sure?</div>
+                                                                <div>
+                                                                    <a href="/catdelete/<%= item._id%>" class="logout-yes-no">Yes</a>
+                                                                    <a href="#" title="" class=" logout-yes-no ">No</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                 </td>
+
                                             </tr>
                                     </tbody>
                                     <% }) %>

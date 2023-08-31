@@ -64,8 +64,18 @@
                                     <img src="./uploads/<%= item.image %>" alt="user image" height="100px" width="100px">
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="/productedit?id=<%= item._id %>">Edit</a> <a class="btn btn-danger"
-                                        href="/productdelete/<%= item._id%>">Delete</a>
+                                    <a class="btn btn-success" href="/productedit?id=<%= item._id %>">Edit</a> &emsp; <a class="btn btn-danger"
+                                        href="#open-modal">Delete</a>
+                                        <div id="open-modal" class="modal-window">
+                                            <div>
+                                                <a href="#" title="Close" class="modal-close">Close</a>
+                                                <div class="logout-body">Are you sure?</div>
+                                                <div>
+                                                    <a href="/productdelete/<%= item._id%>" class="logout-yes-no">Yes</a>
+                                                    <a href="#" title="" class=" logout-yes-no ">No</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
