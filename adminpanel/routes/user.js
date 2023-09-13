@@ -11,8 +11,8 @@ const maindata =  async ()=>{
 maindata();
 const passport = require('passport');
 const router = express.Router();
-const { getDashboard, getdata, getcategorydata, gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
-
+const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
+const {getdata, getcategorydata} = require("../controllers/categorycontroller");
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
@@ -24,7 +24,7 @@ router.post('/resetcred',bodyParser,vaildtoken);
 router.post('/forgetotp',bodyParser,sendOtp)
 
 router.get('/admin', getDashboard);
-router.get('/userform', getdata);
+router.get('/category', getdata);
 router.post('/userform/savedata', bodyParser, getcategorydata);
 router.get('/usertable', gettable);
 router.get('/chart', getchart);

@@ -1,8 +1,5 @@
-let categoryModel = require('../models/categorymodel');
 let registerModel = require('../models/registermodels');
 let tokenModel = require('../models/tokenmodels');
-
-
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const saltRounds = 10;
@@ -69,10 +66,7 @@ const getDashboard = async (req, res) => {
     }
 };
 
-const getdata = async (req, res) => {
-    await checkUser(req, res)
-    res.render('form', { username: req.cookies.UserName, selected: 'form' });
-}
+
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
@@ -121,19 +115,6 @@ const transpoter = nodemailer.createTransport({
     secure: true,
 });
 
-const getcategorydata = async (req, res) => {
-    var totdata = await categoryModel.countDocuments();
-
-    const result = new categoryModel({
-        id:(totdata+1),
-        categoryname:req.body.categoryname,
-    });
-        const res1 = await result.save()
-        console.log("data saved" + res1);
-        res.send("data inserted successfully");
-    }
-
-
 const registerdata = async (req, res) => {
     const { username, password, email } = req.body
     const chackdata = await registerModel.findOne({ email });
@@ -170,7 +151,7 @@ const checkUserData = async (req, res) => {
         res.redirect('/admin');
     } else {
         req.flash('danger', 'Email or password wrong !!!');
-        res.render('login', { message: req.flash('danger'),message_class:'alert-danger' });
+        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger' });
     }
 }
 
@@ -179,7 +160,7 @@ const checkLogindata = async (req, res) => {
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login",{ message: emsg_token,message_class:'alert-danger'});
+        res.render("login", { message: emsg_token, message_class: 'alert-danger' });
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -187,13 +168,13 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login",{ message: emsg_token,message_class:'alert-danger'});
+            res.render("login", { message: emsg_token, message_class: 'alert-danger' });
         } else {
             res.cookie('UserName', userdata.username);
             res.redirect('admin');
         }
     }
-    
+
 
 }
 
@@ -210,7 +191,7 @@ const sendOtp = async (req, res) => {
     if (!getdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("forget",{ message: emsg_token,message_class:'alert-danger'});
+        res.render("forget", { message: emsg_token, message_class: 'alert-danger' });
     } else {
         otp = createOtp();
         /**
@@ -253,7 +234,7 @@ const sendOtp = async (req, res) => {
         }
         await transporter.sendMail(mailInfo)
         req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
-        res.render('forget', { message: req.flash('smsg_forget'),message_class:'alert-success' });
+        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success' });
     }
 
 }
@@ -288,24 +269,24 @@ const vaildtoken = async (req, res) => {
                 if (!getdata) {
                     req.flash('emsg_token', 'user not found');
                     emsg_token = req.flash('emsg_token');
-                    res.render('resetpassword', { message:emsg_token,message_class:'alert-danger' });
+                    res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
                 } else {
                     const hash_pwd = await bcrypt.hash(req.body.password, saltRounds)
                     const updata = await registerModel.updateOne({ email: email }, { $set: { password: hash_pwd } });
                     req.flash('emsg_token', 'Password sucessfully reset, kindy use new password to login.');
                     emsg_token = req.flash('emsg_token');
-                    res.render('login',{message:emsg_token,message_class:'alert-success'});
+                    res.render('login', { message: emsg_token, message_class: 'alert-success' });
                 }
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
                 emsg_token = req.flash('emsg_token');
-                res.render('resetpassword', { message:emsg_token,message_class:'alert-danger' });
+                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
             }
 
         } else {
             req.flash('emsg_token', 'Invalid token');
             emsg_token = req.flash('emsg_token');
-            res.render('resetpassword', { message:emsg_token,message_class:'alert-danger' });
+            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
         }
 
 
@@ -317,8 +298,6 @@ const vaildtoken = async (req, res) => {
 
 module.exports = {
     getDashboard,
-    getdata,
-    getcategorydata,
     gettable,
     checkUserData,
     registerdata,
