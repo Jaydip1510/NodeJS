@@ -2,15 +2,12 @@ let categoryModel = require('../models/categorymodel');
 const express = require('express');
 const app = express();
 
-
-// const getdata = async (req, res) => {
-//     res.render('category', { username: req.cookies.UserName, selected: 'category',message:'' });
-
-// }
-
 // insert category
 const getcategorydata = async (req, res) => {
+  
     var totdata = await categoryModel.countDocuments();
+    let allDetails = [];
+    
 
     const result = new categoryModel({
         id: (totdata + 1),
@@ -19,7 +16,8 @@ const getcategorydata = async (req, res) => {
     const res1 = await result.save()
     console.log("data saved" + res1);
     req.flash('msg_category', 'data inserted successfully');
-    res.render('category', { message: req.flash('msg_category'), message_class: 'alert-success', username: req.cookies.UserName,selected: 'category',details: allDetails});
+    req.flash('msg_class', 'alert-success');
+    res.redirect('/category');
     
 }
 
@@ -38,7 +36,11 @@ const categorydisplay = async (req, res) => {
     if (!allDetails) {
         console.log(err);
     } else {
-        res.render("category",{ username: req.cookies.UserName,details: allDetails,selected: 'category',message:'' })
+        res.render("category",{ username: req.cookies.UserName,
+            details: allDetails,
+            selected: 'category',
+            message:req.flash('msg_category'),
+            message_class:req.flash('msg_class')});
     }
 }
 
