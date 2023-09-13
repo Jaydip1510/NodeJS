@@ -23,5 +23,6 @@ const getcategorydata = async (req, res) => {
 
 module.exports = {
     getcategorydata,
-    getdata
+    getdata,
+
 } 
