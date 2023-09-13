@@ -12,7 +12,7 @@ maindata();
 const passport = require('passport');
 const router = express.Router();
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
-const {getdata, getcategorydata} = require("../controllers/categorycontroller");
+const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
@@ -24,7 +24,10 @@ router.post('/resetcred',bodyParser,vaildtoken);
 router.post('/forgetotp',bodyParser,sendOtp)
 
 router.get('/admin', getDashboard);
-router.get('/category', getdata);
+router.get('/category',categorydisplay);
+router.get('/catdelete/:uniqe_id',categorydelete);
+router.get('/catedit',categoryedit);
+
 router.post('/userform/savedata', bodyParser, getcategorydata);
 router.get('/usertable', gettable);
 router.get('/chart', getchart);

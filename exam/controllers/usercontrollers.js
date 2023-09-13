@@ -63,8 +63,8 @@ const categorydisplay = async (req, res) => {
 
 const categorydelete = async (req, res) => {
     let id = req.params.uniqe_id;
-    await categoryModel.deleteOne({ _id: id });
     res.redirect('/categorylist');
+    await categoryModel.deleteOne({ _id: id });
 }
 
 //edit category
