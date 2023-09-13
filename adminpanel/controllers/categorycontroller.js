@@ -60,7 +60,6 @@ const categoryedit = async (req, res) => {
     let data = await categoryModel.findOne({ _id: id });
     console.log(data);
     res.redirect('category');
-
 };
 
 module.exports = {
