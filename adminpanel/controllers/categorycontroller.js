@@ -13,6 +13,8 @@ const getcategorydata = async (req, res) => {
             let final = await categoryModel.updateOne({ _id: req.body.id, }, { $set: { categoryname: req.body.categoryname, } })
             console.log(final);
         }
+        req.flash('msg_category', 'category updated successfully');
+        req.flash('msg_class', 'alert-success');
         res.redirect('/category');
     } else {
         const result = new categoryModel({
