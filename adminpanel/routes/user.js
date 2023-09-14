@@ -13,35 +13,44 @@ const passport = require('passport');
 const router = express.Router();
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
+const subcat = require("../controllers/subcatcontroller");
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
-
+//otp token routes
 router.get('/resetcred',vaildtoken);
-
 router.post('/resetcred',bodyParser,vaildtoken);
-
 router.post('/forgetotp',bodyParser,sendOtp)
 
+// main indexpage routes
 router.get('/admin', getDashboard);
+
+// category routes
 router.get('/category',categorydisplay);
 router.get('/catdelete/:uniqe_id',categorydelete);
 router.get('/catedit',categoryedit);
-
 router.post('/userform/savedata', bodyParser, getcategorydata);
-router.get('/usertable', gettable);
+
+//sub category routes
+router.get('/subcategory',subcat);
+
+
+// other pages routes
 router.get('/chart', getchart);
 router.get('/widget', getwidgets);
 router.get('/button', getbutton);
 router.get('/typography', gettypography);
 router.get('/element',getotherElement);
+router.get('/usertable', gettable);
+
+//register routes
 router.post('/register', bodyParser, registerdata);
+
+//profile routes
 router.get('/profile', getprofile);
 
-
-router.post(
-    "/login",bodyParser,checkLogindata
-  );
+//login routes
+router.post("/login",bodyParser,checkLogindata);
 //   passport.authenticate('local', (err, user, info) => {
     
 //     if (err) {
