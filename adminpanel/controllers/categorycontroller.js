@@ -7,7 +7,7 @@ const getcategorydata = async (req, res) => {
     const id = req.params.unique_id;
     const catname = req.body.categoryname;
     if (id === undefined) {
-        const checkName = await categoryModel.findOne({ categoryname: catname })
+        const checkName = await categoryModel.findOne({ categoryname: new RegExp(catname, 'i') })
         if (checkName) {
             req.flash('msg_category', 'category already exists');
             req.flash('msg_class', 'alert-danger');
@@ -32,8 +32,6 @@ const getcategorydata = async (req, res) => {
         if (chk_data) {
             var tmp_catname = chk_data.categoryname;
              if (tmp_catname.toUpperCase() != catname.toUpperCase()) {
-            // if (tmp_catname != catname) {
-                //const checkName = await categoryModel.findOne({ categoryname: catname })
                 const checkName = await categoryModel.findOne({ categoryname: new RegExp(catname, 'i') });
                 if (checkName) {
                     req.flash('msg_category', 'category already exists.');
