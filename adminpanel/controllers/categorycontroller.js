@@ -55,6 +55,8 @@ const categorydisplay = async (req, res) => {
 const categorydelete = async (req, res) => {
     let id = req.params.uniqe_id;;
     await categoryModel.deleteOne({ _id: id });
+    req.flash('msg_category', 'data deleted successfully');
+    req.flash('msg_class', 'alert-success');
     res.redirect('/category');
 }
 
