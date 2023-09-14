@@ -6,7 +6,7 @@ const app = express();
 const getcategorydata = async (req, res) => {
   
     var totdata = await categoryModel.countDocuments();
-    let allDetails = [];
+    // let allDetails = [];
     
 
     const result = new categoryModel({
@@ -24,6 +24,9 @@ const getcategorydata = async (req, res) => {
 // display category 
 const categorydisplay = async (req, res) => {
     const categoryData = await categoryModel.find({})
+    if(categoryData){
+        res.send("Category Already exists");
+    }
     /**
      * Loop through all available categories
      */
@@ -40,7 +43,8 @@ const categorydisplay = async (req, res) => {
             details: allDetails,
             selected: 'category',
             message:req.flash('msg_category'),
-            message_class:req.flash('msg_class')});
+            message_class:req.flash('msg_class'),
+            data:''});
     }
 }
 
@@ -59,7 +63,7 @@ const categoryedit = async (req, res) => {
     console.log(id);
     let data = await categoryModel.findOne({ _id: id });
     console.log(data);
-    res.redirect('category');
+    res.render('category',{data: data});
 };
 
 module.exports = {
