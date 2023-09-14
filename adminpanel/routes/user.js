@@ -29,7 +29,9 @@ router.get('/admin', getDashboard);
 router.get('/category',categorydisplay);
 router.get('/catdelete/:uniqe_id',categorydelete);
 router.get('/catedit',categoryedit);
-router.post('/userform/savedata', bodyParser, getcategorydata);
+router.post('/category/createsavedata', bodyParser, getcategorydata);
+router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
+
 
 //sub category routes
 router.get('/subcategory',subcat);
