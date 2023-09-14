@@ -32,10 +32,13 @@ const getcategorydata = async (req, res) => {
 
 // display category 
 const categorydisplay = async (req, res) => {
-    const categoryData = await categoryModel.find({})
-    /*if(categoryData){
-        res.send("Category Already exists");
-    }*/
+    const catname = req.body.categoryname;
+    const categoryData = await categoryModel.find({categoryname: catname})
+    if(categoryData){
+        req.flash('msg_category', 'category already exists');
+        req.flash('msg_class', 'alert-success');
+        res.redirect('/category');
+    }
     if (!categoryData) {
         console.log(err);
     } else {
