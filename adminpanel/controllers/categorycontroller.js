@@ -6,9 +6,6 @@ const app = express();
 const getcategorydata = async (req, res) => {
   
     var totdata = await categoryModel.countDocuments();
-    // let allDetails = [];
-    
-
     const result = new categoryModel({
         id: (totdata + 1),
         categoryname: req.body.categoryname,
@@ -24,23 +21,14 @@ const getcategorydata = async (req, res) => {
 // display category 
 const categorydisplay = async (req, res) => {
     const categoryData = await categoryModel.find({})
-    if(categoryData){
+    /*if(categoryData){
         res.send("Category Already exists");
-    }
-    /**
-     * Loop through all available categories
-     */
-    let allDetails = [];
-    for (const category of categoryData) {
-        let copiedcategory = JSON.parse(JSON.stringify(category));
-        allDetails.push(copiedcategory);
-    }
-
-    if (!allDetails) {
+    }*/
+    if (!categoryData) {
         console.log(err);
     } else {
         res.render("category",{ username: req.cookies.UserName,
-            details: allDetails,
+            details: categoryData,
             selected: 'category',
             message:req.flash('msg_category'),
             message_class:req.flash('msg_class'),
@@ -63,7 +51,13 @@ const categoryedit = async (req, res) => {
     console.log(id);
     let data = await categoryModel.findOne({ _id: id });
     console.log(data);
-    res.render('category',{data: data});
+    const categoryData = await categoryModel.find({})
+    res.render('category',{data: data,
+        username: req.cookies.UserName,
+        details: categoryData,
+        selected: 'category',
+        message: ''
+        });
 };
 
 module.exports = {
