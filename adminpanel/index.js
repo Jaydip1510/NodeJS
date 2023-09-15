@@ -7,11 +7,11 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-
+const localization = require('./middeleware/localauth');
 app.use(cookie());
  app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
 
-initializingPassport(passport);
+localization(passport);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -22,10 +22,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
   }));
-
-
- app.use(passport.initialize());
- app.use(passport.session());
 
  app.set('view engine','ejs');
  app.use(express.static(__dirname));
