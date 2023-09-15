@@ -13,7 +13,7 @@ const passport = require('passport');
 const router = express.Router();
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
-
+// const getsubcategory = require("../controllers/subcategory");
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
@@ -31,11 +31,10 @@ router.get('/catdelete/:uniqe_id',categorydelete);
 router.get('/catedit',categoryedit);
 router.post('/category/createsavedata', bodyParser, getcategorydata);
 router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
-router.post('')
 
 
 //sub category routes
-
+// router.post('/subcategory/savedata',body,getsubcategory);
 
 
 // other pages routes
