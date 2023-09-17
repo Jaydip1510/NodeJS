@@ -156,7 +156,7 @@ const categorydata = async (req, res) => {
         //Edit Data
         let chk_data = await categoryModel.findOne({ _id: req.body.id });
         if (chk_data) {
-            let final = await categoryModel.updateOne({ _id: req.body.id, }, { $set: { categoryname: req.body.categoryname, } })
+            let final = await categoryModel.updateOne({ _id: req.body.id}, { $set: { categoryname: req.body.categoryname } })
             console.log(final);
         }
         res.redirect('/categorylist');

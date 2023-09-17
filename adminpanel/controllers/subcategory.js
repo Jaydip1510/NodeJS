@@ -1,46 +1,25 @@
-// const express = require('express');
-// const subcatModel = require('../models/categorymodel');
+const express = require('express');
+const subcatModel = require('../models/subcategorymodel');
 
-// const app = express();
-// // const bodyParser = require('body-parser');
-// app.use(express.json());
+const subcat = async (req, res) => {
+    res.render('subcat', { username: req.cookies.UserName, selected: 'subcat',category:'' });
+}
 
-// const getsubcategory = async (req,res)=>{
-//     let getAllCat = await subcatModel.find();
-//     let len = getAllCat.length+1;
-//     const name = req.body.name;
-//     const id = req.body.id;
-//     const checkName = await categoryModel.findOne({categoryname:categoryname})
-    
-//     if(checkName){
-        
-//             req.flash('success', 'Category already exists');
-//             res.render('category',{
-//                 username: req.cookies.UserName,
-//                 getAllCat: getAllCat,
-//                 message2: req.flash('success'),
-//                 editcat:''
-//             });
-//     } else {
-//         const result = {
-//             id: len,
-//             catname: categoryname
-//         }
-//         const savedata = new model(result);
-//         await savedata.save();
-//         getAllCat = await categoryModel.find();
-//         req.flash('success', 'Category added successfully');
-//         res.render('category',{
-//             username: req.cookies.UserName,
-//             getAllCat: getAllCat,
-//             message2: req.flash('success'),
-//             editcat:''
-//         }); 
-//     }
-    
+const subcategorydata = async(req,res) =>{
+    const subcatdata = await subcatModel.find({});
+    var totdata = await subcatModel.countDocuments();
 
-// }
+    const result = new subcatModel({
+        id:(totdata+1),
+        selectcategory:req.body.categoryname,
+        subcatname:req.body.subcatname
+    });
+     const subcat = await result.save();
+     console.log("data saved" + subcat);
+     res.send("data inserted successfully");
+}
 
-
-
-// module.exports = getsubcategory;
+module.exports = {
+    subcategorydata,
+    subcat
+}

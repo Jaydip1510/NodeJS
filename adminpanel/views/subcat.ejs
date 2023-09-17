@@ -10,6 +10,17 @@
                                 
                                 <form>
                                     <div class="mb-3">
+                                    <select class="form-select mb-3" aria-label="Default select example">
+                                        <option selected>select Category</option>
+                                        <% category.forEach(function(item,index){ %>
+                                            <option value="<%= item_id %>"
+                                               <% if(item._id == data.selectecategory) { %> selected <% } %>
+                                                
+                                               ><%= item.categoryname %></option>
+                                       <% }) %>
+                                    </select>
+                                </div>
+                                    <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Sub Category Name:-</label>
                                         <input type="text" class="form-control"  name="categoryname"
                                             id="exampleInputEmail1" aria-describedby="emailHelp">
