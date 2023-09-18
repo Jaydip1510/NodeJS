@@ -11,6 +11,8 @@ const categorydata = async(req,res)=>{
         AllCat: alldata,
     });
 }
+// data insert subcategory in database
+
 const subcategorydata = async(req,res) =>{
     let allsubcat = await subcatModel.find();
     const name = req.body.name;
@@ -31,6 +33,8 @@ var response = {};
     response.data = allsubcat
     res.json(response);
 }
+
+// data display in api
 
 const SubCatData = async(req,res) => {
     const joindata = await subcatModel.find().populate("cat_id");
