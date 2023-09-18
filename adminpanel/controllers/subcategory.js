@@ -42,7 +42,14 @@ const SubCatData = async(req,res) => {
     
 }
 
+const subcatdelete = async(req,res) => {
+    const data = await subcatModel.deleteOne().populate("cat_id");
+    res.json(data);
+}
+
+
 module.exports = {
     subcategorydata,
-    SubCatData, 
+    SubCatData,
+    subcatdelete 
 }

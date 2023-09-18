@@ -16,7 +16,7 @@ const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidge
 //category controller
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
 //subcategory controller
-const {subcategorydata, SubCatData} = require("../controllers/subcategory");
+const {subcategorydata, SubCatData,subcatdelete } = require("../controllers/subcategory");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -41,7 +41,7 @@ router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
 //sub category routes
 router.post('/subcategory/savedata',bodyParser,subcategorydata);
 router.get('/subcategory/alldata', SubCatData);
-
+router.get('/subcategory/deletedata',subcatdelete);
 
 // other pages routes
 router.get('/chart', getchart);
