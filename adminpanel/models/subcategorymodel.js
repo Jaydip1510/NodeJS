@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
  const subCategorySchema = new mongoose.Schema({
-         id:Number,
-         selectcategory:String,
-         subcatname: String,
+         name: String,
+         cat_id:{type: mongoose.Schema.Types.ObjectId, ref:'categorydata'}
    });
 
  const subcatModel = new mongoose.model('subcategory',subCategorySchema);

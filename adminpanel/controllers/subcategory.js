@@ -1,25 +1,35 @@
 const express = require('express');
 const subcatModel = require('../models/subcategorymodel');
+const app = express();
+app.use(express.json());
 
-const subcat = async (req, res) => {
-    res.render('subcat', { username: req.cookies.UserName, selected: 'subcat',category:'' });
-}
-
-const subcategorydata = async(req,res) =>{
-    const subcatdata = await subcatModel.find({});
-    var totdata = await subcatModel.countDocuments();
-
-    const result = new subcatModel({
-        id:(totdata+1),
-        selectcategory:req.body.categoryname,
-        subcatname:req.body.subcatname
+const categorydata = async(req,res)=>{
+    const alldata = await categoryModel.find();
+    console.log(alldata);
+    res.render('category',{
+        username: req.cookies.UserName,
+        AllCat: alldata,
     });
-     const subcat = await result.save();
-     console.log("data saved" + subcat);
-     res.send("data inserted successfully");
+}
+const subcategorydata = async(req,res) =>{
+    let allsubcat = await subcatModel.find();
+    const name = req.body.name;
+    const id = req.body.cat_id;
+    const checkName = await subcatModel.findOne({name:name});
+
+    const result = {
+        cat_id: id,
+        name: name
+    }
+    console.log("isd is "+id);
+    console.log("name is "+name);
+    const savedata = new subcatModel(result);
+    await savedata.save();
+
+    allsubcat = await subcatModel.find();
+    res.json(allsubcat);
 }
 
 module.exports = {
-    subcategorydata,
-    subcat
+    subcategorydata 
 }
