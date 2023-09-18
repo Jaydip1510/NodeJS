@@ -33,11 +33,9 @@ var response = {};
 }
 
 const SubCatData = async(req,res) => {
-     subcatModel.find()
-    .populate("cat_id")
-    .then(p=>console.log(p))
-    .catch(error=>console.log(error));
-    res.send("Hello!");
+    const joindata = await subcatModel.find().populate("cat_id");
+    res.json(joindata);
+    
 }
 
 module.exports = {
