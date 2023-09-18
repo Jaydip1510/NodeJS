@@ -37,6 +37,7 @@ const SubCatData = async(req,res) => {
     .populate("cat_id")
     .then(p=>console.log(p))
     .catch(error=>console.log(error));
+    res.send("Hello!");
 }
 
 module.exports = {
