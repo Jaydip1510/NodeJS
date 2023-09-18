@@ -21,13 +21,17 @@ const subcategorydata = async(req,res) =>{
         cat_id: id,
         name: name
     }
-    console.log("isd is "+id);
-    console.log("name is "+name);
+    // console.log("isd is "+id);
+    // console.log("name is "+name);
     const savedata = new subcatModel(result);
     await savedata.save();
+    // res.send("data inserted successfully");
+var response = {};
 
     allsubcat = await subcatModel.find();
-    res.json(allsubcat);
+    response.messages = 'data inserted successfully';
+    response.data = allsubcat
+    res.json(response);
 }
 
 module.exports = {
