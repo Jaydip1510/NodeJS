@@ -33,7 +33,7 @@ var response = {};
 }
 
 const SubCatData = async(req,res) => {
-    subcatModel.find()
+     subcatModel.find()
     .populate("cat_id")
     .then(p=>console.log(p))
     .catch(error=>console.log(error));
