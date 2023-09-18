@@ -11,9 +11,14 @@ const maindata =  async ()=>{
 maindata();
 const passport = require('passport');
 const router = express.Router();
+// usercontroller
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
+//category controller
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
+//subcategory controller
 const {subcategorydata, SubCatData} = require("../controllers/subcategory");
+
+// forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
@@ -36,7 +41,6 @@ router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
 //sub category routes
 router.post('/subcategory/savedata',bodyParser,subcategorydata);
 router.get('/subcategory/alldata', SubCatData);
-
 
 
 // other pages routes
