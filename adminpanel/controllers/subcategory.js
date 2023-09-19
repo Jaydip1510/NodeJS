@@ -42,6 +42,8 @@ const SubCatData = async(req,res) => {
     
 }
 
+// data delete in api
+
 const subcatdelete = async(req,res) => {
     const data = await subcatModel.deleteOne().populate("cat_id");
     res.json(data);
