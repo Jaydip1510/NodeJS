@@ -43,7 +43,7 @@ router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
 //sub category routes
 router.post('/subcategory/savedata',bodyParser,subcategorydata);
 router.get('/subcategory/alldata', SubCatData);
-router.get('/subcategory/deletedata',subcatdelete);
+router.delete('/subcategory/deletedata/:id',subcatdelete);
 
 // other pages routes
 router.get('/chart', getchart);

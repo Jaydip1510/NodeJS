@@ -47,13 +47,14 @@ const subcategorydata = async(req,res) =>{
 const SubCatData = async(req,res) => {
     const joindata = await subcatModel.find().populate("cat_id");
     res.json(joindata);
-    
+   
 }
 
 // data delete in api
 
 const subcatdelete = async(req,res) => {
-    const data = await subcatModel.deleteOne().populate("cat_id");
+    const id = req.params.id;
+    const data = await subcatModel.findByIdAndRemove({_id:id});
     res.json(data);
 }
 
