@@ -18,6 +18,8 @@ const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require(".
 //subcategory controller
 const {subcategorydata, SubCatData,subcatdelete } = require("../controllers/subcategory");
 
+const profiledata = require("../controllers/profilecontroller");
+
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
@@ -59,5 +61,9 @@ router.get('/profile', getprofile);
 
 //login routes
 router.post("/login",bodyParser,checkLogindata);
+
+// profile routes
+
+router.post('/profile/data',bodyParser,profiledata)
 
 module.exports = router;

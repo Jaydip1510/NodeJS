@@ -18,7 +18,9 @@ const subcategorydata = async(req,res) =>{
     const name = req.body.name;
     const id = req.body.cat_id;
     const checkName = await subcatModel.findOne({name:name});
-
+    if(checkName) {
+        res.send('category already exists');
+    }
     const result = {
         cat_id: id,
         name: name
