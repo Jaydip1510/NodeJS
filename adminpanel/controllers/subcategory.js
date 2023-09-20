@@ -58,9 +58,22 @@ const subcatdelete = async(req,res) => {
     res.json(data);
 }
 
+const subcatedit = async(req, res) => {
+    let id = req.params.id;
+    console.log(id);
+    let data = await subcatModel.findOne({ _id: id });
+    const name = req.body.name;
+    const cat_id = req.body.cat_id;
+    let final = await subcatModel.updateOne({ _id: id },
+        { $set: { name:name, cat_id:cat_id} });
+    res.json(final);
+
+
+}
 
 module.exports = {
     subcategorydata,
     SubCatData,
-    subcatdelete 
+    subcatdelete,
+    subcatedit 
 }
