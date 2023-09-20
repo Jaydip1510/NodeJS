@@ -103,7 +103,8 @@ const getotherElement = async (req, res) => {
 
 const getprofile = async (req, res) => {
     await checkUser(req, res)
-    res.render('profile', { username: req.cookies.UserName,useremail: req.cookies.Useremail,userimage:req.cookies.image, selected: 'profile' });
+    let profile_data = await profileModel.findOne({email: req.cookies.Useremail});
+    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName,useremail: req.cookies.Useremail,userimage:req.cookies.image, selected: 'profile' ,is_edit:false});
 }
 
 const transpoter = nodemailer.createTransport({

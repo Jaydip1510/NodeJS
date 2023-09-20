@@ -33,7 +33,7 @@ const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require(".
 //subcategory controller
 const {subcategorydata, SubCatData,subcatdelete,subcatedit} = require("../controllers/subcategory");
 
-const profiledata = require("../controllers/profilecontroller");
+const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -79,6 +79,7 @@ router.post("/login",bodyParser,checkLogindata);
 
 // profile routes
 
-router.post('/profile/data',upload.single('image'),bodyParser,profiledata)
+router.post('/profile/data',upload.single('image'),bodyParser,profiledata);
+router.get('/editprofile',profiledit);
 
 module.exports = router;

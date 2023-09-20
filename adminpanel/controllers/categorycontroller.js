@@ -64,6 +64,7 @@ const categorydisplay = async (req, res) => {
             selected: 'category',
             message: req.flash('msg_category'),
             message_class: req.flash('msg_class'),
+            userimage:req.cookies.image,
             data: ''
         });
     }
@@ -92,6 +93,7 @@ const categoryedit = async (req, res) => {
         username: req.cookies.UserName,
         details: categoryData,
         selected: 'category',
+        userimage:req.cookies.image,
         message: ''
     });
 };
