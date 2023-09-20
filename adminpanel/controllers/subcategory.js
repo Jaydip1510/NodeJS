@@ -19,21 +19,27 @@ const subcategorydata = async(req,res) =>{
     const id = req.body.cat_id;
     const checkName = await subcatModel.findOne({name:name});
     if(checkName) {
-        res.send('category already exists');
-    }
-    const result = {
-        cat_id: id,
-        name: name
-    }
-    const savedata = new subcatModel(result);
-    await savedata.save();
+        var response = {};
+        response.messages = 'category already exists';
+        res.json(response);
 
-var response = {};
+    }else{
+        const result = {
+            cat_id: id,
+            name: name
+        }
+        const savedata = new subcatModel(result);
+        await savedata.save();
+    
+    var response = {};
+    
+        allsubcat = await subcatModel.find();
+        response.messages = 'data inserted successfully';
+        response.data = allsubcat
+        res.json(response);
 
-    allsubcat = await subcatModel.find();
-    response.messages = 'data inserted successfully';
-    response.data = allsubcat
-    res.json(response);
+    }
+    
 }
 
 // data display in api
