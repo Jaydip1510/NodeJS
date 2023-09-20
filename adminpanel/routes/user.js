@@ -11,6 +11,21 @@ const maindata =  async ()=>{
 maindata();
 const passport = require('passport');
 const router = express.Router();
+
+const multer = require("multer");
+const fs = require("fs");
+let imgfilename = '';
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        return cb(null, "./upload/");
+    },
+    filename: function (req, file, cb) {
+        imgfilename = Date.now() + file.originalname;
+        return cb(null, imgfilename);
+    }
+});
+const upload = multer({ storage: storage });
+
 // usercontroller
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
 //category controller
@@ -64,6 +79,6 @@ router.post("/login",bodyParser,checkLogindata);
 
 // profile routes
 
-router.post('/profile/data',bodyParser,profiledata)
+router.post('/profile/data',upload.single('image'),bodyParser,profiledata)
 
 module.exports = router;

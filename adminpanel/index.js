@@ -45,7 +45,8 @@ app.get('/login',(req,res)=>{
 // })
 
 app.get('/logout', (req, res) => {
-    res.clearCookie('UserName')
+    res.clearCookie('UserName');
+    res.clearCookie('Useremail');
     res.redirect('/');
 
 })

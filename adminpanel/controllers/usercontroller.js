@@ -1,4 +1,5 @@
 let registerModel = require('../models/registermodels');
+let profileModel = require('../models/profile');
 let tokenModel = require('../models/tokenmodels');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
@@ -60,9 +61,9 @@ const getDashboard = async (req, res) => {
 
     var a = await checkUser(req, res);
     if (a === true) {
-        res.render('index', { username: req.cookies.UserName, selected: 'admin' });
+        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin' });
     } else {
-        res.render('index', { username: req.cookies.UserName, selected: 'admin' })
+        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin' })
     }
 };
 
@@ -70,39 +71,39 @@ const getDashboard = async (req, res) => {
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
-    res.render('table', { username: req.cookies.UserName, selected: 'table' });
+    res.render('table', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'table' });
 }
 
 const getchart = async (req, res) => {
     await checkUser(req, res)
-    res.render('chart', { username: req.cookies.UserName, selected: 'chart' });
+    res.render('chart', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'chart' });
 }
 
 
 const getwidgets = async (req, res) => {
     await checkUser(req, res)
-    res.render('widget', { username: req.cookies.UserName, selected: 'widget' });
+    res.render('widget', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'widget' });
 }
 
 const getbutton = async (req, res) => {
     await checkUser(req, res)
-    res.render('button', { username: req.cookies.UserName, selected: 'button' });
+    res.render('button', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'button' });
 }
 
 const gettypography = async (req, res) => {
     await checkUser(req, res)
-    res.render('typography', { username: req.cookies.UserName, selected: 'typography' });
+    res.render('typography', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'typography' });
 }
 
 
 const getotherElement = async (req, res) => {
     await checkUser(req, res)
-    res.render('element', { username: req.cookies.UserName, selected: 'element' });
+    res.render('element', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'element' });
 }
 
 const getprofile = async (req, res) => {
     await checkUser(req, res)
-    res.render('profile', { username: req.cookies.UserName, selected: 'profile' });
+    res.render('profile', { username: req.cookies.UserName,useremail: req.cookies.Useremail,userimage:req.cookies.image, selected: 'profile' });
 }
 
 const transpoter = nodemailer.createTransport({
@@ -171,6 +172,14 @@ const checkLogindata = async (req, res) => {
             res.render("login", { message: emsg_token, message_class: 'alert-danger' });
         } else {
             res.cookie('UserName', userdata.username);
+            res.cookie('Useremail', userdata.email);
+
+            let read = await profileModel.findOne({email: userdata.email});
+            if(read){
+                res.cookie('image', read.image);
+            }
+            
+
             res.redirect('admin');
         }
     }
