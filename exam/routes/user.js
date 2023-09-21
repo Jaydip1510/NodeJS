@@ -19,7 +19,7 @@ const store = multer.diskStorage({
 const upload1 = multer({ storage: store });
 console.log(img);
 const {getDashboard,register,checkUserData,getform,categorydata,getproduct,productdetails,categorydisplay,categorydelete,categoryedit,productdisplay,productdelete,productedit} = require("../controllers/usercontrollers");
-const {getsliderdata,slider} = require("../controllers/slidercontroller");
+const {getsliderdata,slider,slideldisplay} = require("../controllers/slidercontroller");
 
 router.get('/dashboard',getDashboard);
 router.get('/userform',getform);
@@ -39,4 +39,5 @@ router.get('/productedit',productedit);
 // slider routes
 router.get('/sliderdata',getsliderdata);
 router.post('/slider',bodyParser,upload1.single('image'),slider);
+router.get('/sliderinfo',slideldisplay);
 module.exports = router;
