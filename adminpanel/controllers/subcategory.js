@@ -62,11 +62,21 @@ const subcatedit = async(req, res) => {
     let id = req.params.id;
     console.log(id);
     let data = await subcatModel.findOne({ _id: id });
-    const name = req.body.name;
-    const cat_id = req.body.cat_id;
-    let final = await subcatModel.updateOne({ _id: id },
-        { $set: { name:name, cat_id:cat_id} });
-    res.json(final);
+    if(data)
+    { 
+        console.log(data);
+        const name = req.body.name;
+        const cat_id = req.body.cat_id;
+        console.log(name);
+        console.log(cat_id);
+        let final = await subcatModel.updateOne({ _id: id },
+            { $set: { name:name, cat_id:cat_id} });
+        res.json(final);
+
+    }else{
+        res.send('No Data Found for Given Id [ '+id+' ]');
+    }
+   
 
 
 }
