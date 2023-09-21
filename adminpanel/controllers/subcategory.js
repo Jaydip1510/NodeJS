@@ -61,8 +61,7 @@ const subcatdelete = async(req,res) => {
 const subcatedit = async(req, res) => {
     let id = req.params.id;
     console.log(id);
-    let d
-    ata = await subcatModel.findOne({ _id: id });
+    let data = await subcatModel.findOne({ _id: id });
     const name = req.body.name;
     const cat_id = req.body.cat_id;
     let final = await subcatModel.updateOne({ _id: id },

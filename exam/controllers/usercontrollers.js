@@ -212,6 +212,8 @@ const productdetails = async (req, res) => {
     });
 
 };
+
+
 module.exports = {
     getDashboard,
     register,
@@ -225,5 +227,6 @@ module.exports = {
     categoryedit,
     productdisplay,
     productdelete,
-    productedit
+    productedit,
+   
 }
