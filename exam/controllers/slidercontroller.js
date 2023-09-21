@@ -20,6 +20,8 @@ const slider = async(req,res) =>{
 }
 
 const slideldisplay = async(req,res) => {
+    console.log("Hello from slide");
+     
     const  sliderdata = await sliderModel.find({});
     console.log(sliderdata);
     if(!sliderdata){
@@ -29,6 +31,7 @@ const slideldisplay = async(req,res) => {
             details: sliderdata
         })
     }
+   
 }
 
 module.exports = {slider,getsliderdata,slideldisplay} 
