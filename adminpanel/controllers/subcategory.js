@@ -3,6 +3,10 @@ const subcatModel = require('../models/subcategorymodel');
 const app = express();
 app.use(express.json());
 
+const subcategory = async (req, res) => {
+    res.render('subcat', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'subcat' });
+}
+
 const categorydata = async(req,res)=>{
     const alldata = await categoryModel.find();
     console.log(alldata);
@@ -71,6 +75,7 @@ const subcatedit = async(req, res) => {
         console.log(cat_id);
         let final = await subcatModel.updateOne({ _id: id },
             { $set: { name:name, cat_id:cat_id} });
+            res.send("subcategory updated successfully");
         res.json(final);
 
     }else{
@@ -85,5 +90,6 @@ module.exports = {
     subcategorydata,
     SubCatData,
     subcatdelete,
-    subcatedit 
+    subcatedit,
+    subcategory
 }
