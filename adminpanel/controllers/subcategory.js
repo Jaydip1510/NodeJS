@@ -28,8 +28,24 @@ const subcategorydata = async (req, res) => {
     res.redirect("/subcategory/alldata");
 
 }
-    
 
+// update subcategory 
+
+const updatesubcat = async (req,res)=>{
+    let getAllCat = await submodel.find();
+    // let len = getAllCat.length+1;
+    const name = req.body.name;
+    const id = req.body.cat_id;
+    const subid = req.params.id;
+    const result = await submodel.findByIdAndUpdate({_id:subid},{
+        $set:{
+            name:name,
+            cat_id:id
+        }
+    })
+    console.log("Subcat updated");
+    res.redirect('/admin/allSubCategory');
+}
 
 // data display in api
 
@@ -81,5 +97,6 @@ module.exports = {
     SubCatData,
     subcatdelete,
     subcatedit,
-    subcategory
+    subcategory,
+    updatesubcat
 }

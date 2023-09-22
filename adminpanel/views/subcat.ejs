@@ -11,7 +11,7 @@
                                 <form action="/subcategory/savedata" method="post">
                                     <div class="mb-3">
                                         <select name="cat_id" class="form-select mb-3" aria-label="Default select example">
-                                            <option selected>select Category</option>
+                                            <option value="">select Category</option>
                                             <% catData.forEach((i)=> { 
                                                 var selected = ( subcatedit && i._id.toString() == subcatedit.cat_id.toString()) ? 'selected' : '';
                                                 %>
