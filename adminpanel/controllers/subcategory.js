@@ -32,12 +32,12 @@ const subcategorydata = async (req, res) => {
 // update subcategory 
 
 const updatesubcat = async (req,res)=>{
-    let getAllCat = await submodel.find();
-    // let len = getAllCat.length+1;
+    let getAllCat = await subcatModel.find();
+   console.log(getAllCat);
     const name = req.body.name;
     const id = req.body.cat_id;
     const subid = req.params.id;
-    const result = await submodel.findByIdAndUpdate({_id:subid},{
+    const result = await subcatModel.findByIdAndUpdate({_id:subid},{
         $set:{
             name:name,
             cat_id:id
