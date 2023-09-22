@@ -12,7 +12,10 @@
                                     <div class="mb-3">
                                         <select name="cat_id" class="form-select mb-3" aria-label="Default select example">
                                             <option selected>select Category</option>
-                                            <% catData.forEach((i)=> { %>
+                                            <% catData.forEach((i)=> { 
+                                                var selected = ( subcatedit && i._id.toString() == subcatedit.cat_id.toString()) ? 'selected' : '';
+                                                %>
+
                                                 <option value="<%= i._id %>" <%= selected %>> <%= i.categoryname %>
                                                 </option>
                                                 <% }) %>
@@ -21,8 +24,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Sub Category Name:-</label>
-                                        <input type="text" class="form-control" name="name"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input type="text" class="form-control"  name="name"
+                                            id="exampleInputEmail1" value="<%= (subcatedit)? subcatedit.name: '' %>" aria-describedby="emailHelp">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </form>
@@ -55,7 +58,7 @@
                                                         <%= item.name %>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-success" href="/subcategortedit/<%= item._id">Edit</a>
+                                                        <a class="btn btn-success" href="/subcategortedit/<%= item._id %>">Edit</a>
 
                                                         <a class="btn btn-danger"
                                                             href="/subcat/deletedata/<%= item._id %>"

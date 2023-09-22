@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 const subcategory = async (req, res) => {
-    res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData, });
+    res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData,subcatedit:'' });
 }
 
 
@@ -43,7 +43,8 @@ const SubCatData = async (req, res) => {
         AllSubCat: joindata,
         catData: catData,
         userimage: req.cookies.image,
-        selected: 'subcat'
+        selected: 'subcat',
+        subcatedit:''
     });
 
 }
@@ -58,22 +59,18 @@ const subcatdelete = async (req, res) => {
 
 const subcatedit = async (req, res) => {
     let id = req.params.id;
-    console.log(id);
-    let data = await subcatModel.findOne({ _id: id });
-    if (data) {
-        console.log(data);
-        const name = req.body.name;
-        const cat_id = req.body.cat_id;
-        console.log(name);
-        console.log(cat_id);
-        let final = await subcatModel.updateOne({ _id: id },
-            { $set: { name: name, cat_id: cat_id } });
-        res.send("subcategory updated successfully");
-        res.json(final);
-
-    } else {
-        res.send('No Data Found for Given Id [ ' + id + ' ]');
-    }
+    let catData = await categoryModel.find();
+    let subdata = await subcatModel.find().populate('cat_id');
+    result = await subcatModel.findOne({_id:id});
+    res.render('subcat', {
+        username: req.cookies.UserName,
+        AllSubCat: subdata,
+        catData: catData,
+        userimage: req.cookies.image,
+        selected: 'subcat',
+        subcatedit:''
+    });
+    
 
 
 
