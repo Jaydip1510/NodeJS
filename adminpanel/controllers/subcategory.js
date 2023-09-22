@@ -44,7 +44,7 @@ const updatesubcat = async (req,res)=>{
         }
     })
     console.log("Subcat updated");
-    res.redirect('/admin/allSubCategory');
+    res.redirect("/subcategory/alldata");
 }
 
 // data display in api
@@ -53,7 +53,6 @@ const SubCatData = async (req, res) => {
     let catData = await categoryModel.find();
    // console.log(catData);
     const joindata = await subcatModel.find().populate("cat_id");
-    console.log(joindata);
     res.render('subcat', {
         username: req.cookies.UserName,
         AllSubCat: joindata,
@@ -84,7 +83,7 @@ const subcatedit = async (req, res) => {
         catData: catData,
         userimage: req.cookies.image,
         selected: 'subcat',
-        subcatedit:''
+        subcatedit:result
     });
     
 
