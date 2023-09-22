@@ -15,7 +15,6 @@
                                             <% catData.forEach((i)=> { 
                                                 var selected = ( subcatedit && i._id.toString() == subcatedit.cat_id.toString()) ? 'selected' : '';
                                                 %>
-
                                                 <option value="<%= i._id %>" <%= selected %>> <%= i.categoryname %>
                                                 </option>
                                                 <% }) %>
