@@ -10,13 +10,14 @@
 
                                 <form action="/subcategory/savedata" method="post">
                                     <div class="mb-3">
-                                        <select class="form-select mb-3" aria-label="Default select example">
+                                        <select name="cat_id" class="form-select mb-3" aria-label="Default select example">
                                             <option selected>select Category</option>
                                             <% catData.forEach((i)=> { %>
                                                 <option value="<%= i._id %>" <%= selected %>> <%= i.categoryname %>
                                                 </option>
                                                 <% }) %>
                                         </select>
+
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Sub Category Name:-</label>
@@ -54,7 +55,7 @@
                                                         <%= item.name %>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-success" href="/catedit?id">Edit</a>
+                                                        <a class="btn btn-success" href="/subcategortedit/<%= item._id">Edit</a>
 
                                                         <a class="btn btn-danger"
                                                             href="/subcat/deletedata/<%= item._id %>"

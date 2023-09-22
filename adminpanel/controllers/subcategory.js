@@ -8,24 +8,13 @@ const subcategory = async (req, res) => {
     res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData, });
 }
 
-const categorydata = async (req, res) => {
-    const alldata = await categoryModel.find();
-    console.log(alldata);
-    res.render('category', {
-        username: req.cookies.UserName,
-        AllCat: alldata,
-        AllSubCat: '',
-        userimage: req.cookies.image,
-        selected: 'subcat',
-        catData: catData,
-    });
-}
+
 // data insert subcategory in database
 
 const subcategorydata = async (req, res) => {
     let allsubcat = await subcatModel.find();
     const name = req.body.name;
-    const id = req.body.cat_id;
+    const id = req.body.cat_id;   
     const checkName = await subcatModel.findOne({ name: name });
 
     const result = {
@@ -46,8 +35,9 @@ const subcategorydata = async (req, res) => {
 
 const SubCatData = async (req, res) => {
     let catData = await categoryModel.find();
-    console.log(catData);
+   // console.log(catData);
     const joindata = await subcatModel.find().populate("cat_id");
+    console.log(joindata);
     res.render('subcat', {
         username: req.cookies.UserName,
         AllSubCat: joindata,
