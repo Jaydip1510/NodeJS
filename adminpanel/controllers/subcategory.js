@@ -1,87 +1,90 @@
 const express = require('express');
 const subcatModel = require('../models/subcategorymodel');
+const categoryModel = require('../models/categorymodel');
 const app = express();
 app.use(express.json());
 
 const subcategory = async (req, res) => {
-    res.render('subcat', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'subcat' });
+    res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData, });
 }
 
-const categorydata = async(req,res)=>{
+const categorydata = async (req, res) => {
     const alldata = await categoryModel.find();
     console.log(alldata);
-    res.render('category',{
+    res.render('category', {
         username: req.cookies.UserName,
         AllCat: alldata,
+        AllSubCat: '',
+        userimage: req.cookies.image,
+        selected: 'subcat',
+        catData: catData,
     });
 }
 // data insert subcategory in database
 
-const subcategorydata = async(req,res) =>{
+const subcategorydata = async (req, res) => {
     let allsubcat = await subcatModel.find();
     const name = req.body.name;
     const id = req.body.cat_id;
-    const checkName = await subcatModel.findOne({name:name});
-    if(checkName) {
-        var response = {};
-        response.messages = 'category already exists';
-        res.json(response);
+    const checkName = await subcatModel.findOne({ name: name });
 
-    }else{
-        const result = {
-            cat_id: id,
-            name: name
-        }
-        const savedata = new subcatModel(result);
-        await savedata.save();
-    
-    var response = {};
-    
-        allsubcat = await subcatModel.find();
-        response.messages = 'data inserted successfully';
-        response.data = allsubcat
-        res.json(response);
-
+    const result = {
+        cat_id: id,
+        name: name
     }
-    
+    const savedata = new subcatModel(result);
+    await savedata.save();
+
+    allsubcat = await subcatModel.find();
+    res.redirect("/subcategory/alldata");
+
 }
+    
+
 
 // data display in api
 
-const SubCatData = async(req,res) => {
+const SubCatData = async (req, res) => {
+    let catData = await categoryModel.find();
+    console.log(catData);
     const joindata = await subcatModel.find().populate("cat_id");
-    res.json(joindata);
-   
+    res.render('subcat', {
+        username: req.cookies.UserName,
+        AllSubCat: joindata,
+        catData: catData,
+        userimage: req.cookies.image,
+        selected: 'subcat'
+    });
+
 }
 
 // data delete in api
 
-const subcatdelete = async(req,res) => {
+const subcatdelete = async (req, res) => {
     const id = req.params.id;
-    const data = await subcatModel.findByIdAndRemove({_id:id});
-    res.json(data);
+    const data = await subcatModel.findByIdAndRemove({ _id: id });
+    res.redirect("/subcategory/alldata");
 }
 
-const subcatedit = async(req, res) => {
+const subcatedit = async (req, res) => {
     let id = req.params.id;
     console.log(id);
     let data = await subcatModel.findOne({ _id: id });
-    if(data)
-    { 
+    if (data) {
         console.log(data);
         const name = req.body.name;
         const cat_id = req.body.cat_id;
         console.log(name);
         console.log(cat_id);
         let final = await subcatModel.updateOne({ _id: id },
-            { $set: { name:name, cat_id:cat_id} });
-            res.send("subcategory updated successfully");
+            { $set: { name: name, cat_id: cat_id } });
+        res.send("subcategory updated successfully");
         res.json(final);
 
-    }else{
-        res.send('No Data Found for Given Id [ '+id+' ]');
+    } else {
+        res.send('No Data Found for Given Id [ ' + id + ' ]');
     }
-   
+
 
 
 }
