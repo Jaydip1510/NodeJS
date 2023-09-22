@@ -5,14 +5,24 @@ const app = express();
 const profiledata =  async (req, res) =>{
   
     let is_exists = await profileModel.findOne({email: req.cookies.Useremail});
+
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const gender = req.body.gender;
     const mobile = req.body.mobile;
     const email =  req.cookies.Useremail;
     const location = req.body.location;
-    const image = req.file.filename;
+    var image = '';
+    if(req.file)
+    {
+        if(req.file.filename !== undefined)
+        {
+            image = req.file.filename;
+        }
+    }
     if(is_exists){
+        image = image == '' ?is_exists.image : image;
+        res.cookie('image', image);
         const update = await profileModel.updateOne({ email: req.cookies.Useremail }, 
             { $set:{
                 firstname: firstname,
@@ -24,7 +34,7 @@ const profiledata =  async (req, res) =>{
                 image: image
             } });
             console.log(update);
-        res.send("data updated successfully");
+            res.redirect('/admin');
     }
     else{
         const result = {
@@ -38,8 +48,8 @@ const profiledata =  async (req, res) =>{
         }
         const savedata = new profileModel(result);
         await savedata.save();
-        res.cookie('Userimage', allsubcat.image);
-        res.send("data inserted successfully");
+        res.cookie('image', image);
+        res.redirect('/admin');
 
     }
 

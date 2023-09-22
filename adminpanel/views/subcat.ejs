@@ -10,6 +10,7 @@
 
                                 <form action="<%= (subcatedit)?'/updatesubcategory/'+subcatedit._id:'/subcategory/savedata'%>" method="post">
                                     <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Category</label>
                                         <select name="cat_id" class="form-select mb-3" aria-label="Default select example">
                                             <option value="">select Category</option>
                                             <% catData.forEach((i)=> { 
@@ -22,7 +23,7 @@
 
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Sub Category Name:-</label>
+                                        <label for="exampleInputEmail1" class="form-label">SubCategory Name:-</label>
                                         <input type="text" class="form-control"  name="name"
                                             id="exampleInputEmail1" value="<%= (subcatedit)? subcatedit.name: '' %>" aria-describedby="emailHelp">
                                     </div>

@@ -4,9 +4,9 @@ const categoryModel = require('../models/categorymodel');
 const app = express();
 app.use(express.json());
 
-const subcategory = async (req, res) => {
-    res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData,subcatedit:'' });
-}
+// const subcategory = async (req, res) => {
+//     res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData,subcatedit:'' });
+// }
 
 
 // data insert subcategory in database
@@ -96,6 +96,5 @@ module.exports = {
     SubCatData,
     subcatdelete,
     subcatedit,
-    subcategory,
     updatesubcat
 }
