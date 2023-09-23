@@ -27,6 +27,11 @@
                                         <input type="text" class="form-control"  name="name"
                                             id="exampleInputEmail1" value="<%= (subcatedit)? subcatedit.name: '' %>" aria-describedby="emailHelp">
                                     </div>
+                                    <% if(message){ %>
+                                        <div class="alert <%= message_class %>" role="alert">
+                                            <%= message %>
+                                        </div>
+                                        <% } %>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </form>
                             </div>
