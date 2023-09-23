@@ -8,6 +8,7 @@ const cookie     = require('cookie-parser');
 const session    = require('express-session');
 const flash      = require('connect-flash');
 const routes     = require('./routes/user');
+const connection = require('./confing/db');
 
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
