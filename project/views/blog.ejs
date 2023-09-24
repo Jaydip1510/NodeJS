@@ -267,7 +267,7 @@ tinymce.init({
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                              <form>
+                              <form action="/blogsavedata" method="post">
                                     <div class="form-group row">
                                         <label for="lname" class="col-md-3  control-label col-form-label">Title
                                             </label>
@@ -280,14 +280,14 @@ tinymce.init({
                                         <label for="lname" name="lblproductprice"
                                             class="col-md-3  control-label col-form-label">short Description</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="description" class="form-control"  id="lname"
+                                            <input type="text" name="shortdescription" class="form-control"  id="lname"
                                                 placeholder="Enter shortdescription">
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-8">
                                         <label>Long Describe</label>
                                         <div class="form-group">
-                                            <textarea id="editor"></textarea>
+                                            <textarea id="editor" name="longdescription"></textarea>
                                         </div>
                                     </div>
                                 </div>

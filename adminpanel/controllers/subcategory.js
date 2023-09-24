@@ -100,10 +100,6 @@ const subcatedit = async (req, res) => {
         subcatedit: result,
         message: ''
     });
-
-
-
-
 }
 
 module.exports = {
