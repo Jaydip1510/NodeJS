@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((data) => {
           let tr = '';
           data.forEach((e)=>{
-            tr += `<tr><td>${e._id}</td><td>${e.cat_id.categoryname}</td><td>${e.name}</td><td><a href="/subcategortedit/${e._id}">Edit</a><a href="/subcat/deletedata/${e._id}">Delete</a></td></tr>`;
+            tr += `<tr align="center"><td>${e._id}</td><td>${e.cat_id.categoryname}</td><td>${e.name}</td><td><a class="btn btn-success" href="/subcategortedit/${e._id}">Edit</a>&nbsp;&nbsp;&nbsp;<a  class="btn btn-danger" href="/subcat/deletedata/${e._id}">Delete</a></td></tr>`;
           })
           resultDiv.innerHTML = tr;
         })
