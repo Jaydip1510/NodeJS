@@ -7,7 +7,7 @@ const app = express();
 
 
 const getdata = async (req, res) => {
-    res.render('blog', { data: '', alldata: '' });
+    res.render('blog', { alldata: '' ,edit: ''});
 }
 
 const bloggetdata = async (req, res) => {
@@ -59,7 +59,7 @@ const editblog = async (req, res) => {
         res.send('No Data Found');
     } else {
         console.log(alldata);
-        res.render('blog', { alldata: alldata });
+        res.render('blog', { alldata: alldata,edit: 'edit' });
     }
 }
 
