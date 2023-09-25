@@ -9,7 +9,7 @@ app.use(express.json());
 // }
 
 
-// data insert subcategory in database
+// data insert subcategory in subcategory table
 
 const subcategorydata = async (req, res) => {
     let allsubcat = await subcatModel.find();
@@ -57,7 +57,7 @@ const updatesubcat = async (req, res) => {
     res.redirect("/subcategory/alldata");
 }
 
-// data display in api
+// data display in subcategory table
 
 const SubCatData = async (req, res) => {
     let catData = await categoryModel.find();
@@ -76,7 +76,21 @@ const SubCatData = async (req, res) => {
 
 }
 
-// data delete in api
+// filtering category data
+
+const getCatdata = async(req, res) => {
+    let cat_id = req.query.selectedValue;
+    let catdata;
+    if(cat_id != ''){
+
+        catdata =  await subcatModel.find({cat_id:cat_id}).populate("cat_id");
+    }else{
+        catdata = await subcatModel.find().populate("cat_id");
+    }
+    res.json(catdata);
+}
+
+// data delete in subcategory table
 
 const subcatdelete = async (req, res) => {
     const id = req.params.id;
@@ -107,5 +121,6 @@ module.exports = {
     SubCatData,
     subcatdelete,
     subcatedit,
-    updatesubcat
+    updatesubcat,
+    getCatdata
 }
