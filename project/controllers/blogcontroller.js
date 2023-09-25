@@ -1,56 +1,67 @@
 let blogModel = require('../models/blogmodel');
 
 const express = require('express');
+const { set } = require('mongoose');
 const path = require("path");
 const app = express();
 
 
-const getdata = async(req,res)=>{
-    res.render('blog',{data:'',alldata:''});
+const getdata = async (req, res) => {
+    res.render('blog', { data: '', alldata: '' });
 }
 
-const bloggetdata = async(req,res)=>{
-   let  alldata = await blogModel.find();
-   const title = req.body.title;
-   const shortdescription = req.body.shortdescription;
-   const longdescription = req.body.longdescription;
+const bloggetdata = async (req, res) => {
+    let id = req.params.id != '' ? req.params.id : -1;
 
-   const result ={
-    title:title,
-    shortdescription:shortdescription,
-    longdescription:longdescription
-   }
-   const savedata = new blogModel(result);
-   await savedata.save();
-   alldata = await blogModel.find();
-    res.render('/blogdata',{
-    data:'',
-    alldata:''
- });
+    const title = req.body.title;
+    const shortdescription = req.body.shortdescription;
+    const longdescription = req.body.longdescription;
+
+    
+    if (id == -1) {
+        const result = {
+            title: title,
+            shortdescription: shortdescription,
+            longdescription: longdescription
+        }
+        const savedata = new blogModel(result);
+        await savedata.save();
+    } else {
+        let chkData = await blogModel.findOne({ _id: id });
+        if (chkData) {
+            await blogModel.updateOne({ _id: id },{ $set: {title: title,
+                shortdescription: shortdescription,
+                longdescription: longdescription}});
+        }
+    }
+    res.redirect('/blogdisplay');
 
 }
 
-const datadisplay = async(req,res) =>{
+const datadisplay = async (req, res) => {
     const blogdata = await blogModel.find();
-    res.render('blogdata',{
-        data:blogdata,
-        alldata:''
+    res.render('blogdata', {
+        data: blogdata,
+        alldata: ''
     });
 }
 
-const datadelete = async(req,res) =>{
+const datadelete = async (req, res) => {
     let id = req.params.id;
     await blogModel.findByIdAndRemove({ _id: id });
-    res.send("data deleted successfully");
+    res.redirect('/blogdisplay');
 }
 
-const editblog = async(req,res)=>{
+const editblog = async (req, res) => {
     let id = req.params.id;
-    console.log(id);
-    let alldata = await blogModel.findOne({_id:id});
-    console.log(alldata);
-    res.render('blog',{alldata:alldata});
+    let alldata = await blogModel.findOne({ _id: id });
+    if (!alldata) {
+        res.send('No Data Found');
+    } else {
+        console.log(alldata);
+        res.render('blog', { alldata: alldata });
+    }
 }
 
 
-module.exports = {getdata,bloggetdata,datadisplay,datadelete,editblog}
+module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog }
