@@ -6,7 +6,7 @@ const app = express();
 
 
 const getdata = async(req,res)=>{
-    res.render('blog',{data:''});
+    res.render('blog',{data:'',alldata:''});
 }
 
 const bloggetdata = async(req,res)=>{
@@ -30,7 +30,8 @@ const bloggetdata = async(req,res)=>{
 const datadisplay = async(req,res) =>{
     const blogdata = await blogModel.find();
     res.render('blogdata',{
-        data:blogdata
+        data:blogdata,
+        alldata:''
     });
 }
 
