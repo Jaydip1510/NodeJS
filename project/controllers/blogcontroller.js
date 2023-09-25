@@ -23,7 +23,10 @@ const bloggetdata = async(req,res)=>{
    const savedata = new blogModel(result);
    await savedata.save();
    alldata = await blogModel.find();
-   res.send('data inserted successfully');
+    res.render('/blogdata',{
+    data:'',
+    alldata:''
+ });
 
 }
 
