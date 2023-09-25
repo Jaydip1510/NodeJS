@@ -6,7 +6,7 @@ const app = express();
 
 
 const getdata = async(req,res)=>{
-    res.render('blog');
+    res.render('blog',{data:''});
 }
 
 const bloggetdata = async(req,res)=>{
@@ -23,7 +23,8 @@ const bloggetdata = async(req,res)=>{
    const savedata = new blogModel(result);
    await savedata.save();
    alldata = await blogModel.find();
-   res.send("data inserted successfully");
+   res.send('data inserted successfully');
+
 }
 
 const datadisplay = async(req,res) =>{
@@ -33,5 +34,19 @@ const datadisplay = async(req,res) =>{
     });
 }
 
+const datadelete = async(req,res) =>{
+    let id = req.params.id;
+    await blogModel.findByIdAndRemove({ _id: id });
+    res.send("data deleted successfully");
+}
 
-module.exports = {getdata,bloggetdata,datadisplay}
+const editblog = async(req,res)=>{
+    let id = req.params.id;
+    console.log(id);
+    let alldata = await blogModel.findOne({_id:id});
+    console.log(alldata);
+    res.render('blog',{alldata:alldata});
+}
+
+
+module.exports = {getdata,bloggetdata,datadisplay,datadelete,editblog}

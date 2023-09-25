@@ -53,8 +53,6 @@ const profiledata =  async (req, res) =>{
 
     }
 
-    
-   
 }
 
 const profiledit = async(req, res) =>{

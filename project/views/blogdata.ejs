@@ -51,10 +51,9 @@
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-success"
-                                                        href="/catedit">Edit</a>
+                                                        href="/editblog/<%= item._id%>">Edit</a>
 
-                                                    <a class="btn btn-danger" data-href="/catdelete"
-                                                        data-toggle="modal" data-target="#exampleModal" >Delete</a>
+                                                    <a class="btn btn-danger" href="/deleteblog/<%= item._id%>">Delete</a>
                                                     </a>
                                                 </td>
                                             </tr>
