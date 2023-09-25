@@ -32,7 +32,7 @@ const subcategorydata = async (req, res) => {
         await savedata.save();
 
         allsubcat = await subcatModel.find();
-        req.flash('msg_category', 'data inserted successfully');
+        req.flash('msg_category', 'Subcategory inserted successfully');
         req.flash('msg_class', 'alert-success');
         res.redirect("/subcategory/alldata");
     }
@@ -95,7 +95,7 @@ const getCatdata = async(req, res) => {
 const subcatdelete = async (req, res) => {
     const id = req.params.id;
     const data = await subcatModel.findByIdAndRemove({ _id: id });
-    req.flash('msg_category', 'data deleted successfully');
+    req.flash('msg_category', 'Subcategory deleted successfully');
     req.flash('msg_class', 'alert-success');
     res.redirect("/subcategory/alldata");
 }
