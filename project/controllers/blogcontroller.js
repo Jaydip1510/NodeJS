@@ -31,7 +31,7 @@ const bloggetdata = async (req, res) => {
         if (chkData) {
             await blogModel.updateOne({ _id: id },{ $set: {title: title,
                 shortdescription: shortdescription,
-                longdescription: longdescription}});
+                longdescription: longdescription,updatedOn:Date.now}});
         }
     }
     res.redirect('/blogdisplay');

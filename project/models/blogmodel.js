@@ -5,7 +5,7 @@ const blogSchema = new mongoose.Schema({
     shortdescription:String,
     longdescription:String,
     createdOn:{type: Date, default: Date.now},
-    updatedOn:{type: Date, default: Date.now}
+    updatedOn:{type: Date}
 
     
 });

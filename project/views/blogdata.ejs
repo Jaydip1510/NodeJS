@@ -33,6 +33,8 @@
                                         <tr align="center">
                                             <th scope="col">Title</th>
                                             <th scope="col">ShortDescription</th>
+                                            <th scope="col">CreatedOn</th>
+                                            <th scope="col">UpdatedOn</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -44,6 +46,12 @@
                                                 </td>
                                                 <td>
                                                    <a href="/detailblog/<%= item._id%>"><%= item.shortdescription %></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/detailblog/<%= item._id%>"><%= item.createdOn %></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/detailblog/<%= item._id%>"><%= item.updatedOn %></a>
                                                 </td>
                                                 
                                                 <td>
