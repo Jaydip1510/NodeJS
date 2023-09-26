@@ -16,27 +16,20 @@ const subcategorydata = async (req, res) => {
     const name = req.body.name;
     const id = req.body.cat_id;
     const checkName = await subcatModel.findOne({ name: name });
-    if (checkName) {
-        req.flash('msg_category', 'Subcategory already exists.');
-        req.flash('msg_class', 'alert-success');
-        res.redirect("/subcategory/alldata");
-    } else{
 
-    
-
-        const result = {
-            cat_id: id,
-            name: name
-        }
-        const savedata = new subcatModel(result);
-        await savedata.save();
-
-        allsubcat = await subcatModel.find();
-        req.flash('msg_category', 'Subcategory inserted successfully');
-        req.flash('msg_class', 'alert-success');
-        res.redirect("/subcategory/alldata");
+    const result = {
+        cat_id: id,
+        name: name
     }
+    const savedata = new subcatModel(result);
+    await savedata.save();
+
+    allsubcat = await subcatModel.find();
+    req.flash('msg_category', 'Subcategory inserted successfully');
+    req.flash('msg_class', 'alert-success');
+    res.redirect("/subcategory/alldata");
 }
+
 
 // update subcategory 
 
@@ -78,13 +71,13 @@ const SubCatData = async (req, res) => {
 
 // filtering category data
 
-const getCatdata = async(req, res) => {
+const getCatdata = async (req, res) => {
     let cat_id = req.query.selectedValue;
     let catdata;
-    if(cat_id != ''){
+    if (cat_id != '') {
 
-        catdata =  await subcatModel.find({cat_id:cat_id}).populate("cat_id");
-    }else{
+        catdata = await subcatModel.find({ cat_id: cat_id }).populate("cat_id");
+    } else {
         catdata = await subcatModel.find().populate("cat_id");
     }
     res.json(catdata);
