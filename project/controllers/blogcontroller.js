@@ -26,7 +26,8 @@ const bloggetdata = async (req, res) => {
         }
         const savedata = new blogModel(result);
         await savedata.save();
-    } else {
+        
+     } else {
         let chkData = await blogModel.findOne({ _id: id });
         if (chkData) {
             await blogModel.updateOne({ _id: id },{ $set: {title: title,
