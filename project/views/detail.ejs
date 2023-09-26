@@ -1,21 +1,6 @@
 <%- include('./partials/header') %>
     <%- include('./partials/sidebar') %>
         <div class="page-wrapper">
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Tables</h4>
-                        <div class="ml-auto text-right">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -23,45 +8,50 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <a href="/blogdisplay"></a>
-                            <div class="card-body">
-                                <h5 class="card-title m-b-0">Blog Table</h5>
-                            </div>
+                            <form>
                             <% if(data!=null) { %>
-                                <table class="table">
-                                    <thead>
-                                        <tr align="center">
-                                            <th scope="col">Title</th>
-                                            <th scope="col">ShortDescription</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% data.forEach(function(item){ %>
-                                            <tr align="center">
-                                                <td>
-                                                  <%= item.title%>
-                                                </td>
-                                                <td>
-                                                   <%= item.shortdescription %>
-                                                </td>
-                                                
-                                                <td>
-                                                    <a class="btn btn-success"
-                                                        href="/editblog/<%= item._id%>">Edit</a>
-
-                                                    <a class="btn btn-danger" href="/deleteblog/<%= item._id%>">Delete</a>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <% }) %>  
-                                    </tbody>
-                                </table> 
-                            <% } %>                           
+                                
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group row">
+                                    <label for="lname" class="col-md-3  control-label col-form-label">Title
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <%= data.title%>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lname" name="lblproductprice"
+                                        class="col-md-3  control-label col-form-label">short Description</label>
+                                    <div class="col-sm-9">
+                                        <%= data.shortdescription %>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-8">
+                                    <label>Long Describe</label>
+                                    <div class="form-group">
+                                        <%- data.longdescription %>
+                                    </div>
+                                </div>
+                          
+                        <% } %>   
                         </div>
+
+                        
                     </div>
+                    </form>
+                    <!-- ============================================================== -->
+                    <!-- End PAge Content -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Right sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- .right-sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- End Right sidebar============================================================== -->
                 </div>
+
             </div>
+
 
             <!-- ============================================================== -->
             <!-- End PAge Content -->

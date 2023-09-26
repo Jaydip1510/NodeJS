@@ -64,7 +64,13 @@ const editblog = async (req, res) => {
 }
 
 const details = async (req, res) => {
-
+    let id = req.params.id;
+    let blogdata = await blogModel.findOne({ _id: id });
+    console.log(blogdata);
+    res.render('detail', {
+        data: blogdata,
+        alldata: ''
+    });
 }
 
 
