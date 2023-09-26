@@ -61,7 +61,7 @@ router.get('/subcategory/alldata', SubCatData);
 router.get('/subcat/deletedata/:id',subcatdelete);
 router.get('/subcategortedit/:id',subcatedit)
 router.post('/updatesubcategory/:id',bodyParser,updatesubcat)
-router.get('/getalldata/',getCatdata);
+router.get('/getalldata',getCatdata);
 
 // other pages routes
 router.get('/chart', getchart);
