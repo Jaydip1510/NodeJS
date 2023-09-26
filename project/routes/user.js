@@ -19,8 +19,7 @@ router.post('/blogsavedata/:id',bodyParser,bloggetdata); //Edit a blog
 router.get('/blogdisplay',datadisplay);
 router.get('/deleteblog/:id',datadelete);
 router.get('/editblog/:id',editblog);
-router.get('//detailblog/:id',details)
+router.get('/detailblog/:id',details);
 
-router.get('/longdata');
 
 module.exports = router;
