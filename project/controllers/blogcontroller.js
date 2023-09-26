@@ -1,5 +1,5 @@
 let blogModel = require('../models/blogmodel');
-
+const moment = require('moment');
 const express = require('express');
 const { set } = require('mongoose');
 const path = require("path");
@@ -42,7 +42,8 @@ const datadisplay = async (req, res) => {
     const blogdata = await blogModel.find();
     res.render('blogdata', {
         data: blogdata,
-        alldata: ''
+        alldata: '',
+        moment: moment
     });
 }
 
@@ -69,7 +70,8 @@ const details = async (req, res) => {
     console.log(blogdata);
     res.render('detail', {
         data: blogdata,
-        alldata: ''
+        alldata: '',
+        moment: moment
     });
 }
 
