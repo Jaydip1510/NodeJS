@@ -11,8 +11,7 @@ const getdata = async (req, res) => {
 }
 
 const bloggetdata = async (req, res) => {
-    let id = req.params.id != '' ? req.params.id : -1;
-
+    let id = req.params.id != '' &&  req.params.id != undefined ? req.params.id : -1;
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
