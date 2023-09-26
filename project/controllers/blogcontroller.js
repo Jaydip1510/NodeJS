@@ -64,5 +64,8 @@ const editblog = async (req, res) => {
     }
 }
 
+const longblog = async(req,res) =>{
+    res.render('longblog');
+}
 
-module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog }
+module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog,longblog }
