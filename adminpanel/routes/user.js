@@ -31,7 +31,7 @@ const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidge
 //category controller
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
 //subcategory controller
-const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata} = require("../controllers/subcategory");
+const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching} = require("../controllers/subcategory");
 
 const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
@@ -61,7 +61,10 @@ router.get('/subcategory/alldata', SubCatData);
 router.get('/subcat/deletedata/:id',subcatdelete);
 router.get('/subcategortedit/:id',subcatedit)
 router.post('/updatesubcategory/:id',bodyParser,updatesubcat)
+
+// filtering routes
 router.get('/getalldata',getCatdata);
+router.get('/filteralldata',getsearching)
 
 // other pages routes
 router.get('/chart', getchart);

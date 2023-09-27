@@ -83,6 +83,25 @@ const getCatdata = async (req, res) => {
     res.json(catdata);
 }
 
+//searching category in data table
+
+const getsearching = async (req,res) => {
+  let searchdata = req.query.selectedValue;
+  let subdata;
+  const categorys = await categoryModel.find({
+    categoryname:{$regex: new RegExp(searchdata,"i")}
+  });
+
+  let subcategory = await subcatModel.find({
+    cat_id:{ $in: categorys.map(category => category._id) }
+  }).populate("cat_id");
+
+  if(subcategory ==''){
+    subcategory = await subcatModel.find({name:{$regex: new RegExp(searchdata,"i")}}).populate("cat_id");
+  }
+  res.json(subcategory);
+}
+
 // data delete in subcategory table
 
 const subcatdelete = async (req, res) => {
@@ -115,5 +134,6 @@ module.exports = {
     subcatdelete,
     subcatedit,
     updatesubcat,
-    getCatdata
+    getCatdata,
+    getsearching
 }
