@@ -1,4 +1,5 @@
 let blogModel = require('../models/blogmodel');
+let registerModel = require('../models/registermodel');
 const moment = require('moment');
 const express = require('express');
 const { set } = require('mongoose');
@@ -15,7 +16,7 @@ const bloggetdata = async (req, res) => {
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
-    const username = req.body.username;
+    const rid = req.body.createdBy;
     
     
     if (id == -1) {
@@ -23,7 +24,7 @@ const bloggetdata = async (req, res) => {
             title: title,
             shortdescription: shortdescription,
             longdescription: longdescription,
-            createdBy:username
+            createdBy:rid
         }
         const savedata = new blogModel(result);
         await savedata.save();
@@ -33,7 +34,7 @@ const bloggetdata = async (req, res) => {
         if (chkData) {
             await blogModel.updateOne({ _id: id },{ $set: {title: title,
                 shortdescription: shortdescription,
-                longdescription: longdescription,createdBy:username,updatedOn:Date.now()}});
+                longdescription: longdescription,createdBy:rid,updatedOn:Date.now()}});
         }
     }
     res.redirect('/blogdisplay');
@@ -41,6 +42,7 @@ const bloggetdata = async (req, res) => {
 }
 
 const datadisplay = async (req, res) => {
+    const regster = await registerModel.find();
     const blogdata = await blogModel.find();
     res.render('blogdata', {
         data: blogdata,
