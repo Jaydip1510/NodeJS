@@ -32,8 +32,12 @@ const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidge
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
 //subcategory controller
 const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching} = require("../controllers/subcategory");
-
+// profile controller
 const {profiledata,profiledit} = require("../controllers/profilecontroller");
+
+//product controller
+
+const productdata = require("../controllers/productcontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -65,6 +69,10 @@ router.post('/updatesubcategory/:id',bodyParser,updatesubcat)
 // filtering routes
 router.get('/getalldata',getCatdata);
 router.get('/filteralldata',getsearching)
+
+// product routes
+
+router.get('/product',productdata)
 
 // other pages routes
 router.get('/chart', getchart);

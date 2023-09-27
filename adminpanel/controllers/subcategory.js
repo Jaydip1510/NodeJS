@@ -4,9 +4,6 @@ const categoryModel = require('../models/categorymodel');
 const app = express();
 app.use(express.json());
 
-// const subcategory = async (req, res) => {
-//     res.render('subcat', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'subcat', AllSubCat: '', catData: catData,subcatedit:'' });
-// }
 
 
 // data insert subcategory in subcategory table
@@ -87,7 +84,6 @@ const getCatdata = async (req, res) => {
 
 const getsearching = async (req,res) => {
   let searchdata = req.query.selectedValue;
-  let subdata;
   const categorys = await categoryModel.find({
     categoryname:{$regex: new RegExp(searchdata,"i")}
   });
