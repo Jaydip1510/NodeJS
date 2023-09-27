@@ -16,7 +16,7 @@ const bloggetdata = async (req, res) => {
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
-    const rid = req.body.createdBy_id;
+    const rid = req.cookies.user_id;
     console.log(rid);
     
     if (id == -1) {
