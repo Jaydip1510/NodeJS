@@ -16,15 +16,15 @@ const bloggetdata = async (req, res) => {
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
-    const rid = req.body.createdBy;
-    
+    const rid = req.body.createdBy_id;
+    console.log(rid);
     
     if (id == -1) {
         const result = {
             title: title,
             shortdescription: shortdescription,
             longdescription: longdescription,
-            createdBy:rid
+            createdBy_id:rid
         }
         const savedata = new blogModel(result);
         await savedata.save();
@@ -43,9 +43,10 @@ const bloggetdata = async (req, res) => {
 
 const datadisplay = async (req, res) => {
     const regster = await registerModel.find();
-    const blogdata = await blogModel.find();
+    const blogdata = await blogModel.find().populate('createdBy_id');
     res.render('blogdata', {
         data: blogdata,
+        resdata:regster,
         alldata: '',
         moment: moment
     });
@@ -75,6 +76,7 @@ const details = async (req, res) => {
     res.render('detail', {
         data: blogdata,
         alldata: '',
+        resdata:'',
         moment: moment
     });
 }

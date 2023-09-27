@@ -4,7 +4,7 @@ const blogSchema = new mongoose.Schema({
     title:String,
     shortdescription:String,
     longdescription:String,
-    createdBy:{type: mongoose.Schema.Types.ObjectId, ref:'registerdata'},
+    createdBy_id:{type: mongoose.Schema.Types.ObjectId, ref:'registerdata'},
     createdOn:{type: Date, default: Date.now},
     updatedOn:{type: Date}
 
