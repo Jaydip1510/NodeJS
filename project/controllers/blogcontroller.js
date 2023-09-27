@@ -15,13 +15,15 @@ const bloggetdata = async (req, res) => {
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
-
+    const username = req.body.username;
+    
     
     if (id == -1) {
         const result = {
             title: title,
             shortdescription: shortdescription,
-            longdescription: longdescription
+            longdescription: longdescription,
+            createdBy:username
         }
         const savedata = new blogModel(result);
         await savedata.save();
@@ -31,7 +33,7 @@ const bloggetdata = async (req, res) => {
         if (chkData) {
             await blogModel.updateOne({ _id: id },{ $set: {title: title,
                 shortdescription: shortdescription,
-                longdescription: longdescription,updatedOn:Date.now}});
+                longdescription: longdescription,createdBy:username,updatedOn:Date.now()}});
         }
     }
     res.redirect('/blogdisplay');
