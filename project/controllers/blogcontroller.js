@@ -90,9 +90,7 @@ const details = async (req, res) => {
     });
 }
 
-const userdata = async  (req, res) => {
-   res.render('user',{ alldata: '', edit: '' });
-}
 
 
-module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog, details,userdata }
+
+module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog, details }

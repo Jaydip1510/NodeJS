@@ -1,0 +1,49 @@
+<%- include('./partials/header') %>
+<%- include('./partials/sidebar') %>
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form action="/role2user/<%= userData._id %>" method="post">
+                        
+                        <div class="form-group row">
+                            <label for="lname" class="col-md-3  control-label col-form-label">User
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="user_name" 
+                                class="form-control" id="lname" placeholder="Enter title" value="<%= userData.username %>">
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lname" class="col-md-3  control-label col-form-label">Role
+                            </label>
+                            <div class="col-sm-9">
+                                <select type="" name="role_id" 
+                                class="form-control" id="lname" placeholder="Enter title">
+                                <option>Select Role</option>
+                                <% roleData.forEach(function(item){ %>
+                                    <option  value="<%= item._id %>"> <%= userData.role_id._id == item._id ? 'selected' : 'ok' %> <%= userData.role_id._id+item.rolename %></option>
+                                <% }) %>    
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('./partials/footer') %>
+                

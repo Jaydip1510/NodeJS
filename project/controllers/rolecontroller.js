@@ -1,4 +1,5 @@
-const roleModel = require('../models/rolemodel')
+const roleModel = require('../models/rolemodel');
+const registerModel = require('../models/registermodel');
 const express = require('express');
 const { set } = require('mongoose');
 const path = require("path");
@@ -60,5 +61,39 @@ const roleinfo = async (req, res) => {
         }
     }
 
-
-    module.exports = { roledata, roleinfo, roledisplay, roledelete, editrole }
+    const role2user = async  (req, res) => {
+        let user_id = req.params.user_id;
+        let roleData = await roleModel.find();
+        const userData = await registerModel.find({ _id: user_id }).populate('role_id');
+        console.log(userData);
+        userData.forEach(element => {
+            console.log(element._id);
+            /*if (element._id == userData[0].role_id._id) {
+                console.log("Ok Matching user")
+            }*/
+        });
+        res.render('role2user',{ roleData: roleData, userData: userData[0] });
+     }
+     const role2userdisplay = async  (req, res) => {
+        const role2UserData = await registerModel.find().populate('role_id');
+        console.log(role2UserData);
+        res.render('role2userdisplay',{ role2User: role2UserData });
+     }
+     const role2user_create_update =  async  (req, res) => {
+        
+        const user_id = req.body.user_id;
+        const role_id = req.body.role_id;
+        let chkData = await blogModel.findOne({ _id: id });
+        if (chkData) {
+            await blogModel.updateOne({ _id: id }, {
+                $set: {
+                    title: title,
+                    shortdescription: shortdescription,
+                    longdescription: longdescription, createdBy: rid, updatedOn: Date.now()
+                }
+            });
+        }
+    
+    res.redirect('/blogdisplay');
+     }
+    module.exports = { roledata, roleinfo, roledisplay, roledelete, editrole, role2user, role2userdisplay,role2user_create_update }
