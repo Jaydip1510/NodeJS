@@ -8,6 +8,8 @@ const bodyParser = body.urlencoded({ extended: false });
 const {getDashboard,register,checkUserData} = require("../controllers/usercontrollers");
 const {getdata,bloggetdata,datadisplay,datadelete,editblog,details} = require("../controllers/blogcontroller");
 
+const roledata = require("../controllers/rolecontroller");
+
 router.get('/dashboard',getDashboard);
 router.post('/register',register);
 router.post('/login',checkUserData);
@@ -20,6 +22,8 @@ router.get('/blogdisplay',datadisplay);
 router.get('/deleteblog/:id',datadelete);
 router.get('/editblog/:id',editblog);
 router.get('/detailblog/:id',details);
+
+router.get('/roledetail',roledata);
 
 
 module.exports = router;

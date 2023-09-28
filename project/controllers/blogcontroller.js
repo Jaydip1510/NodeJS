@@ -24,7 +24,7 @@ const bloggetdata = async (req, res) => {
             title: title,
             shortdescription: shortdescription,
             longdescription: longdescription,
-            createdBy_id:rid
+            createdBy:rid
         }
         const savedata = new blogModel(result);
         await savedata.save();
@@ -43,7 +43,7 @@ const bloggetdata = async (req, res) => {
 
 const datadisplay = async (req, res) => {
     const regster = await registerModel.find();
-    const blogdata = await blogModel.find().populate('createdBy_id');
+    const blogdata = await blogModel.find().populate('createdBy');
     res.render('blogdata', {
         data: blogdata,
         resdata:regster,
