@@ -34,6 +34,7 @@
                                             <th scope="col">Title</th>
                                             <th scope="col">ShortDescription</th>
                                             <th scope="col">CreatedOn</th>
+                                            <th scope="col">CreatedBy</th>
                                             <th scope="col">UpdatedOn</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -49,6 +50,9 @@
                                                 </td>
                                                 <td>
                                                     <a href="/detailblog/<%= item._id%>"><%= item.createdOn %></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/detailblog/<%= item._id%>"><%= item.createdBy.username %></a>
                                                 </td>
                                                 
                                                 <td>

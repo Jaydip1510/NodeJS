@@ -16,8 +16,9 @@ const getDashboard = (req, res) => {
 
 const register = async (req, res) => {
     console.log(req.body);
+    var totdata = await registerModel.countDocuments();
     const res2 = new registerModel({
-        id: 1,
+        id: (totdata+1),
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,

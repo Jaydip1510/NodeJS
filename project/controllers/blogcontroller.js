@@ -1,4 +1,5 @@
 let blogModel = require('../models/blogmodel');
+let roleModel = require('../models/rolemodel');
 let registerModel = require('../models/registermodel');
 const moment = require('moment');
 const express = require('express');
@@ -8,33 +9,37 @@ const app = express();
 
 
 const getdata = async (req, res) => {
-    res.render('blog', { alldata: '' ,edit: ''});
+    res.render('blog', { alldata: '', edit: '' });
 }
 
 const bloggetdata = async (req, res) => {
-    let id = req.params.id != '' &&  req.params.id != undefined ? req.params.id : -1;
+    let id = req.params.id != '' && req.params.id != undefined ? req.params.id : -1;
     const title = req.body.title;
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
     const rid = req.cookies.user_id;
     console.log(rid);
-    
+
     if (id == -1) {
         const result = {
             title: title,
             shortdescription: shortdescription,
             longdescription: longdescription,
-            createdBy:rid
+            createdBy: rid
         }
         const savedata = new blogModel(result);
         await savedata.save();
-        
-     } else {
+
+    } else {
         let chkData = await blogModel.findOne({ _id: id });
         if (chkData) {
-            await blogModel.updateOne({ _id: id },{ $set: {title: title,
-                shortdescription: shortdescription,
-                longdescription: longdescription,createdBy:rid,updatedOn:Date.now()}});
+            await blogModel.updateOne({ _id: id }, {
+                $set: {
+                    title: title,
+                    shortdescription: shortdescription,
+                    longdescription: longdescription, createdBy: rid, updatedOn: Date.now()
+                }
+            });
         }
     }
     res.redirect('/blogdisplay');
@@ -44,9 +49,10 @@ const bloggetdata = async (req, res) => {
 const datadisplay = async (req, res) => {
     const regster = await registerModel.find();
     const blogdata = await blogModel.find().populate('createdBy');
+    console.log(blogdata);
     res.render('blogdata', {
         data: blogdata,
-        resdata:regster,
+        resdata: regster,
         alldata: '',
         moment: moment
     });
@@ -67,7 +73,7 @@ const editblog = async (req, res) => {
         res.send('No Data Found');
     } else {
         console.log(alldata);
-        res.render('blog', { alldata: alldata,edit: 'edit' });
+        res.render('blog', { alldata: alldata, edit: 'edit', resdata: '' });
     }
 }
 
@@ -78,10 +84,15 @@ const details = async (req, res) => {
     res.render('detail', {
         data: blogdata,
         alldata: '',
-        resdata:'',
-        moment: moment
+        resdata: '',
+        moment: moment,
+        resdata: ''
     });
 }
 
+const userdata = async  (req, res) => {
+   res.render('user',{ alldata: '', edit: '' });
+}
 
-module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog,details }
+
+module.exports = { getdata, bloggetdata, datadisplay, datadelete, editblog, details,userdata }
