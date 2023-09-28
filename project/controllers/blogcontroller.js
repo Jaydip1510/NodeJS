@@ -58,6 +58,8 @@ const datadelete = async (req, res) => {
     res.redirect('/blogdisplay');
 }
 
+
+
 const editblog = async (req, res) => {
     let id = req.params.id;
     let alldata = await blogModel.findOne({ _id: id });
