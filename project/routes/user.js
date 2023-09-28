@@ -25,6 +25,7 @@ router.get('/detailblog/:id',details);
 
 router.get('/roledetail',roledata);
 router.post('/allroledata',bodyParser,roleinfo);
+router.post('/allroledata/:id',bodyParser,roleinfo);
 router.get('/allroledisplay',roledisplay);
 router.get('/alldelete/:id',roledelete);
 router.get('/editrole/:id',editrole);

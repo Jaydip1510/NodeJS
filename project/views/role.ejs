@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="/allroledata"  method="post">
+                    <form action="<%= edit == 'edit' ?'/allroledata/'+alldata._id:'/allroledata' %>"  method="post">
                         <div class="form-group row">
                             <label for="lname" class="col-md-3  control-label col-form-label">Role Name
                             </label>
