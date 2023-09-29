@@ -80,16 +80,15 @@ const roleinfo = async (req, res) => {
         
         const user_id = req.body.user_id;
         const role_id = req.body.role_id;
-        let chkData = await blogModel.findOne({ _id: id });
+        let chkData = await registerModel.findOne({ _id: user_id });
         if (chkData) {
-            await blogModel.updateOne({ _id: id }, {
+            await registerModel.updateOne({ _id: user_id }, {
                 $set: {
-                    user_id: user_id,
                     role_id: role_id,
                 }
             });
         }
     
-    res.redirect('/blogdisplay');
+    res.redirect('/allroledisplay');
      }
     module.exports = { roledata, roleinfo, roledisplay, roledelete, editrole, role2user, role2userdisplay,role2user_create_update }
