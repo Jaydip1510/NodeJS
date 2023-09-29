@@ -28,7 +28,7 @@
                                 class="form-control" id="lname" placeholder="Enter title">
                                 <option>Select Role</option>
                                 <% roleData.forEach(function(item){ %>
-                                    <option  value="<%= item._id %>"> <%= userData.role_id._id == item._id ? 'selected' : 'ok' %> <%= userData.role_id._id+item.rolename %></option>
+                                    <option <%= userData.role_id._id.toString() == item._id.toString() ? 'selected' : '' %> value="<%= item._id %>">  <%= item.rolename %></option>
                                 <% }) %>    
                                 </select>
                             </div>
