@@ -49,14 +49,14 @@
                                                    <a href="/detailblog/<%= item._id%>"><%= item.shortdescription %></a>
                                                 </td>
                                                 <td>
-                                                    <a href="/detailblog/<%= item._id%>"><%= item.createdOn %></a>
+                                                    <a href="/detailblog/<%= item._id%>"><%= moment(item.createdOn).format('DD-MMM-YYYY hh:mm A') %></a>
                                                 </td>
                                                 <td>
                                                     <a href="/detailblog/<%= item._id%>"><%= item.createdBy.username %></a>
                                                 </td>
                                                 
                                                 <td>
-                                                    <a href="/detailblog/<%= item._id%>"><%= item.updatedOn %></a>
+                                                    <a href="/detailblog/<%= item._id%>"><%= moment(item.updatedOn).format('DD-MMM-YYYY hh:mm A') %></a>
                                                 </td>
                                                 
                                                 <td>

@@ -18,8 +18,6 @@ const bloggetdata = async (req, res) => {
     const shortdescription = req.body.shortdescription;
     const longdescription = req.body.longdescription;
     const rid = req.cookies.user_id;
-    console.log(rid);
-
     if (id == -1) {
         const result = {
             title: title,
@@ -37,7 +35,9 @@ const bloggetdata = async (req, res) => {
                 $set: {
                     title: title,
                     shortdescription: shortdescription,
-                    longdescription: longdescription, createdBy: rid, updatedOn: Date.now()
+                    longdescription: longdescription,
+                    createdBy: rid,
+                    updatedOn: Date.now()
                 }
             });
         }
@@ -48,14 +48,19 @@ const bloggetdata = async (req, res) => {
 
 const datadisplay = async (req, res) => {
     const regster = await registerModel.find();
-    const blogdata = await blogModel.find().populate('createdBy');
-    console.log(blogdata);
-    res.render('blogdata', {
-        data: blogdata,
-        resdata: regster,
-        alldata: '',
-        moment: moment
-    });
+    try {
+        const blogdata = await blogModel.find().populate('createdBy');
+        console.log(blogdata);
+        res.render('blogdata', {
+            data: blogdata,
+            resdata: regster,
+            alldata: '',
+            moment: moment
+        });
+    } catch (err) {
+        console.log(`caught the error: ${err}`);
+    }
+
 }
 
 const datadelete = async (req, res) => {
