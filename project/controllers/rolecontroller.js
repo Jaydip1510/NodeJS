@@ -84,9 +84,8 @@ const roleinfo = async (req, res) => {
         if (chkData) {
             await blogModel.updateOne({ _id: id }, {
                 $set: {
-                    title: title,
-                    shortdescription: shortdescription,
-                    longdescription: longdescription, createdBy: rid, updatedOn: Date.now()
+                    user_id: user_id,
+                    role_id: role_id,
                 }
             });
         }
