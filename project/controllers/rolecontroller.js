@@ -68,9 +68,6 @@ const roleinfo = async (req, res) => {
         console.log(userData);
         userData.forEach(element => {
             console.log(element._id);
-            /*if (element._id == userData[0].role_id._id) {
-                console.log("Ok Matching user")
-            }*/
         });
         res.render('role2user',{ roleData: roleData, userData: userData[0] });
      }
