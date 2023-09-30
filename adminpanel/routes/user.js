@@ -37,7 +37,7 @@ const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
 //product controller
 
-const productdata = require("../controllers/productcontroller");
+const {productdata,allproductdata} = require("../controllers/productcontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -73,6 +73,7 @@ router.get('/filteralldata',getsearching)
 // product routes
 
 router.get('/product',productdata)
+router.post("/allproductdata",bodyParser,allproductdata)
 
 // other pages routes
 router.get('/chart', getchart);

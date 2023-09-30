@@ -9,4 +9,11 @@ const productdata = async(req,res) =>{
     res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product' });
 }
 
-module.exports = productdata
+const allproductdata = async(req, res) =>{
+    const pname = req.body.pname;
+    const price = req.body.price;
+    
+
+}
+
+module.exports = {productdata,allproductdata}
