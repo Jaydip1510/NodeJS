@@ -12,7 +12,7 @@ const productdata = async(req,res) =>{
 
 const allproductdata = async(req, res) =>{
     const cat_id = req.body.cat_id;
-    const sub_id = req.body.sub_id;
+    const sub_id = req.body.sub_cat_id;
     const pname = req.body.pname;
     const price = req.body.price;
     const description = req.body.detail;
