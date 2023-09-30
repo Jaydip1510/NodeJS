@@ -19,26 +19,43 @@ const allproductdata = async(req, res) =>{
     const price = req.body.price;
     const description = req.body.detail;
     var image = '';
-    if(req.file)
-    {
-        if(req.file.filename !== undefined)
+    const productinfo = await productModel.findOne()
+    if(productinfo){
+        const presult = await productModel.findByIdAndUpdate({ _id:id }, {
+            $set: {
+                cat_id: cat_id,
+                sub_id:sub_id,
+                pname:pname,
+                price:price,
+                description:description,
+                image:image
+            }
+        })
+    }else{
+        if(req.file)
         {
-            image = req.file.filename;
+            if(req.file.filename !== undefined)
+            {
+                image = req.file.filename;
+            }
         }
+        const result = {
+            pname: pname,
+            price: price,
+            description: description,
+            image: image,
+            cat_id:cat_id,
+            sub_id:sub_id,
+    
+        }
+        const savedata = new productModel(result);
+        await savedata.save();
+        res.redirect('/productDisplay');
+    
     }
-    const result = {
-        pname: pname,
-        price: price,
-        description: description,
-        image: image,
-        cat_id:cat_id,
-        sub_id:sub_id,
+    
 
-    }
-    const savedata = new productModel(result);
-    await savedata.save();
-    res.redirect('/productDisplay');
-
+   
 }
 
 // product display data in product table

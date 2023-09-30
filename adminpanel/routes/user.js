@@ -81,6 +81,7 @@ router.get('/filteralldata',getsearching)
 
 router.get('/product',productdata)
 router.post("/allproductdata",upload.single('image'),bodyParser,allproductdata)
+router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproductdata)
 router.get('/productDisplay',productDisplay)
 router.get('/productDelete/:id',productDelete)
 router.get('/productEdit/:id',productEdit);
