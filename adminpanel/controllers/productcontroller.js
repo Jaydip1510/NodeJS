@@ -7,7 +7,7 @@ app.use(express.json());
 
 const productdata = async(req,res) =>{
     const catdata = await categoryModel.find();
-    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata,  productedit:''});
+    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata,  productedit:'',pdata:''});
 }
 
 // insert product data
@@ -55,7 +55,8 @@ const productDisplay = async(req,res) =>{
         userimage: req.cookies.image,
         selected: 'subcat',
         productedit: '',
-        maincat:catData
+        maincat:catData,
+        pdata:''
 
     });
 
@@ -81,7 +82,7 @@ const productEdit = async(req,res) =>{
         selected: 'subcat',
         productedit: result,
         maincat:catData,
-        pdata:pdata
+        pdata:pdata[0]
         
     });
 }
