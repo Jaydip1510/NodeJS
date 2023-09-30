@@ -71,8 +71,9 @@ const productDelete = async (req,res) =>{
 const productEdit = async(req,res) =>{
     let id = req.params.id;
     result = await productModel.findOne({ _id: id });
+
     let catData = await categoryModel.find();
-    let pdata = await subcatModel.find({cat_id:cat_id}).populate("sub_id");
+    let pdata = await subcatModel.find({cat_id:result.cat_id}).populate("sub_id");
     console.log(result);
     res.render('product', {
         username: req.cookies.UserName,
