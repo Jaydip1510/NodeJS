@@ -31,6 +31,14 @@
                                         <select name="sub_cat_id" id="sub_cat_id" class="form-select mb-3"
                                             aria-label="Default select example">
                                             <option value="">select SubCategory</option>
+                                            <% pdata.forEach((i)=>{
+                                                var selected = ( pdata && i._id.toString() ==
+                                                pdata.sub_id.toString()) ? 'selected' : '';
+                                                %>
+                                                <option value="<%= i._id %>" <%=selected %>>
+                                                    <%= i.name %>
+                                                </option>
+                                                <% }) %>
                                         </select>
                                     </div>
                                     <div class="mb-3">

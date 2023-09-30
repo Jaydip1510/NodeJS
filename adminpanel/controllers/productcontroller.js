@@ -70,7 +70,7 @@ const productDelete = async (req,res) =>{
 const productEdit = async(req,res) =>{
     let id = req.params.id;
     let catData = await categoryModel.find();
-    let pdata = await productModel.find().populate(["cat_id","sub_id"]);
+    let pdata = await subcatModel.find({_id: id}).populate("sub_id");
     result = await productModel.findOne({ _id: id });
     console.log(result);
     res.render('product', {
@@ -80,7 +80,8 @@ const productEdit = async(req,res) =>{
         userimage: req.cookies.image,
         selected: 'subcat',
         productedit: result,
-        maincat:catData
+        maincat:catData,
+        pdata:pdata
         
     });
 }
