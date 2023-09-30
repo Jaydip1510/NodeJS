@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
         if(req.url == '/profile/data')//Profile data POST Call
         {
             return cb(null, "./upload/");
-        }else if(req.url == '/allproductdata')//Product data POST Call
+        }else if(req.url == '/allproductdata' || req.route.path == '/updateproductdata/:id')//Product data POST Call
         {
             return cb(null, "./product/");
         }
