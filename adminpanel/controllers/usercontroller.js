@@ -71,7 +71,7 @@ const getDashboard = async (req, res) => {
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
-    res.render('table', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'table' });
+    res.render('producttable', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'producttable' });
 }
 
 const getchart = async (req, res) => {

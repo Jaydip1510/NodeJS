@@ -10,6 +10,8 @@ const productdata = async(req,res) =>{
     res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata });
 }
 
+// insert product data
+
 const allproductdata = async(req, res) =>{
     const cat_id = req.body.cat_id;
     const sub_id = req.body.sub_cat_id;
@@ -35,8 +37,26 @@ const allproductdata = async(req, res) =>{
     }
     const savedata = new productModel(result);
     await savedata.save();
-    res.send('data inserted successfully');
+    res.redirect('/productDisplay');
 
 }
 
-module.exports = {productdata,allproductdata}
+// product display data in product table
+
+const productDisplay = async(req,res) =>{
+    let catData = await categoryModel.find();
+
+    const productdata = await productModel.find().populate(["cat_id","sub_id"]);
+    console.log(productdata);
+    res.render('producttable', {
+        username: req.cookies.UserName,
+        productdata: productdata,
+        catData: catData,
+        userimage: req.cookies.image,
+        selected: 'subcat',
+        subcatedit: '',
+    });
+
+}
+
+module.exports = {productdata,allproductdata,productDisplay}
