@@ -69,12 +69,12 @@ const productDelete = async (req,res) =>{
 }
 
 const productEdit = async(req,res) =>{
-    let id = req.params.id;
-    result = await productModel.findOne({ _id: id });
-
-    let catData = await categoryModel.find();
-    let pdata = await subcatModel.find({cat_id:result.cat_id}).populate("sub_id");
-    console.log(result);
+    const id = req.params.id;
+    const catData = await categoryModel.find();
+    const result = await productModel.findOne({ _id: id });
+    //console.log(result);
+    const subcatdata = await subcatModel.find({cat_id:result.cat_id}).populate("cat_id");
+    console.log(subcatdata);
     res.render('product', {
         username: req.cookies.UserName,
         productdata:'',
@@ -83,7 +83,7 @@ const productEdit = async(req,res) =>{
         selected: 'producttable',
         productedit: result,
         maincat:catData,
-        pdata:pdata
+        pdata:subcatdata
         
     });
 }
