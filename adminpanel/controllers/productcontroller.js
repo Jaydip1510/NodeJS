@@ -6,13 +6,31 @@ const app = express();
 app.use(express.json());
 
 const productdata = async(req,res) =>{
-    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product' });
+    const catdata = await categoryModel.find();
+    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata });
 }
 
 const allproductdata = async(req, res) =>{
     const pname = req.body.pname;
     const price = req.body.price;
-    const descriptinos = req.body.descriptinos;
+    const description = req.body.detail;
+    var image = '';
+    if(req.file)
+    {
+        if(req.file.filename !== undefined)
+        {
+            image = req.file.filename;
+        }
+    }
+    const result = {
+        pname: pname,
+        price: price,
+        description: description,
+        image: image
+    }
+    const savedata = new productModel(result);
+    await savedata.save();
+    res.send('data inserted successfully');
 
 }
 
