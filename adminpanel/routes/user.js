@@ -17,7 +17,14 @@ const fs = require("fs");
 let imgfilename = '';
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        return cb(null, "./upload/");
+        if(req.url == '/profile/data')//Profile data POST Call
+        {
+            return cb(null, "./upload/");
+        }else if(req.url == '/allproductdata')//Product data POST Call
+        {
+            return cb(null, "./product/");
+        }
+        
     },
     filename: function (req, file, cb) {
         imgfilename = Date.now() + file.originalname;
@@ -73,7 +80,7 @@ router.get('/filteralldata',getsearching)
 // product routes
 
 router.get('/product',productdata)
-router.post("/allproductdata",bodyParser,allproductdata)
+router.post("/allproductdata",upload.single('image'),bodyParser,allproductdata)
 
 // other pages routes
 router.get('/chart', getchart);

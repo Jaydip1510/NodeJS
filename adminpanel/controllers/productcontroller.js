@@ -12,7 +12,7 @@ const productdata = async(req,res) =>{
 const allproductdata = async(req, res) =>{
     const pname = req.body.pname;
     const price = req.body.price;
-    
+    const descriptinos = req.body.descriptinos;
 
 }
 
