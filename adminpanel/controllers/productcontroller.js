@@ -7,7 +7,7 @@ app.use(express.json());
 
 const productdata = async(req,res) =>{
     const catdata = await categoryModel.find();
-    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata });
+    res.render('product',{username: req.cookies.UserName,userimage:req.cookies.image, selected: 'product',maincat:catdata,  productedit:''});
 }
 
 // insert product data
@@ -32,7 +32,7 @@ const allproductdata = async(req, res) =>{
         description: description,
         image: image,
         cat_id:cat_id,
-        sub_id:sub_id
+        sub_id:sub_id,
 
     }
     const savedata = new productModel(result);
@@ -54,9 +54,35 @@ const productDisplay = async(req,res) =>{
         catData: catData,
         userimage: req.cookies.image,
         selected: 'subcat',
-        subcatedit: '',
+        productedit: '',
+        maincat:catData
+
     });
 
 }
 
-module.exports = {productdata,allproductdata,productDisplay}
+const productDelete = async (req,res) =>{
+    const id = req.params.id;
+    const data = await productModel.findByIdAndRemove({ _id: id });
+    res.redirect('/productDisplay');
+}
+
+const productEdit = async(req,res) =>{
+    let id = req.params.id;
+    let catData = await categoryModel.find();
+    let pdata = await productModel.find().populate(["cat_id","sub_id"]);
+    result = await productModel.findOne({ _id: id });
+    console.log(result);
+    res.render('product', {
+        username: req.cookies.UserName,
+        productdata:'',
+        catData: catData,
+        userimage: req.cookies.image,
+        selected: 'subcat',
+        productedit: result,
+        maincat:catData
+        
+    });
+}
+
+module.exports = {productdata,allproductdata,productDisplay,productDelete,productEdit}

@@ -50,9 +50,9 @@
                                                                 alt="<%= item.image %>">
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-success" href=''>Edit</a>
+                                                            <a class="btn btn-success" href="/productEdit/<%= item._id %>">Edit</a>
 
-                                                            <a class="btn btn-danger" href="" data-toggle="modal"
+                                                            <a class="btn btn-danger" href="/productDelete/<%= item._id %>" data-toggle="modal"
                                                                 data-target="#exampleModal">Delete
                                                             </a>
                                                         </td>
