@@ -53,7 +53,7 @@ const productDisplay = async(req,res) =>{
         productdata: productdata,
         catData: catData,
         userimage: req.cookies.image,
-        selected: 'subcat',
+        selected: 'producttable',
         productedit: '',
         maincat:catData,
         pdata:''
@@ -70,19 +70,19 @@ const productDelete = async (req,res) =>{
 
 const productEdit = async(req,res) =>{
     let id = req.params.id;
-    let catData = await categoryModel.find();
-    let pdata = await subcatModel.find({_id: id}).populate("sub_id");
     result = await productModel.findOne({ _id: id });
+    let catData = await categoryModel.find();
+    let pdata = await subcatModel.find({cat_id:cat_id}).populate("sub_id");
     console.log(result);
     res.render('product', {
         username: req.cookies.UserName,
         productdata:'',
         catData: catData,
         userimage: req.cookies.image,
-        selected: 'subcat',
+        selected: 'producttable',
         productedit: result,
         maincat:catData,
-        pdata:pdata[0]
+        pdata:pdata
         
     });
 }
