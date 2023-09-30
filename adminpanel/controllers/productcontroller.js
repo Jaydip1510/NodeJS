@@ -13,6 +13,7 @@ const productdata = async(req,res) =>{
 // insert product data
 
 const allproductdata = async(req, res) =>{
+    let  id = req.params.id;
     const cat_id = req.body.cat_id;
     const sub_id = req.body.sub_cat_id;
     const pname = req.body.pname;
@@ -50,10 +51,10 @@ const allproductdata = async(req, res) =>{
         }
         const savedata = new productModel(result);
         await savedata.save();
-        res.redirect('/productDisplay');
+        
     
     }
-    
+    res.redirect('/productDisplay');
 
    
 }
