@@ -11,6 +11,8 @@ const productdata = async(req,res) =>{
 }
 
 const allproductdata = async(req, res) =>{
+    const cat_id = req.body.cat_id;
+    const sub_id = req.body.sub_id;
     const pname = req.body.pname;
     const price = req.body.price;
     const description = req.body.detail;
@@ -26,7 +28,10 @@ const allproductdata = async(req, res) =>{
         pname: pname,
         price: price,
         description: description,
-        image: image
+        image: image,
+        cat_id:cat_id,
+        sub_id:sub_id
+
     }
     const savedata = new productModel(result);
     await savedata.save();
