@@ -34,12 +34,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // usercontroller
+
 const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
+
 //category controller
+
 const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
+
 //subcategory controller
+
 const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching} = require("../controllers/subcategory");
+
 // profile controller
+
 const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
 //product controller
@@ -59,34 +66,38 @@ router.post('/forgetotp',bodyParser,sendOtp)
 router.get('/admin', getDashboard);
 
 // category routes
-router.get('/category',categorydisplay);
-router.get('/catdelete/:uniqe_id',categorydelete);
-router.get('/catedit',categoryedit);
-router.post('/category/createsavedata', bodyParser, getcategorydata);
-router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);
+
+router.get('/category',categorydisplay);// category display in category table
+router.get('/catdelete/:uniqe_id',categorydelete);// category delete in category table
+router.get('/catedit',categoryedit);//category edit in category table
+router.post('/category/createsavedata', bodyParser, getcategorydata);// category insert in category table
+router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);// category update in category table
 
 
 //sub category routes
-router.post('/subcategory/savedata',bodyParser,subcategorydata);
-router.get('/subcategory/alldata', SubCatData);
-router.get('/subcat/deletedata/:id',subcatdelete);
-router.get('/subcategortedit/:id',subcatedit)
-router.post('/updatesubcategory/:id',bodyParser,updatesubcat)
+
+router.post('/subcategory/savedata',bodyParser,subcategorydata);// insert sub category in sub category table
+router.get('/subcategory/alldata', SubCatData);// display sub category in sub category table
+router.get('/subcat/deletedata/:id',subcatdelete);// delete sub category in sub category table
+router.get('/subcategortedit/:id',subcatedit)// edit click to edit button  sub category in sub category table
+router.post('/updatesubcategory/:id',bodyParser,updatesubcat)// update sub category in sub category table
 
 // filtering routes
-router.get('/getalldata',getCatdata);
-router.get('/filteralldata',getsearching)
+
+router.get('/getalldata',getCatdata);// filter sub category in sub category table
+router.get('/filteralldata',getsearching)// searching sub category in sub category table
 
 // product routes
 
-router.get('/product',productdata)
-router.post("/allproductdata",upload.single('image'),bodyParser,allproductdata)
-router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproductdata)
-router.get('/productDisplay',productDisplay)
-router.get('/productDelete/:id',productDelete)
-router.get('/productEdit/:id',productEdit);
+router.get('/product',productdata)// create product form
+router.post("/allproductdata",upload.single('image'),bodyParser,allproductdata)// insert product in product table
+router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproductdata)// update product in product table
+router.get('/productDisplay',productDisplay)// display product in product table
+router.get('/productDelete/:id',productDelete)// delete product in product table
+router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table
 
 // other pages routes
+
 router.get('/chart', getchart);
 router.get('/widget', getwidgets);
 router.get('/button', getbutton);
@@ -97,15 +108,12 @@ router.get('/usertable', gettable);
 //register routes
 router.post('/register', bodyParser, registerdata);
 
-//profile routes
-router.get('/profile', getprofile);
-
 //login routes
 router.post("/login",bodyParser,checkLogindata);
 
 // profile routes
-
-router.post('/profile/data',upload.single('image'),bodyParser,profiledata);
-router.get('/editprofile',profiledit);
+router.get('/profile', getprofile);
+router.post('/profile/data',upload.single('image'),bodyParser,profiledata);// profile insert 
+router.get('/editprofile',profiledit);// profile update
 
 module.exports = router;
