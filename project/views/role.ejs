@@ -22,7 +22,22 @@
                             <label for="lname" name="lblproductprice"
                                 class="col-md-3  control-label col-form-label">permission</label>
                             <div class="col-sm-9">
-                               
+                               <table>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>View</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <% allModules.forEach(function(item){ %>
+                                    <tr>
+                                        <th><%= item.module_name%></th>
+                                        <th><input type="checkbox" <%= alldata.permission[item._id].view == 1 ? 'checked': '' %>  name="view_<%= item._id%>" /></th>
+                                        <th><input type="checkbox" <%= alldata.permission[item._id].edit == 1 ? 'checked': '' %> name="edit_<%= item._id%>" /></th>
+                                        <th><input type="checkbox" <%= alldata.permission[item._id].delete == 1 ? 'checked': '' %> name="delete_<%= item._id%>" /></th>
+                                    </tr> 
+                                <% }) %>
+                               </table>
                             </div>
                         </div>
                         <div class="border-top">
