@@ -2,6 +2,7 @@ const express = require('express');
 const body = require('body-parser');
 const bodyParser = body.urlencoded({ extended: false });
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const maindata =  async ()=>{
     const url = "mongodb://127.0.0.1:27017/adminpanel";
     await mongoose.connect(url);
@@ -49,6 +50,8 @@ const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatda
 
 const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
+const verifyToken = require('../models/jwtconfing');
+
 //product controller
 
 const {productdata,allproductdata,productDisplay,productDelete,productEdit} = require("../controllers/productcontroller");
@@ -67,16 +70,16 @@ router.get('/admin', getDashboard);
 
 // category routes
 
-router.get('/category',categorydisplay);// category display in category table
+router.get('/category',verifyToken,categorydisplay);// category display in category table
 router.get('/catdelete/:uniqe_id',categorydelete);// category delete in category table
 router.get('/catedit',categoryedit);//category edit in category table
-router.post('/category/createsavedata', bodyParser, getcategorydata);// category insert in category table
+router.post('/category/createsavedata', bodyParser,verifyToken, getcategorydata);// category insert in category table
 router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);// category update in category table
 
 
 //sub category routes
 
-router.post('/subcategory/savedata',bodyParser,subcategorydata);// insert sub category in sub category table
+router.post('/subcategory/savedata',bodyParser,verifyToken,subcategorydata);// insert sub category in sub category table
 router.get('/subcategory/alldata', SubCatData);// display sub category in sub category table
 router.get('/subcat/deletedata/:id',subcatdelete);// delete sub category in sub category table
 router.get('/subcategortedit/:id',subcatedit)// edit click to edit button  sub category in sub category table
