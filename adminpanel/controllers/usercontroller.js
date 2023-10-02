@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const saltRounds = 10;
 
+const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const secret_key = "secret1234";
 //Encrypting text
