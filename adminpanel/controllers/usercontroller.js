@@ -8,6 +8,8 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const secret_key = "secret1234";
+const localStorage = require('localStorage');
+
 //Encrypting text
 const encrypt_text = async (plainText, password) => {
     try {

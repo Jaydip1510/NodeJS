@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
          pname: String,
          price: Number,
          description: String,
-         image: String,
+         image: Array,
          cat_id:{type: mongoose.Schema.Types.ObjectId, ref:'categorydata'},
          sub_id:{type: mongoose.Schema.Types.ObjectId, ref:'subcategory'}
    });

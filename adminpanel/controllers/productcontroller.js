@@ -19,11 +19,14 @@ const allproductdata = async (req, res) => {
     const pname = req.body.pname;
     const price = req.body.price;
     const description = req.body.detail;
-    var image = '';
-    if (req.file) {
-        if (req.file.filename !== undefined) {
+    var image = [];
+    if (req.files !== undefined) {
+        /*if (req.file.filename !== undefined) {
             image = req.file.filename;
-        }
+        }*/
+        req.files.forEach(element => {
+            image.push(element.filename);
+        });
     }
     const productinfo = await productModel.findOne({ _id: id });
     console.log(productinfo);
