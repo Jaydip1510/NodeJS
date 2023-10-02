@@ -131,6 +131,7 @@ const registerdata = async (req, res) => {
             email: email,
             password: crypted,
             username: username,
+            token :''
         });
         const mailInfo = {
             from: "makwanajaydip1510@gmail.com",
@@ -139,10 +140,17 @@ const registerdata = async (req, res) => {
             text: "Regidtration",
             html: "<a>click here registere"
         }
-        await transpoter.sendMail(mailInfo);
-        const abc = await res2.save()
-        console.log("data saved" + abc);
-        res.redirect('login');
+        // await transpoter.sendMail(mailInfo);
+
+          await res2.save();
+          var token = jwt.sign({res2:res2},secret_key)
+          console.log("generated token");
+          console.log(token);
+          let _id = res2._id;
+          console.log(_id);
+          const result = await registerModel.findByIdAndUpdate({_id},{$set:{token:token}})
+          console.log(result);
+          res.redirect('/login');
     }
 
 }

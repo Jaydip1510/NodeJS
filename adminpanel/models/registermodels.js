@@ -4,11 +4,7 @@ const registerSchema = new mongoose.Schema({
     email:{ type:String, required:true, unique:true },
     password:String,
     username:String,
-    first_name:String,
-    last_name:String,
-    gender:String,
-    mobile:String,
-    location:String,
+    token:String,
     created_on:{ type: Date, default: Date.now },
     updated_on:{ type: Date, default: Date.now },
 });
