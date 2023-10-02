@@ -54,7 +54,7 @@ const verifyToken = require('../models/jwtconfing');
 
 //product controller
 
-const {productdata,allproductdata,productDisplay,productDelete,productEdit} = require("../controllers/productcontroller");
+const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail} = require("../controllers/productcontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -88,7 +88,8 @@ router.post('/updatesubcategory/:id',bodyParser,updatesubcat)// update sub categ
 // filtering routes
 
 router.get('/getalldata',getCatdata);// filter sub category in sub category table
-router.get('/filteralldata',getsearching)// searching sub category in sub category table
+router.get('/filteralldata',getsearching);// searching sub category in sub category table
+router.get('/ajax_productdetail',ajax_productdetail)
 
 // product routes
 

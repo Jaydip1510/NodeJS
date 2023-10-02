@@ -46,14 +46,18 @@
                                                             <%= item.description %>
                                                         </td>
                                                         <td>
-                                                            <img src="/product/<%= item.image %>" width="70" height="70"
-                                                                alt="<%= item.image %>">
+                                                            <a data-bs-toggle="modal" style="cursor: pointer;"
+                                                                data-bs-target="#staticBackdrop"><img
+                                                                    src="/product/<%= item.image[0] %>" width="70"
+                                                                    height="70" alt="<%= item.image %>"></a>
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-success" href="/productEdit/<%= item._id %>">Edit</a>
+                                                            <a class="btn btn-success"
+                                                                href="/productEdit/<%= item._id %>">Edit</a>
 
-                                                            <a class="btn btn-danger" href="/productDelete/<%= item._id %>" data-toggle="modal"
-                                                                data-target="#exampleModal">Delete
+                                                            <a class="btn btn-danger"
+                                                                href="/productDelete/<%= item._id %>"
+                                                                data-toggle="modal" data-target="#exampleModal">Delete
                                                             </a>
                                                         </td>
 
@@ -68,6 +72,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary rounded-top p-4">
                         <div class="row">
@@ -83,6 +89,64 @@
                     </div>
                 </div>
         </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: black;"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="carouselExampleFade" class="carousel slide carousel-fade">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="./product/1696070956221grayshirt.jpg" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const myModalEl = document.getElementById('staticBackdrop')
+            myModalEl.addEventListener('show.bs.modal', event => {
+                const productmodel = document.getElementById('carouselExampleFade');
+                productmodel.addEventListener('click', () => {
+                    fetch(`/ajax_productdetail?result=${result}`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            let option = ``;
+                            data.forEach((e) => {
+                                option += `<option value="${e._id}">${e.name}</option>`;
+                            })
+
+                            $("#sub_cat_id").empty().append(option);
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                    // do something...
+                })
+            });
+        </script>
         <%- include('./partials/footer') %>
 
             <!-- Table End -->

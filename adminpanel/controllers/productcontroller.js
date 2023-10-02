@@ -110,4 +110,9 @@ const productEdit = async (req, res) => {
     });
 }
 
-module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit }
+const ajax_productdetail = async (req, res) => {
+    let id = req.params.id;
+    const result = await productModel.findOne({_id:id});
+}
+
+module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail }
