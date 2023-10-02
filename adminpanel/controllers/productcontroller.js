@@ -111,8 +111,9 @@ const productEdit = async (req, res) => {
 }
 
 const ajax_productdetail = async (req, res) => {
-    let id = req.params.id;
-    const result = await productModel.findOne({_id:id});
+    let id = req.query.product_id;
+    const result = await productModel.findOne({_id: id});
+    res.json(result);
 }
 
 module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail }

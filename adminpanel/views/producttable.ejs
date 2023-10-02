@@ -47,6 +47,8 @@
                                                         </td>
                                                         <td>
                                                             <a data-bs-toggle="modal" style="cursor: pointer;"
+                                                            data-product="<%= item._id %>"
+                                                            data-product_name="<%= item.pname %>"
                                                                 data-bs-target="#staticBackdrop"><img
                                                                     src="/product/<%= item.image[0] %>" width="70"
                                                                     height="70" alt="<%= item.image %>"></a>
@@ -94,21 +96,12 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: black;"></h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel_title" style="color: black;"></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div id="carouselExampleFade" class="carousel slide carousel-fade">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="./product/1696070956221grayshirt.jpg" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                </div>
+                            <div class="carousel-inner" id="carouselImages">
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
                                 data-bs-slide="prev">
@@ -128,24 +121,29 @@
         <script>
             const myModalEl = document.getElementById('staticBackdrop')
             myModalEl.addEventListener('show.bs.modal', event => {
-                const productmodel = document.getElementById('carouselExampleFade');
-                productmodel.addEventListener('click', () => {
-                    fetch(`/ajax_productdetail?result=${result}`)
+                var product      = $(event.relatedTarget).data('product'),
+                    product_name =  $(event.relatedTarget).data('product_name');
+                   $('#staticBackdropLabel_title').html(product_name);
+                    fetch(`/ajax_productdetail?product_id=${product}`)
                         .then((response) => response.json())
                         .then((data) => {
-                            let option = ``;
-                            data.forEach((e) => {
-                                option += `<option value="${e._id}">${e.name}</option>`;
+                            console.log(data);
+                            let img_html = ``;
+                            data.image.forEach((e,i) => {
+                                let active = i == 0 ? 'active' : '';
+                                img_html += `<div class="carousel-item ${active}">
+                                    <img src="./product/${e}" alt="...">
+                                </div>`;
                             })
 
-                            $("#sub_cat_id").empty().append(option);
+                          $("#carouselImages").html(img_html);
                         })
                         .catch((error) => {
                             console.error('Error:', error);
                         });
-                    // do something...
+                    
                 })
-            });
+           
         </script>
         <%- include('./partials/footer') %>
 
