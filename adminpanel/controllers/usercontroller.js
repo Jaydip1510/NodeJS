@@ -183,10 +183,12 @@ const checkLogindata = async (req, res) => {
             emsg_token = req.flash('emsg_token');
             res.render("login", { message: emsg_token, message_class: 'alert-danger' });
         } else {
+            localStorage.setItem('userToken',JSON.stringify(userdata.token));
+            console.log(userdata.token);
             res.cookie('UserName', userdata.username);
             res.cookie('Useremail', userdata.email);
-           localStorage.setItem('userToken',JSON.stringify(userdata.token));
            
+
             let read = await profileModel.findOne({email: userdata.email});
             if(read){
                 res.cookie('image', read.image);
