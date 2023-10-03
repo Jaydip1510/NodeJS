@@ -185,9 +185,8 @@ const checkLogindata = async (req, res) => {
         } else {
             res.cookie('UserName', userdata.username);
             res.cookie('Useremail', userdata.email);
-          const result = localStorage.setItem('userToken',JSON.stringify(userdata.token));
-          
-          console.log(result);
+           localStorage.setItem('userToken',JSON.stringify(userdata.token));
+           
             let read = await profileModel.findOne({email: userdata.email});
             if(read){
                 res.cookie('image', read.image);

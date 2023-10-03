@@ -131,8 +131,9 @@
                             let img_html = ``;
                             data.image.forEach((e,i) => {
                                 let active = i == 0 ? 'active' : '';
-                                img_html += `<div class="carousel-item ${active}">
-                                    <img src="./product/${e}" alt="...">
+                                img_html += `<div class="carousel-item ${active}" style="justify-content: center; align-items:center">
+                                    <img src="./product/${e}" alt="..." style=" max-width: 100%;
+  height: 100%; ">
                                 </div>`;
                             })
 

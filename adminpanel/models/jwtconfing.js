@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
 const secretkey = 'raj123';
-const verifyToken = (token) =>{
+const verifyToken = (req,res,next) =>{
+    let token = JSON.parse(localStorage.getItem('userToken'));
     jwt.verify(token,secretkey, function(err,decoded){
-        console.log(decoded.foo);
+        if(err){
+            res.redirect('/admin')
+        }else{
+            next()
+        }
     });
 }
  
