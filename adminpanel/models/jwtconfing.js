@@ -1,15 +1,23 @@
 const jwt = require('jsonwebtoken');
 const localStorage = require('localStorage');
-const secretkey = 'raj123';
+const secretkey = 'secret1234';
 const verifyToken = (req,res,next) =>{
-    let token = JSON.parse(localStorage.getItem('userToken'));
-    jwt.verify(token,secretkey, function(err,decoded){
-        if(err){
-            res.redirect('/admin')
-        }else{
-            next();
-        }
-    });
+    let t = localStorage.getItem('userToken');
+    // console.log("t is "+t);
+    if(t != 'undefined'){
+        let token = JSON.parse(t);
+        jwt.verify(token,secretkey, function(err,decoded){
+            if(err){
+                console.log(err);
+                res.redirect('/')
+            }else{
+                next();
+            }
+        });
+    } else {
+        res.redirect('/')
+    }
+    
 }
  
 module.exports = verifyToken;

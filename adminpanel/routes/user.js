@@ -72,14 +72,14 @@ router.get('/admin', getDashboard);
 router.get('/category',verifyToken,categorydisplay);// category display in category table
 router.get('/catdelete/:uniqe_id',categorydelete);// category delete in category table
 router.get('/catedit',categoryedit);//category edit in category table
-router.post('/category/createsavedata', bodyParser,verifyToken, getcategorydata);// category insert in category table
-router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);// category update in category table
+router.post('/category/createsavedata', bodyParser, getcategorydata);// category insert in category table
+router.post('/category/editsavedata/:unique_id',verifyToken, bodyParser, getcategorydata);// category update in category table
 
 
 //sub category routes
 
-router.post('/subcategory/savedata',bodyParser,verifyToken,subcategorydata);// insert sub category in sub category table
-router.get('/subcategory/alldata', SubCatData);// display sub category in sub category table
+router.post('/subcategory/savedata',verifyToken,bodyParser,subcategorydata);// insert sub category in sub category table
+router.get('/subcategory/alldata', verifyToken,SubCatData);// display sub category in sub category table
 router.get('/subcat/deletedata/:id',subcatdelete);// delete sub category in sub category table
 router.get('/subcategortedit/:id',subcatedit)// edit click to edit button  sub category in sub category table
 router.post('/updatesubcategory/:id',bodyParser,updatesubcat)// update sub category in sub category table
