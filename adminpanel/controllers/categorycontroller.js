@@ -1,4 +1,5 @@
 let categoryModel = require('../models/categorymodel');
+const subcatModel = require('../models/subcategorymodel')
 const express = require('express');
 const app = express();
 
@@ -74,19 +75,26 @@ const categorydisplay = async (req, res) => {
 
 const categorydelete = async (req, res) => {
     let id = req.params.uniqe_id;
-    await categoryModel.deleteOne({ _id: id });
-    req.flash('msg_category', 'data deleted successfully');
-    req.flash('msg_class', 'alert-success');
-    res.redirect('/category');
+    const subcat = await subcatModel.find({cat_id:id});
+    if (subcat) {
+        req.flash('msg_category', 'category has subcategory so first delete it');
+        req.flash('msg_class', 'alert-success');
+        res.redirect('/category');
+    }else{
+        await categoryModel.deleteOne({ _id: id });
+        req.flash('msg_category', 'data deleted successfully');
+        req.flash('msg_class', 'alert-success');
+        res.redirect('/category');
+
+    }
+    
 }
 
 // update category
 
 const categoryedit = async (req, res) => {
     let id = req.query.id;
-    console.log(id);
     let data = await categoryModel.findOne({ _id: id });
-    console.log(data);
     const categoryData = await categoryModel.find({})
     res.render('category', {
         data: data,

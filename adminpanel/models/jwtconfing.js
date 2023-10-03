@@ -3,7 +3,6 @@ const localStorage = require('localStorage');
 const secretkey = 'secret1234';
 const verifyToken = (req,res,next) =>{
     let t = localStorage.getItem('userToken');
-    // console.log("t is "+t);
     if(t != 'undefined'){
         let token = JSON.parse(t);
         jwt.verify(token,secretkey, function(err,decoded){
