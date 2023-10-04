@@ -118,8 +118,13 @@ const ajax_productdetail = async (req, res) => {
 }
 
 const productUpdate =  async(req,res) =>{
+    const product_id = req.query.id;
+    const imageidx = req.params.image_idx;
+ 
+    var orgdata = await productModel.findOne({_id: product_id});
 
-    const product_data = await productModel.findOne({_id:id});
+
+    const product_data = await productModel.updateOne({_id:id});
 }
 
 module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productUpdate }

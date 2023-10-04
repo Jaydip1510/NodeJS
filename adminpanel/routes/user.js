@@ -129,6 +129,6 @@ router.post("/login",bodyParser,checkLogindata);
 // profile routes
 router.get('/profile', getprofile);
 router.post('/profile/data',upload.single('image'),bodyParser,profiledata);// profile insert 
-router.get('/editprofile',profiledit);// profile update
+router.get('/productImageDelete/:id/:image_idx',profiledit);// profile update
 
 module.exports = router;

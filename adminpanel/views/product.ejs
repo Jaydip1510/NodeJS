@@ -63,7 +63,7 @@
                                         <% productedit.image.forEach((item)=>{ %>
                                             <img src="/product/<%= item %>" width="70"height="70" alt="<%= item.image %>">
                                             <a 
-                                                                href="/productDelete/<%= item._id %>"
+                                                                href="/productImageDelete/<%= productedit._id %>/<%= productedit.image %>"
                                                                 data-toggle="modal" data-target="#exampleModal">Delete
                                                             </a>
                                        <% }) %>
