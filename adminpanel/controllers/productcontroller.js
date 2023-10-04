@@ -127,7 +127,7 @@ const productImageDelete =  async(req,res) =>{
     orgdata.image.splice(imageidx,1);
     console.log('After update');
     console.log(orgdata);    
-    const product_data = await productModel.updateOne({_id:id});
+    const product_data = await productModel.updateOne({_id:product_id},{$set:{imageidx:imageidx}});
 }
 
 module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productImageDelete }
