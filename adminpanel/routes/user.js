@@ -55,7 +55,7 @@ const verifyToken = require('../models/jwtconfing');
 
 //product controller
 
-const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail} = require("../controllers/productcontroller");
+const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail,productUpdate} = require("../controllers/productcontroller");
 
 // API controller
 
@@ -104,7 +104,7 @@ router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproduc
 router.get('/productDisplay',productDisplay)// display product in product table
 router.get('/productDelete/:id',productDelete)// delete product in product table
 router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table
-
+router.get('/productupdate/:id',productUpdate);// update button click to display data in textbox from
 // API Routes
 
 router.post('/categorydata',bodyParser,api_category);

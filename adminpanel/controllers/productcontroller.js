@@ -93,8 +93,9 @@ const productDelete = async (req, res) => {
 const productEdit = async (req, res) => {
     const id = req.params.id;
     const catData = await categoryModel.find();
-    const result = await productModel.findOne({ _id: id });
-    //console.log(result);
+    const result = await productModel.findOne({ _id: id});
+
+    console.log(result);
     const subcatdata = await subcatModel.find({ cat_id: result.cat_id }).populate("cat_id");
     console.log(subcatdata);
     res.render('product', {
@@ -116,4 +117,9 @@ const ajax_productdetail = async (req, res) => {
     res.json(result);
 }
 
-module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail }
+const productUpdate =  async(req,res) =>{
+
+    
+}
+
+module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productUpdate }
