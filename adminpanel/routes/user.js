@@ -49,11 +49,17 @@ const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatda
 
 const {profiledata,profiledit} = require("../controllers/profilecontroller");
 
+// jwt controller
+
 const verifyToken = require('../models/jwtconfing');
 
 //product controller
 
 const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail} = require("../controllers/productcontroller");
+
+// API controller
+
+const api_category =require("../controllers/apicontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -98,6 +104,11 @@ router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproduc
 router.get('/productDisplay',productDisplay)// display product in product table
 router.get('/productDelete/:id',productDelete)// delete product in product table
 router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table
+
+// API Routes
+
+router.post('/categorydata',bodyParser,api_category);
+
 
 // other pages routes
 
