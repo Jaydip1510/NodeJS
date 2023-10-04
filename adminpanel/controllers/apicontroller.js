@@ -14,8 +14,8 @@ const api_category = async(req,res) =>{
 }
 
 const api_categorydisplay = async(req,res) =>{
-    const apicategorydata = apicategory.find({});
-    res.json(apicategorydata);
+    const apicategorydata = await apicategory.find({});
+     res.json(apicategorydata);
 }
 
 module.exports = {api_category,api_categorydisplay}
