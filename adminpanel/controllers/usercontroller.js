@@ -183,7 +183,7 @@ const checkLogindata = async (req, res) => {
             emsg_token = req.flash('emsg_token');
             res.render("login", { message: emsg_token, message_class: 'alert-danger' });
         } else {
-            console.log(userdata.token);
+
             localStorage.setItem('userToken',JSON.stringify(userdata.token));
             
             res.cookie('UserName', userdata.username);

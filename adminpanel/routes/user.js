@@ -78,7 +78,7 @@ router.post('/category/editsavedata/:unique_id',verifyToken, bodyParser, getcate
 
 //sub category routes
 
-router.post('/subcategory/savedata',verifyToken,bodyParser,subcategorydata);// insert sub category in sub category table
+router.post('/subcategory/savedata',bodyParser,subcategorydata);// insert sub category in sub category table
 router.get('/subcategory/alldata', verifyToken,SubCatData);// display sub category in sub category table
 router.get('/subcat/deletedata/:id',subcatdelete);// delete sub category in sub category table
 router.get('/subcategortedit/:id',subcatedit)// edit click to edit button  sub category in sub category table
