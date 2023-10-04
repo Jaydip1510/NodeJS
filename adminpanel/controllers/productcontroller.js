@@ -117,14 +117,17 @@ const ajax_productdetail = async (req, res) => {
     res.json(result);
 }
 
-const productUpdate =  async(req,res) =>{
-    const product_id = req.query.id;
+const productImageDelete =  async(req,res) =>{
+    const product_id = req.params.id;
     const imageidx = req.params.image_idx;
  
     var orgdata = await productModel.findOne({_id: product_id});
-
-
+    console.log('Before update');
+    console.log(orgdata);
+    orgdata.image.splice(imageidx,1);
+    console.log('After update');
+    console.log(orgdata);    
     const product_data = await productModel.updateOne({_id:id});
 }
 
-module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productUpdate }
+module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productImageDelete }
