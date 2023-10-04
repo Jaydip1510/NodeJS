@@ -127,7 +127,6 @@ const api_categorydelete = async(req,res) =>{
     const id = req.params.id;
     const data = await apicategory.findByIdAndRemove({ _id: id });
     res.json(data);
-    res.send("data deleted successfully");
 }
 
 module.exports = {
