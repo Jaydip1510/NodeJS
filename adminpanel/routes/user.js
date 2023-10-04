@@ -100,7 +100,7 @@ router.get('/ajax_productdetail',ajax_productdetail)
 
 router.get('/product',productdata)// create product form
 router.post("/allproductdata",upload.array('image'),bodyParser,allproductdata)// insert product in product table
-router.post("/updateproductdata/:id",upload.single('image'),bodyParser,allproductdata)// update product in product table
+router.post("/updateproductdata/:id",upload.array('image'),bodyParser,allproductdata)// update product in product table
 router.get('/productDisplay',productDisplay)// display product in product table
 router.get('/productDelete/:id',productDelete)// delete product in product table
 router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table

@@ -31,7 +31,15 @@ const allproductdata = async (req, res) => {
     const productinfo = await productModel.findOne({ _id: id });
     console.log(productinfo);
     if (productinfo) {
-        image = image == '' ? productinfo.image : image;
+        //image = image == '' ? productinfo.image : image;
+        if(image.length > 0) {
+            if(productinfo.image.length > 0) {
+                image = image.concat(productinfo.image); 
+            }
+        }else
+        {
+            image = productinfo.image; 
+        }
         const presult = await productModel.findByIdAndUpdate({ _id: id }, {
             $set: {
                 cat_id: cat_id,
@@ -122,12 +130,9 @@ const productImageDelete =  async(req,res) =>{
     const imageidx = req.params.image_idx;
  
     var orgdata = await productModel.findOne({_id: product_id});
-    console.log('Before update');
-    console.log(orgdata);
     orgdata.image.splice(imageidx,1);
-    console.log('After update');
-    console.log(orgdata);    
-    const product_data = await productModel.updateOne({_id:product_id},{$set:{imageidx:imageidx}});
+    const product_data = await productModel.updateOne({_id:product_id},{$set:{image:orgdata.image}});
+    res.redirect('/productEdit/'+product_id);
 }
 
 module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productImageDelete }
