@@ -39,7 +39,7 @@ const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidge
 
 //category controller
 
-const {getcategorydata,categorydisplay,categorydelete,categoryedit} = require("../controllers/categorycontroller");
+const {getcategorydata,categorydisplay,categorydelete,categoryedit,api_category,api_categorydisplay,api_categorydelete} = require("../controllers/categorycontroller");
 
 //subcategory controller
 
@@ -59,7 +59,7 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 // API controller
 
-const {api_category,api_categorydisplay} =require("../controllers/apicontroller");
+
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -109,7 +109,8 @@ router.get('/productImageDelete/:id/:image_idx',productImageDelete);// update bu
 // API Routes
 
 router.post('/categorydata',bodyParser,api_category);
-router.get('/apicategorydisplay',api_categorydisplay)
+router.get('/apicategorydisplay',api_categorydisplay);
+router.delete('/apicategorydelete/:id',api_categorydelete);
 
 // other pages routes
 
