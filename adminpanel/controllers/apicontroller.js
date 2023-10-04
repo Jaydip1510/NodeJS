@@ -10,9 +10,12 @@ const api_category = async(req,res) =>{
     }
     const savedata = new apicategory(result);
     let categorydata =  await savedata.save();
-    res.json(categorydata);
-    
-    
+    res.json(categorydata);  
 }
 
-module.exports = api_category
+const api_categorydisplay = async(req,res) =>{
+    const apicategorydata = apicategory.find({});
+    res.json(apicategorydata);
+}
+
+module.exports = {api_category,api_categorydisplay}

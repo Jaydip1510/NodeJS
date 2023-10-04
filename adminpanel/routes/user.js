@@ -59,7 +59,7 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 // API controller
 
-const api_category =require("../controllers/apicontroller");
+const {api_category,api_categorydisplay} =require("../controllers/apicontroller");
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{
@@ -105,10 +105,11 @@ router.get('/productDisplay',productDisplay)// display product in product table
 router.get('/productDelete/:id',productDelete)// delete product in product table
 router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table
 router.get('/productupdate/:id',productUpdate);// update button click to display data in textbox from
+
 // API Routes
 
 router.post('/categorydata',bodyParser,api_category);
-
+router.get('/apicategorydisplay',api_categorydisplay)
 
 // other pages routes
 

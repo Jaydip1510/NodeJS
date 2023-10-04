@@ -5,5 +5,5 @@ const apicategorySchema = new mongoose.Schema({
 
 });
 
-const Apicategory = new mongoose.model('apicategory',apicategorySchema);
-module.exports = Apicategory;
+const apicategory = new mongoose.model('apicategory',apicategorySchema);
+module.exports = apicategory;
