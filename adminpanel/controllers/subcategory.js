@@ -124,6 +124,22 @@ const subcatedit = async (req, res) => {
     });
 }
 
+
+// Api subcategory insert data
+
+const api_subcategory = async (req,res) =>{
+    const name = req.body.name;
+    const cat_id = req.body.cat_id;
+    const subresult = {
+        name: name,
+        cat_id: cat_id,
+    }
+    const savedata = new subcatModel(subresult);
+    let subcategorydata =  await savedata.save();
+    res.json(subcategorydata); 
+    console.log("data inserted successfully"); 
+}
+
 module.exports = {
     subcategorydata,
     SubCatData,
@@ -131,5 +147,6 @@ module.exports = {
     subcatedit,
     updatesubcat,
     getCatdata,
-    getsearching
+    getsearching,
+    api_subcategory
 }

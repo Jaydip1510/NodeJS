@@ -43,7 +43,7 @@ const {getcategorydata,categorydisplay,categorydelete,categoryedit,api_category,
 
 //subcategory controller
 
-const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching} = require("../controllers/subcategory");
+const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching,api_subcategory} = require("../controllers/subcategory");
 
 // profile controller
 
@@ -106,13 +106,16 @@ router.get('/productDelete/:id',productDelete)// delete product in product table
 router.get('/productEdit/:id',productEdit);// edit button click to display data in textbox from product table
 router.get('/productImageDelete/:id/:image_idx',productImageDelete);// update button click to display data in textbox from
 
-// API Routes
+// API Category Routes
 
 router.post('/categorydata',bodyParser,api_category);
 router.get('/apicategorydisplay',api_categorydisplay);
 router.delete('/apicategorydelete/:id',api_categorydelete);
 router.get('/apicategoryedit/:id',api_categoryedit);
 router.patch('/apicategoryupdate/:id',api_categoryupdate);
+
+// API Subcategory Routes
+router.post('/apisubcategory',api_subcategory)
 
 // other pages routes
 
