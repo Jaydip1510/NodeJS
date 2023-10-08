@@ -43,7 +43,7 @@ const {getcategorydata,categorydisplay,categorydelete,categoryedit,api_category,
 
 //subcategory controller
 
-const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching,api_subcategory} = require("../controllers/subcategory");
+const {subcategorydata, SubCatData,subcatdelete,subcatedit,updatesubcat,getCatdata,getsearching,api_subcategory,api_subcategorydisplay,api_subcategorydelete} = require("../controllers/subcategory");
 
 // profile controller
 
@@ -116,6 +116,8 @@ router.patch('/apicategoryupdate/:id',api_categoryupdate);
 
 // API Subcategory Routes
 router.post('/apisubcategory',api_subcategory)
+router.get('/apisubcategorydisplay',api_subcategorydisplay)
+router.delete('/apisubcategorydelete/:id',api_subcategorydelete)
 
 // other pages routes
 

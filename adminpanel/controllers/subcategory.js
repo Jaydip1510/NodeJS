@@ -136,8 +136,25 @@ const api_subcategory = async (req,res) =>{
     }
     const savedata = new subcatModel(subresult);
     let subcategorydata =  await savedata.save();
+    console.log("data inserted successfully");
     res.json(subcategorydata); 
-    console.log("data inserted successfully"); 
+     
+}
+
+// subcategory display for API
+
+const api_subcategorydisplay = async(req,res) =>{
+  const subcatdata = await subcatModel.find({});
+  res.json(subcatdata);
+}
+
+// subcategory delete for API
+
+const api_subcategorydelete = async(req,res) =>{
+   const id = req.params.id;
+   const subdata = await subcatModel.deleteOne({_id:id});
+   console.log("data deleted for subcategory");
+   res.json(subdata);
 }
 
 module.exports = {
@@ -148,5 +165,7 @@ module.exports = {
     updatesubcat,
     getCatdata,
     getsearching,
-    api_subcategory
+    api_subcategory,
+    api_subcategorydisplay,
+    api_subcategorydelete
 }
