@@ -1,6 +1,5 @@
 let categoryModel = require('../models/categorymodel');
 const subcatModel = require('../models/subcategorymodel')
-const apicategory = require('../models/apicategory');
 const express = require('express');
 const app = express();
 
@@ -107,26 +106,40 @@ const categoryedit = async (req, res) => {
     });
 };
 
+// insert category from API
+
 const api_category = async(req,res) =>{
     const categoryname = req.body.categoryname;
     const result = {
     
         categoryname: categoryname
     }
-    const savedata = new apicategory(result);
+    const savedata = new categoryModel(result);
     let categorydata =  await savedata.save();
     res.json(categorydata);  
 }
 
+//display category data from API
+
 const api_categorydisplay = async(req,res) =>{
-    const apicategorydata = await apicategory.find({});
+    const apicategorydata = await categoryModel.find({});
      res.json(apicategorydata);
 }
 
+// delete category data from API
+
 const api_categorydelete = async(req,res) =>{
     const id = req.params.id;
-    const data = await apicategory.findByIdAndRemove({ _id: id });
+    const data = await categoryModel.deleteOne({ _id: id });
     res.json(data);
+}
+
+// update categor from API
+
+const api_categoryedit = async (req,res) =>{
+    const id = req.params.id;
+    let  catedit = await categoryModel.findOne({id:id});
+    res.json(catedit);
 }
 
 module.exports = {
@@ -136,7 +149,8 @@ module.exports = {
     categoryedit,
     api_category,
     api_categorydisplay,
-    api_categorydelete
+    api_categorydelete,
+    api_categoryedit
 
 
 } 
