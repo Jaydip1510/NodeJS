@@ -157,6 +157,30 @@ const api_subcategorydelete = async(req,res) =>{
    res.json(subdata);
 }
 
+// subcategory edit for API
+
+const api_subcategoryedit = async(req,res) =>{
+    const id = req.params.id;
+    let  subcatedit = await subcatModel.findOne({_id: id});
+    res.json(subcatedit);
+}
+
+// subcategory update for API
+
+const api_subcategoryupdate = async(req,res) =>{
+    const id = req.params.id;
+    const name = req.body.name;
+    const cat_id = req.body.cat_id;
+
+    const subcatresult = await subcatModel.updateOne({_id:id},{
+        $set:{
+            name:name,
+            cat_id:cat_id
+        }
+    });
+    res.json(subcatresult);
+}
+
 module.exports = {
     subcategorydata,
     SubCatData,
@@ -167,5 +191,7 @@ module.exports = {
     getsearching,
     api_subcategory,
     api_subcategorydisplay,
-    api_subcategorydelete
+    api_subcategorydelete,
+    api_subcategoryedit,
+    api_subcategoryupdate
 }
