@@ -39,7 +39,7 @@ const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidge
 
 //category controller
 
-const {getcategorydata,categorydisplay,categorydelete,categoryedit,api_category,api_categorydisplay,api_categorydelete,api_categoryedit} = require("../controllers/categorycontroller");
+const {getcategorydata,categorydisplay,categorydelete,categoryedit,api_category,api_categorydisplay,api_categorydelete,api_categoryedit,api_categoryupdate} = require("../controllers/categorycontroller");
 
 //subcategory controller
 
@@ -112,6 +112,7 @@ router.post('/categorydata',bodyParser,api_category);
 router.get('/apicategorydisplay',api_categorydisplay);
 router.delete('/apicategorydelete/:id',api_categorydelete);
 router.get('/apicategoryedit/:id',api_categoryedit);
+router.patch('/apicategoryupdate/:id',api_categoryupdate);
 
 // other pages routes
 

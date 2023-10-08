@@ -138,8 +138,19 @@ const api_categorydelete = async(req,res) =>{
 
 const api_categoryedit = async (req,res) =>{
     const id = req.params.id;
-    let  catedit = await categoryModel.findOne({id:id});
+    let  catedit = await categoryModel.findOne({_id: id});
     res.json(catedit);
+}
+
+const api_categoryupdate = async (req,res) =>{
+    const id = req.params.id;
+    const categoryname = req.body.categoryname;
+    const result = await categoryModel.updateOne({_id:id},{
+        $set :{
+            categoryname: categoryname
+        }
+    });
+    res.json(result);
 }
 
 module.exports = {
@@ -150,7 +161,8 @@ module.exports = {
     api_category,
     api_categorydisplay,
     api_categorydelete,
-    api_categoryedit
+    api_categoryedit,
+    api_categoryupdate
 
 
 } 
