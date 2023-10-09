@@ -3,10 +3,11 @@ const express = require('express');
 const app = express();
 
 const getdata = async(req,res) =>{
-    res.render('/role',{
+    res.render('role',{
         username: req.cookies.UserName,
         userimage:req.cookies.image,
-        message: ''
+        message: '',
+        selected: ''
     })
 }
 
