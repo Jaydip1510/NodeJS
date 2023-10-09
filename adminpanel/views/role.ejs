@@ -8,7 +8,7 @@
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">Role</h6>
                                 
-                                <form action="<%= (role_edit)?'/updatesubcategory/'+role_edit._id:'/roledata'%>" method="post">
+                                <form action="<%= (role_edit)?'/roleupdate/'+role_edit._id:'/roledata'%>" method="post">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Role Name:-</label>
                                         <input type="text" value="<%= (role_edit)?role_edit.rolename:'' %>" class="form-control"  name="rolename"
