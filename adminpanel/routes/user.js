@@ -59,11 +59,14 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 // role controller
 
-const {getroledata,getdata} = require("../controllers/rolecontroller");
+const {getroledata,getdata,allroledata,roledatadelete,roledataedit} = require("../controllers/rolecontroller");
 
 // role routes 
 router.post('/roledata',getroledata)
 router.get('/rolealldata',getdata)
+router.get('/allroledata',allroledata);
+router.get('/roledatadelete/:id',roledatadelete)
+router.get('/roledataedit/:id',roledataedit)
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{

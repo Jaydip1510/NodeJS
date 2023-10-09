@@ -8,10 +8,10 @@
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">Role</h6>
                                 
-                                <form action="/roledata" method="post">
+                                <form action="<%= (role_edit)?'/updatesubcategory/'+role_edit._id:'/roledata'%>" method="post">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Role Name:-</label>
-                                        <input type="text" class="form-control"  name="rolename"
+                                        <input type="text" value="<%= (role_edit)?role_edit.rolename:'' %>" class="form-control"  name="rolename"
                                             id="exampleInputEmail1"  aria-describedby="emailHelp">
                                     </div>
                                     <% if(message){ %>
@@ -35,24 +35,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        <% if(AllRoleData) { %>
+                                            <% AllRoleData.forEach((item)=>{ %>
                                             <tr align="center">
                                                 <td>
-                                                    
+                                                    <%= item._id %>
                                                 </td>
                                                 <td>
-                                                    
+                                                    <%= item.rolename %>
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-success"
-                                                        href="/catedit">Edit</a>
+                                                        href="/roledataedit/<%= item._id %>">Edit</a>
 
-                                                    <a class="btn btn-danger" href="/catdelete"
+                                                    <a class="btn btn-danger" href="/roledatadelete/<%= item._id %>"
                                                          data-target="#exampleModal">Delete
                                                     </a>
                                                 </td>
                                             </tr>
-                                          
+                                        <% }) %>
+                                    <% } %> 
                                     </tbody>
                                 </table>
                               
