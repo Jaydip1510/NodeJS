@@ -144,13 +144,21 @@ const api_productdata = async (req, res) => {
     const price = req.body.price;
     const description = req.body.detail;
     const id = req.params._id;
-    const image = req.file.
+
+    var Jaydip_images = [];
+    if (req.files !== undefined) {
+        req.files.forEach(element => {
+            Jaydip_images.push(element.filename);
+        });
+    }
+
     const productresult = {
         cat_id: cat_id,
         sub_id: sub_id,
         pname: pname,
         price: price,
         description: description,
+        iamge:api_image
 
     }
     const savedata = new productModel(productresult);
