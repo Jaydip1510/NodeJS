@@ -143,17 +143,21 @@ const api_productdata = async (req, res) => {
     const pname = req.body.pname;
     const price = req.body.price;
     const description = req.body.detail;
+    const id = req.params._id;
+    const image = req.filename
     const productresult = {
         cat_id: cat_id,
         sub_id: sub_id,
         pname: pname,
         price: price,
-        description: description
+        description: description,
+
     }
-    const savedata = new subcatModel(productresult);
+    const savedata = new productModel(productresult);
     let productdata =  await savedata.save();
     res.json(productdata)
 }
+
 
 module.exports = { 
     productdata, 
