@@ -47,8 +47,8 @@
                                                         </td>
                                                         <td>
                                                             <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                            data-product="<%= item._id %>"
-                                                            data-product_name="<%= item.pname %>"
+                                                                data-product="<%= item._id %>"
+                                                                data-product_name="<%= item.pname %>"
                                                                 data-bs-target="#staticBackdrop"><img
                                                                     src="/product/<%= item.image[0] %>" width="70"
                                                                     height="70" alt="<%= item.image %>"></a>
@@ -64,11 +64,8 @@
                                                         </td>
 
                                                     </tr>
-                                                    <% }) %>
-                                                      <% } %>
-
-                                                      
-
+                                                <% }) %>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -123,29 +120,29 @@
         <script>
             const myModalEl = document.getElementById('staticBackdrop')
             myModalEl.addEventListener('show.bs.modal', event => {
-                var product      = $(event.relatedTarget).data('product'),
-                    product_name =  $(event.relatedTarget).data('product_name');
-                   $('#staticBackdropLabel_title').html(product_name);
-                    fetch(`/ajax_productdetail?product_id=${product}`)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log(data);
-                            let img_html = ``;
-                            data.image.forEach((e,i) => {
-                                let active = i == 0 ? 'active' : '';
-                                img_html += `<div class="carousel-item ${active}" style="justify-content: center; align-items:center">
+                var product = $(event.relatedTarget).data('product'),
+                    product_name = $(event.relatedTarget).data('product_name');
+                $('#staticBackdropLabel_title').html(product_name);
+                fetch(`/ajax_productdetail?product_id=${product}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        let img_html = ``;
+                        data.image.forEach((e, i) => {
+                            let active = i == 0 ? 'active' : '';
+                            img_html += `<div class="carousel-item ${active}" style="justify-content: center; align-items:center">
                                     <img src="./product/${e}" alt="..." height=400px width=500px class='center' ">
                                 </div>`;
-                            })
-
-                          $("#carouselImages").html(img_html);
                         })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                        });
-                    
-                })
-           
+
+                        $("#carouselImages").html(img_html);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+            })
+
         </script>
         <%- include('./partials/footer') %>
 
