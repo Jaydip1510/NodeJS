@@ -144,7 +144,7 @@ const api_productdata = async (req, res) => {
     const price = req.body.price;
     const description = req.body.detail;
     const id = req.params._id;
-    const image = req.filename
+    const image = req.file.
     const productresult = {
         cat_id: cat_id,
         sub_id: sub_id,

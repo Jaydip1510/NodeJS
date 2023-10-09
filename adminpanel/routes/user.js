@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
         if(req.url == '/profile/data')//Profile data POST Call
         {
             return cb(null, "./upload/");
-        }else if(req.url == '/allproductdata' || req.route.path == '/updateproductdata/:id')//Product data POST Call
+        }else if(req.url == '/allproductdata' || req.route.path == '/updateproductdata/:id' || req.route.path == '/apiproductdata/:id')//Product data POST Call
         {
             return cb(null, "./product/");
         }
@@ -131,6 +131,7 @@ router.patch('/apisubcategoryupdate/:id',api_subcategoryupdate)
 
 // API Products Routes
 router.post('/apiproductdata/:id',upload.array('image'),bodyParser,api_productdata)
+
 
 // other pages routes
 
