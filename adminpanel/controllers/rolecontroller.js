@@ -19,7 +19,7 @@ const getroledata = async(req,res) =>{
   } 
   const savedata = new roleModel(role);
   await savedata.save();
-  req.flash('msg_category', 'data inserted successfully');
+  req.flash('msg_category', 'Role inserted successfully');
   req.flash('msg_class', 'alert-success');
   res.redirect("/allroledata");
 }
@@ -40,7 +40,7 @@ const allroledata = async (req, res) => {
 const roledatadelete = async (req,res) =>{
     const id = req.params.id;
     const data = await roleModel.findByIdAndRemove({ _id: id });
-    req.flash('msg_category', 'Roledata deleted successfully');
+    req.flash('msg_category', 'Role deleted successfully');
     req.flash('msg_class', 'alert-success');
     res.redirect("/allroledata");
 }
