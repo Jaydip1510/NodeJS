@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const roleSchema = new mongoose.Schema({
-    id:Number,
-    categoryname:String,
 
+    rolename:String,
+    isActive:{
+        type:Boolean,
+    }
 });
 
 
