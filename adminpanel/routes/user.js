@@ -57,7 +57,9 @@ const verifyToken = require('../models/jwtconfing');
 
 const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail,productImageDelete} = require("../controllers/productcontroller");
 
-// API controller
+// role controller
+
+const getroledata = require("../controllers/rolecontroller");
 
 
 

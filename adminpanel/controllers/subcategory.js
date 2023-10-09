@@ -9,7 +9,6 @@ app.use(express.json());
 // data insert subcategory in subcategory table
 
 const subcategorydata = async (req, res) => {
-    let allsubcat = await subcatModel.find();
     const name = req.body.name;
     const id = req.body.cat_id;
     const checkName = await subcatModel.findOne({ name: name });
