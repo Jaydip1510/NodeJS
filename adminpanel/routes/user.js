@@ -55,7 +55,7 @@ const verifyToken = require('../models/jwtconfing');
 
 //product controller
 
-const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail,productImageDelete} = require("../controllers/productcontroller");
+const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_productdetail,productImageDelete,api_productdata} = require("../controllers/productcontroller");
 
 // role controller
 
@@ -123,11 +123,14 @@ router.get('/apicategoryedit/:id',api_categoryedit);
 router.patch('/apicategoryupdate/:id',api_categoryupdate);
 
 // API Subcategory Routes
-router.post('/apisubcategory',api_subcategory)
+router.post('/apisubcategory',bodyParser,api_subcategory)
 router.get('/apisubcategorydisplay',api_subcategorydisplay)
 router.delete('/apisubcategorydelete/:id',api_subcategorydelete)
 router.get('/apisubcategoryedit/:id',api_subcategoryedit)
 router.patch('/apisubcategoryupdate/:id',api_subcategoryupdate)
+
+// API Products Routes
+router.post('/apiproductdata',bodyParser,api_productdata)
 
 // other pages routes
 

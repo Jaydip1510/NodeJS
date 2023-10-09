@@ -135,4 +135,33 @@ const productImageDelete =  async(req,res) =>{
     res.redirect('/productEdit/'+product_id);
 }
 
-module.exports = { productdata, allproductdata, productDisplay, productDelete, productEdit,ajax_productdetail,productImageDelete }
+//API Product insert data
+
+const api_productdata = async (req, res) => {
+    const cat_id = req.body.cat_id;
+    const sub_id = req.body.sub_cat_id;
+    const pname = req.body.pname;
+    const price = req.body.price;
+    const description = req.body.detail;
+    const productresult = {
+        cat_id: cat_id,
+        sub_id: sub_id,
+        pname: pname,
+        price: price,
+        description: description
+    }
+    const savedata = new subcatModel(productresult);
+    let productdata =  await savedata.save();
+    res.json(productdata)
+}
+
+module.exports = { 
+    productdata, 
+    allproductdata, 
+    productDisplay, 
+    productDelete, 
+    productEdit,
+    ajax_productdetail,
+    productImageDelete,
+    api_productdata 
+}
