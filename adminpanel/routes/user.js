@@ -134,7 +134,7 @@ router.post('/apiproductdata/:id',upload.array('api_image'),bodyParser,api_produ
 router.get('/apiproductdisplay',api_productdisplay)
 router.delete('/apiproductdelete/:id',api_productdelete)
 router.get('/apiproductedit/:id',api_productedit)
-router.patch('/apiproductupdate/:id',api_productupdate)
+router.post('/apiproductupdate/:id',upload.array('api_image'),api_productupdate)
 
 
 // other pages routes
