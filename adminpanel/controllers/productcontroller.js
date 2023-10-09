@@ -158,7 +158,7 @@ const api_productdata = async (req, res) => {
         pname: pname,
         price: price,
         description: description,
-        iamge:api_image
+        image:Jaydip_images
 
     }
     const savedata = new productModel(productresult);
@@ -166,6 +166,52 @@ const api_productdata = async (req, res) => {
     res.json(productdata)
 }
 
+
+const api_productdisplay = async (req,res) =>{
+    const productdata = await productModel.find({});
+    res.json(productdata);
+}
+
+const api_productdelete = async (req,res) =>{
+    const id = req.params.id;
+    const pdata = await productModel.deleteOne({_id:id});
+    res.json(pdata);
+}
+
+const api_productedit = async(req,res) =>{
+    const id = req.params.id;
+    let  productedit = await productModel.findOne({_id: id});
+    res.json(productedit);
+}
+
+const api_productupdate = async(req,res) =>{
+    const id = req.params.id;
+    const cat_id = req.body.cat_id;
+    const sub_id = req.body.sub_cat_id;
+    const pname = req.body.pname;
+    const price = req.body.price;
+    const description = req.body.detail;
+
+    var Jaydip_images = [];
+    if (req.files !== undefined) {
+        req.files.forEach(element => {
+            Jaydip_images.push(element.filename);
+        });
+    }
+    const productresult = await productModel.updateOne({_id:id},{
+        $set:{
+            cat_id:cat_id,
+            pname:pname,
+            sub_id:sub_id,
+            cat_id:cat_id,
+            price:price,
+            description:description,
+            image:Jaydip_images
+        }
+    });
+    res.json(productresult);
+
+}
 
 module.exports = { 
     productdata, 
@@ -175,5 +221,9 @@ module.exports = {
     productEdit,
     ajax_productdetail,
     productImageDelete,
-    api_productdata 
+    api_productdata,
+    api_productdisplay,
+    api_productdelete,
+    api_productedit,
+    api_productupdate
 }

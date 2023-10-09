@@ -54,6 +54,6 @@ app.get('/logout', (req, res) => {
 app.get('/register',(req,res)=>{
     res.render('register');
 })
-app.listen(8004,"127.0.0.1",()=>{
-    console.log("listening port in 8004...");
+app.listen(8005,"127.0.0.1",()=>{
+    console.log("listening port in 8005...");
 })
