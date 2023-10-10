@@ -110,13 +110,19 @@ const categoryedit = async (req, res) => {
 
 const api_category = async(req,res) =>{
     const categoryname = req.body.categoryname;
-    const result = {
+    const checkName = await categoryModel.findOne({ categoryname: categoryname });
+    if(checkName){
+        console.log('category already exists')
+    }else{
+        const result = {
     
-        categoryname: categoryname
+            categoryname: categoryname
+        }
+        const savedata = new categoryModel(result);
+        let categorydata =  await savedata.save();
+        res.json(categorydata);  
     }
-    const savedata = new categoryModel(result);
-    let categorydata =  await savedata.save();
-    res.json(categorydata);  
+   
 }
 
 //display category data from API

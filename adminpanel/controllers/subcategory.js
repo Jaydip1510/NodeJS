@@ -134,14 +134,20 @@ const subcatedit = async (req, res) => {
 const api_subcategory = async (req,res) =>{
     const name = req.body.name;
     const cat_id = req.body.cat_id;
-    const subresult = {
-        name: name,
-        cat_id: cat_id,
+    const checkName = await subcatModel.findOne({ name: name });
+    if(checkName){
+       console.log('subcategory already exists');
+    }else{
+        const subresult = {
+            name: name,
+            cat_id: cat_id,
+        }
+        const savedata = new subcatModel(subresult);
+        let subcategorydata =  await savedata.save();
+        console.log("data inserted successfully");
+        res.json(subcategorydata); 
     }
-    const savedata = new subcatModel(subresult);
-    let subcategorydata =  await savedata.save();
-    console.log("data inserted successfully");
-    res.json(subcategorydata); 
+    
      
 }
 
