@@ -13,6 +13,18 @@
                             <h3>Sign Up</h3>
                         </div>
                         <form action="/register" method="post">  
+                            <div class="form-floating mb-3">
+                            <select name="rolename" class="form-select mb-3"
+                            aria-label="Default select example">
+                            <option value="">Select Role</option>
+                            <% roledata.forEach((i)=> { %>
+                                <option value="<%= i._id %>">
+                                    <%= i.rolename %>
+                                </option>
+                                <% }) %>
+                            </select>
+                            </div>
+
                         <div class="form-floating mb-3">
                             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label  for="floatingInput">Email address</label>

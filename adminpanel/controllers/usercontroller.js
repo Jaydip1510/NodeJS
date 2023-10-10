@@ -1,6 +1,7 @@
 let registerModel = require('../models/registermodels');
 let profileModel = require('../models/profile');
 let tokenModel = require('../models/tokenmodels');
+let roleModel = require('../models/rolemodel');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const saltRounds = 10;
@@ -64,9 +65,9 @@ const getDashboard = async (req, res) => {
 
     var a = await checkUser(req, res);
     if (a === true) {
-        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin' });
+        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin',roledata:'' });
     } else {
-        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin' })
+        res.render('index', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'admin',roledata:'' })
     }
 };
 
@@ -74,40 +75,40 @@ const getDashboard = async (req, res) => {
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
-    res.render('producttable', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'producttable' });
+    res.render('producttable', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'producttable' });
 }
 
 const getchart = async (req, res) => {
     await checkUser(req, res)
-    res.render('chart', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'chart' });
+    res.render('chart', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'chart' });
 }
 
 
 const getwidgets = async (req, res) => {
     await checkUser(req, res)
-    res.render('widget', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'widget' });
+    res.render('widget', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'widget' });
 }
 
 const getbutton = async (req, res) => {
     await checkUser(req, res)
-    res.render('button', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'button' });
+    res.render('button', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'button' });
 }
 
 const gettypography = async (req, res) => {
     await checkUser(req, res)
-    res.render('typography', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'typography' });
+    res.render('typography', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'typography' });
 }
 
 
 const getotherElement = async (req, res) => {
     await checkUser(req, res)
-    res.render('element', { username: req.cookies.UserName,userimage:req.cookies.image, selected: 'element' });
+    res.render('element', { username: req.cookies.UserName,userimage:req.cookies.image,roledata:'', selected: 'element' });
 }
 
 const getprofile = async (req, res) => {
     await checkUser(req, res)
     let profile_data = await profileModel.findOne({email: req.cookies.Useremail});
-    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName,useremail: req.cookies.Useremail,userimage:req.cookies.image, selected: 'profile' ,is_edit:false});
+    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName,useremail: req.cookies.Useremail,userimage:req.cookies.image,roledata:'', selected: 'profile' ,is_edit:false});
 }
 
 const transpoter = nodemailer.createTransport({
@@ -121,7 +122,9 @@ const transpoter = nodemailer.createTransport({
 });
 
 const registerdata = async (req, res) => {
-    const { username, password, email } = req.body
+    const roledata = await roleModel.find();
+    console.log(roledata);
+    const { username, password, email,role_id} = req.body
     const chackdata = await registerModel.findOne({ email });
     console.log("chack User" + chackdata);
     if (chackdata) {
@@ -133,7 +136,9 @@ const registerdata = async (req, res) => {
             email: email,
             password: crypted,
             username: username,
-            token :''
+            token :'',
+            roledata:roledata,
+        
         });
         const mailInfo = {
             from: "makwanajaydip1510@gmail.com",
@@ -164,7 +169,7 @@ const checkUserData = async (req, res) => {
         res.redirect('/admin');
     } else {
         req.flash('danger', 'Email or password wrong !!!');
-        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger' });
+        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger',roledata:roledata });
     }
 }
 
@@ -173,7 +178,7 @@ const checkLogindata = async (req, res) => {
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login", { message: emsg_token, message_class: 'alert-danger' });
+        res.render("login", { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -181,7 +186,7 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login", { message: emsg_token, message_class: 'alert-danger' });
+            res.render("login", { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
         } else {
 
             localStorage.setItem('userToken',JSON.stringify(userdata.token));
@@ -216,7 +221,7 @@ const sendOtp = async (req, res) => {
     if (!getdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("forget", { message: emsg_token, message_class: 'alert-danger' });
+        res.render("forget", { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
     } else {
         otp = createOtp();
         /**
@@ -259,7 +264,7 @@ const sendOtp = async (req, res) => {
         }
         await transporter.sendMail(mailInfo)
         req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
-        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success' });
+        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success',roledata:roledata });
     }
 
 }
@@ -275,7 +280,7 @@ const vaildtoken = async (req, res) => {
             req.flash('emsg_token', 'Invaild token');
             emsg_token = req.flash('emsg_token');
         }
-        res.render('resetpassword', { email: dcrypted, message: emsg_token });
+        res.render('resetpassword', { email: dcrypted, message: emsg_token,roledata:roledata });
     } else {
         console.log("body is:-");
         console.log(req.body.email);
@@ -294,24 +299,24 @@ const vaildtoken = async (req, res) => {
                 if (!getdata) {
                     req.flash('emsg_token', 'user not found');
                     emsg_token = req.flash('emsg_token');
-                    res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
+                    res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
                 } else {
                     const hash_pwd = await bcrypt.hash(req.body.password, saltRounds)
                     const updata = await registerModel.updateOne({ email: email }, { $set: { password: hash_pwd } });
                     req.flash('emsg_token', 'Password sucessfully reset, kindy use new password to login.');
                     emsg_token = req.flash('emsg_token');
-                    res.render('login', { message: emsg_token, message_class: 'alert-success' });
+                    res.render('login', { message: emsg_token, message_class: 'alert-success',roledata:roledata });
                 }
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
                 emsg_token = req.flash('emsg_token');
-                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
+                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
             }
 
         } else {
             req.flash('emsg_token', 'Invalid token');
             emsg_token = req.flash('emsg_token');
-            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger' });
+            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger',roledata:roledata });
         }
 
 

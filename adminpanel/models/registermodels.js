@@ -5,6 +5,7 @@ const registerSchema = new mongoose.Schema({
     password:String,
     username:String,
     token:String,
+    role_id:{type: mongoose.Schema.Types.ObjectId, ref:'role'},
     created_on:{ type: Date, default: Date.now },
     updated_on:{ type: Date, default: Date.now },
 });
