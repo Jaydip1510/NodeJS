@@ -121,12 +121,30 @@ const transpoter = nodemailer.createTransport({
     secure: true,
 });
 
+const getregister = async(req,res) =>{
+    const roledata = await roleModel.find({});
+    res.render('register',{
+        roledata:roledata,
+        username: req.cookies.UserName,
+        useremail: req.cookies.Useremail,
+        userimage:req.cookies.image,
+        selected: 'register',
+        message: req.flash('msg_category'),
+        message_class: req.flash('msg_class'),
+      })
+}
+
 const registerdata = async (req, res) => {
-    const roledata = await roleModel.find();
-    console.log(roledata);
     const { username, password, email,role_id} = req.body
-    const chackdata = await registerModel.findOne({ email });
-    console.log("chack User" + chackdata);
+    const chackdata = await registerModel.findOne({ email }).populate('role_id');
+    const checkrole = await registerModel.findOne({ role_id });
+    if(checkrole){
+        if(checkrole.role_id.rolename == 'admin'){
+            req.flash('msg_category', 'Admin already exists');
+            req.flash('msg_class', 'alert-success');
+            res.redirect("/getregister");
+        }
+    }
     if (chackdata) {
         return res.send("Email already registered");
     } else {
@@ -137,7 +155,9 @@ const registerdata = async (req, res) => {
             password: crypted,
             username: username,
             token :'',
+            role_id:role_id,
             roledata:roledata,
+            
         
         });
         const mailInfo = {
@@ -340,5 +360,6 @@ module.exports = {
     checkLogindata,
     getprofile,
     sendOtp,
-    vaildtoken
+    vaildtoken,
+    getregister
 }

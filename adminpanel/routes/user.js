@@ -35,7 +35,7 @@ const upload = multer({ storage: storage });
 
 // usercontroller
 
-const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken} = require("../controllers/usercontroller");
+const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken,getregister} = require("../controllers/usercontroller");
 
 //category controller
 
@@ -147,6 +147,8 @@ router.get('/element',getotherElement);
 router.get('/usertable', gettable);
 
 //register routes
+
+router.get('/getregister',getregister)
 router.post('/register', bodyParser, registerdata);
 
 //login routes
