@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const roleSchema = new mongoose.Schema({
 
     rolename:String,
-    isActive:{
-        type:Boolean,
-    }
+    isActive:Boolean,
 });
 
 
