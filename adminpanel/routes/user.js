@@ -130,11 +130,11 @@ router.get('/apisubcategoryedit/:id',api_subcategoryedit)
 router.patch('/apisubcategoryupdate/:id',api_subcategoryupdate)
 
 // API Products Routes
-router.post('/apiproductdata/:id',upload.array('api_image'),bodyParser,api_productdata)
+router.post('/apiproductdata/',upload.array('api_image'),bodyParser,api_productdata)
 router.get('/apiproductdisplay',api_productdisplay)
 router.delete('/apiproductdelete/:id',api_productdelete)
 router.get('/apiproductedit/:id',api_productedit)
-router.post('/apiproductupdate/:id',upload.array('api_image'),api_productupdate)
+router.patch('/apiproductupdate/:id',upload.array('api_image'),api_productupdate)
 
 
 // other pages routes

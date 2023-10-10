@@ -12,7 +12,11 @@ const subcategorydata = async (req, res) => {
     const name = req.body.name;
     const id = req.body.cat_id;
     const checkName = await subcatModel.findOne({ name: name });
-
+    if(checkName) {
+        req.flash('msg_category', 'Subcategory already exists');
+        req.flash('msg_class', 'alert-success');
+        res.redirect("/subcategory/alldata");
+    }else{
     const result = {
         cat_id: id,
         name: name
@@ -24,6 +28,7 @@ const subcategorydata = async (req, res) => {
     req.flash('msg_category', 'Subcategory inserted successfully');
     req.flash('msg_class', 'alert-success');
     res.redirect("/subcategory/alldata");
+  }
 }
 
 

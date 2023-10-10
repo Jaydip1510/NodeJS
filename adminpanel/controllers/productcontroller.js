@@ -142,9 +142,8 @@ const api_productdata = async (req, res) => {
     const sub_id = req.body.sub_cat_id;
     const pname = req.body.pname;
     const price = req.body.price;
-    const description = req.body.detail;
-    const id = req.params._id;
-
+    const description = req.body.description;
+  
     var Jaydip_images = [];
     if (req.files !== undefined) {
         req.files.forEach(element => {
@@ -190,7 +189,7 @@ const api_productupdate = async(req,res) =>{
     const sub_id = req.body.sub_cat_id;
     const pname = req.body.pname;
     const price = req.body.price;
-    const description = req.body.detail;
+    const description = req.body.description;
 
     var Jaydip_images = [];
     if (req.files !== undefined) {
