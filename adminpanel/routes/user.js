@@ -61,7 +61,7 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} = require("../controllers/rolecontroller");
 
-// role routes 
+// role routes
 router.post('/roledata',getroledata)
 router.get('/rolealldata',getdata)
 router.get('/allroledata',allroledata);
