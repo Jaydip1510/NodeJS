@@ -15,6 +15,10 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 let imgfilename = '';
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         if(req.url == '/profile/data')//Profile data POST Call
@@ -61,13 +65,21 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} = require("../controllers/rolecontroller");
 
-// role routes
-router.post('/roledata',getroledata)
-router.get('/rolealldata',getdata)
-router.get('/allroledata',allroledata);
-router.get('/roledatadelete/:id',roledatadelete)
-router.get('/roledataedit/:id',roledataedit)
-router.post('/roleupdate/:id',bodyParser,roleupdate)
+let role = JSON.parse(localStorage.getItem('userRole'));
+
+if(role === 'admin'){
+    router.post('/roledata',getroledata)
+    router.get('/rolealldata',getdata)
+    router.get('/allroledata',allroledata);
+    router.get('/roledatadelete/:id',roledatadelete)
+    router.get('/roledataedit/:id',roledataedit)
+    router.post('/roleupdate/:id',bodyParser,roleupdate)
+    
+}else{
+    router.get('/pagenotfound',(req,res)=>{
+        res.render('pagenotfound',{username: req.cookies.UserName, useremail: req.cookies.Useremail,userimage: req.cookies.image,selected: 'pagenotfound'})
+    })
+}
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{

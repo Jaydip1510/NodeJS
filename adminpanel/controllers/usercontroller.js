@@ -9,8 +9,8 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const secret_key = "secret1234";
-const localStorage = require('localStorage');
-
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 //Encrypting text
 const encrypt_text = async (plainText, password) => {
     try {
@@ -211,7 +211,7 @@ const checkUserData = async (req, res) => {
 }
 
 const checkLogindata = async (req, res) => {
-    let userdata = await registerModel.findOne({ email: req.body.email });
+    let userdata = await registerModel.findOne({ email: req.body.email }).populate('role_id');
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
@@ -225,12 +225,15 @@ const checkLogindata = async (req, res) => {
             emsg_token = req.flash('emsg_token');
             res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
         } else {
-
-            localStorage.setItem('userToken', JSON.stringify(userdata.token));
+        
+            
 
             res.cookie('UserName', userdata.username);
             res.cookie('Useremail', userdata.email);
-
+ 
+            let rolename = userdata.role_id.rolename;
+            localStorage.setItem('userToken', JSON.stringify(userdata.token));
+            localStorage.setItem('userRole', JSON.stringify(rolename));
 
             let read = await profileModel.findOne({ email: userdata.email });
             if (read) {
