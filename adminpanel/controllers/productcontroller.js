@@ -2,12 +2,15 @@ const express = require('express');
 const subcatModel = require('../models/subcategorymodel');
 const categoryModel = require('../models/categorymodel');
 const productModel = require('../models/productmodel');
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 const app = express();
 app.use(express.json());
 
 const productdata = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     const catdata = await categoryModel.find();
-    res.render('product', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'product', maincat: catdata, productedit: '', pdata: [] });
+    res.render('product', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, selected: 'product', maincat: catdata, productedit: '', pdata: [] });
 }
 
 // insert product data
@@ -75,7 +78,7 @@ const allproductdata = async (req, res) => {
 
 const productDisplay = async (req, res) => {
     let catData = await categoryModel.find();
-
+    let role = JSON.parse(localStorage.getItem('userRole'));
     const productdata = await productModel.find().populate(["cat_id", "sub_id"]);
    // console.log(productdata);
     res.render('producttable', {
@@ -86,7 +89,8 @@ const productDisplay = async (req, res) => {
         selected: 'producttable',
         productedit: '',
         maincat: catData,
-        pdata: ''
+        pdata: '',
+        role:role
 
     });
 
@@ -99,6 +103,7 @@ const productDelete = async (req, res) => {
 }
 
 const productEdit = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     const id = req.params.id;
     const catData = await categoryModel.find();
     const result = await productModel.findOne({ _id: id});
@@ -114,7 +119,8 @@ const productEdit = async (req, res) => {
         selected: 'producttable',
         productedit: result,
         maincat: catData,
-        pdata: subcatdata
+        pdata: subcatdata,
+        role:role
 
     });
 }

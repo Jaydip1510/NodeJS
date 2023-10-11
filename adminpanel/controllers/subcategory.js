@@ -55,6 +55,7 @@ const updatesubcat = async (req, res) => {
 
 const SubCatData = async (req, res) => {
     let catData = await categoryModel.find();
+    let role = JSON.parse(localStorage.getItem('userRole'));
     // console.log(catData);
     const joindata = await subcatModel.find().populate("cat_id");
     res.render('subcat', {
@@ -66,6 +67,7 @@ const SubCatData = async (req, res) => {
         subcatedit: '',
         message: req.flash('msg_category'),
         message_class: req.flash('msg_class'),
+        role:role
     });
 
 }

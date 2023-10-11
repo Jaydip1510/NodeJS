@@ -77,7 +77,7 @@ if(role === "admin"){
     
 }else{
     router.get('/pagenotfound',(req,res)=>{
-        res.render('pagenotfound',{username: req.cookies.UserName, useremail: req.cookies.Useremail,userimage: req.cookies.image,selected: 'pagenotfound'})
+        res.render('pagenotfound',{username: req.cookies.UserName, useremail: req.cookies.Useremail,userimage: req.cookies.image,selected: 'pagenotfound',roledata:roledata})
     })
 }
 
@@ -99,7 +99,7 @@ router.get('/category',verifyToken,categorydisplay);// category display in categ
 router.get('/catdelete/:uniqe_id',categorydelete);// category delete in category table
 router.get('/catedit',categoryedit);//category edit in category table
 router.post('/category/createsavedata', bodyParser, getcategorydata);// category insert in category table
-router.post('/category/editsavedata/:unique_id',verifyToken, bodyParser, getcategorydata);// category update in category table
+router.post('/category/editsavedata/:unique_id', bodyParser, getcategorydata);// category update in category table
 
 
 //sub category routes

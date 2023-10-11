@@ -1,14 +1,18 @@
 const roleModel = require('../models/rolemodel')
 const express = require('express');
 const app = express();
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 const getdata = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     res.render('role', {
         username: req.cookies.UserName,
         userimage: req.cookies.image,
         message: '',
         selected: '',
-        AllRoleData: ''
+        AllRoleData: '',
+        role:role
     })
 }
 
@@ -33,6 +37,7 @@ const getroledata = async (req, res) => {
 }
 
 const allroledata = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     const role_data = await roleModel.find();
     res.render('role', {
         username: req.cookies.UserName,
@@ -42,6 +47,7 @@ const allroledata = async (req, res) => {
         role_edit: '',
         message: req.flash('msg_category'),
         message_class: req.flash('msg_class'),
+        role:role
     })
 }
 
@@ -54,6 +60,7 @@ const roledatadelete = async (req, res) => {
 }
 
 const roledataedit = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     const id = req.params.id;
     let roledata = await roleModel.find()
     result = await roleModel.findOne({ _id: id });
@@ -63,7 +70,8 @@ const roledataedit = async (req, res) => {
         userimage: req.cookies.image,
         selected: '',
         role_edit: result,
-        message: ''
+        message: '',
+        role:role
     });
 }
 

@@ -55,7 +55,7 @@ const getcategorydata = async (req, res) => {
 // display category 
 const categorydisplay = async (req, res) => {
     const categoryData = await categoryModel.find({})
-
+    let role = JSON.parse(localStorage.getItem('userRole'));
     if (!categoryData) {
         console.log(err);
     } else {
@@ -66,7 +66,8 @@ const categorydisplay = async (req, res) => {
             message: req.flash('msg_category'),
             message_class: req.flash('msg_class'),
             userimage:req.cookies.image,
-            data: ''
+            data: '',
+            role:role
         });
     }
 }

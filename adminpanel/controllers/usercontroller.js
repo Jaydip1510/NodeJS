@@ -64,51 +64,59 @@ const dataUser = async (req, res) => {
 const getDashboard = async (req, res) => {
 
     var a = await checkUser(req, res);
+    let role = JSON.parse(localStorage.getItem('userRole'));
     if (a === true) {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:roledata});
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role});
     } else {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:roledata })
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role })
     }
 };
 
 
 
 const gettable = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('producttable', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'producttable' });
+    res.render('producttable', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata: '', selected: 'producttable' });
 }
 
 const getchart = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'chart' });
+    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'chart',role:role });
 }
 
 
 const getwidgets = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('widget', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'widget' });
+    res.render('widget', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'widget' });
 }
 
 const getbutton = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('button', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'button' });
+    res.render('button', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata: '', selected: 'button' });
 }
 
 const gettypography = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('typography', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'typography' });
+    res.render('typography', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'typography' });
 }
 
 
 const getotherElement = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('element', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'element' });
+    res.render('element', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'element' });
 }
 
 const getprofile = async (req, res) => {
+    let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
     let profile_data = await profileModel.findOne({ email: req.cookies.Useremail });
-    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata: roledata, selected: 'profile', is_edit: false });
+    res.render('profile', { profile_data: profile_data,role:role, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata:'', selected: 'profile', is_edit: false });
 }
 
 const transpoter = nodemailer.createTransport({
@@ -123,6 +131,7 @@ const transpoter = nodemailer.createTransport({
 
 const getregister = async (req, res) => {
     const roledata = await roleModel.find({});
+    let role = JSON.parse(localStorage.getItem('userRole'));
     res.render('register', {
         roledata: roledata,
         username: req.cookies.UserName,
@@ -131,6 +140,7 @@ const getregister = async (req, res) => {
         selected: 'register',
         message: req.flash('msg_category'),
         message_class: req.flash('msg_class'),
+        role:role
     })
 }
 
@@ -201,21 +211,23 @@ const registerdata = async (req, res) => {
 
 const checkUserData = async (req, res) => {
     const dataUser = await registerModel.findOne({ email: req.body.email, password: req.body.password });
+    let role = JSON.parse(localStorage.getItem('userRole'));
     if (dataUser) {
         res.cookie('UserName', dataUser.username);
         res.redirect('/admin');
     } else {
         req.flash('danger', 'Email or password wrong !!!');
-        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata: roledata });
+        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata: roledata,role:role });
     }
 }
 
 const checkLogindata = async (req, res) => {
     let userdata = await registerModel.findOne({ email: req.body.email }).populate('role_id');
+    let role = JSON.parse(localStorage.getItem('userRole'));
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -223,7 +235,7 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
         } else {
         
             
@@ -258,10 +270,11 @@ function createOtp() {
 const sendOtp = async (req, res) => {
     email = req.body.email;
     let getdata = await registerModel.findOne({ email: req.body.email })
+    let role = JSON.parse(localStorage.getItem('userRole'));
     if (!getdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
     } else {
         otp = createOtp();
         /**
@@ -304,13 +317,14 @@ const sendOtp = async (req, res) => {
         }
         await transporter.sendMail(mailInfo)
         req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
-        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: roledata });
+        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: roledata,role:role });
     }
 
 }
 
 const vaildtoken = async (req, res) => {
     var emsg_token = '';
+    let role = JSON.parse(localStorage.getItem('userRole'));
     console.log(req.query.token);
     if (req.query.token) {
         var token = req.query.token.toString();
@@ -320,7 +334,7 @@ const vaildtoken = async (req, res) => {
             req.flash('emsg_token', 'Invaild token');
             emsg_token = req.flash('emsg_token');
         }
-        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata: roledata });
+        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata: roledata,role:role });
     } else {
         console.log("body is:-");
         console.log(req.body.email);
@@ -350,13 +364,13 @@ const vaildtoken = async (req, res) => {
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
                 emsg_token = req.flash('emsg_token');
-                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
             }
 
         } else {
             req.flash('emsg_token', 'Invalid token');
             emsg_token = req.flash('emsg_token');
-            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
         }
 
 
