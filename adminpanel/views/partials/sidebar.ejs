@@ -37,11 +37,11 @@
             <a href="/productDisplay" class="nav-item nav-link <% if(selected =='producttable'){ %>active <% } %>"><i class="fa fa-table me-2"></i>Product Tables</a>
             <a href="/chart" class="nav-item nav-link <% if(selected =='chart'){ %>active <% } %>"><i class="fa fa-chart-bar me-2"></i>Charts</a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                <a href="#" class="nav-link dropdown-toggle <% if(selected =='pagenotfound'){ %>active <% } %>"  data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="/login" class="dropdown-item">Sign In</a>
                     <a href="/getregister" class="dropdown-item">Sign Up</a>
-                    <a href="/pagenotfound" class="dropdown-item">404 Notfound</a>
+                    <a href="/pagenotfound" class="dropdown-item <% if(selected =='pagenotfound'){ %>active <% } %>">404 Notfound</a>
                 </div>
             </div>
         </div>

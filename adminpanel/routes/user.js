@@ -67,7 +67,7 @@ const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} =
 
 let role = JSON.parse(localStorage.getItem('userRole'));
 
-if(role === 'admin'){
+if(role === "admin"){
     router.post('/roledata',getroledata)
     router.get('/rolealldata',getdata)
     router.get('/allroledata',allroledata);
