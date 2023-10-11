@@ -12,6 +12,8 @@ app.use(cookie());
  app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
 
 localization(passport);
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,6 +47,7 @@ app.get('/login',(req,res)=>{
 // })
 
 app.get('/logout', (req, res) => {
+    localStorage.clear();
     res.clearCookie('UserName');
     res.clearCookie('Useremail');
     res.redirect('/');

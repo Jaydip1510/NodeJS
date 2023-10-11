@@ -65,9 +65,9 @@ const getDashboard = async (req, res) => {
 
     var a = await checkUser(req, res);
     if (a === true) {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '' });
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:roledata});
     } else {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '' })
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:roledata })
     }
 };
 
@@ -75,40 +75,40 @@ const getDashboard = async (req, res) => {
 
 const gettable = async (req, res) => {
     await checkUser(req, res)
-    res.render('producttable', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'producttable' });
+    res.render('producttable', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'producttable' });
 }
 
 const getchart = async (req, res) => {
     await checkUser(req, res)
-    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'chart' });
+    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'chart' });
 }
 
 
 const getwidgets = async (req, res) => {
     await checkUser(req, res)
-    res.render('widget', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'widget' });
+    res.render('widget', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'widget' });
 }
 
 const getbutton = async (req, res) => {
     await checkUser(req, res)
-    res.render('button', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'button' });
+    res.render('button', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'button' });
 }
 
 const gettypography = async (req, res) => {
     await checkUser(req, res)
-    res.render('typography', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'typography' });
+    res.render('typography', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'typography' });
 }
 
 
 const getotherElement = async (req, res) => {
     await checkUser(req, res)
-    res.render('element', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'element' });
+    res.render('element', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: roledata, selected: 'element' });
 }
 
 const getprofile = async (req, res) => {
     await checkUser(req, res)
     let profile_data = await profileModel.findOne({ email: req.cookies.Useremail });
-    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata: '', selected: 'profile', is_edit: false });
+    res.render('profile', { profile_data: profile_data, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata: roledata, selected: 'profile', is_edit: false });
 }
 
 const transpoter = nodemailer.createTransport({
@@ -175,7 +175,7 @@ const registerdata = async (req, res) => {
                 username: username,
                 token: '',
                 role_id: role_id,
-                roledata: '',
+                roledata: roledata,
             });
             const mailInfo = {
                 from: "makwanajaydip1510@gmail.com",
