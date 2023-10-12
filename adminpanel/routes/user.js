@@ -128,25 +128,25 @@ router.get('/productImageDelete/:id/:image_idx',productImageDelete);// update bu
 
 // API Category Routes
 
-router.post('/categorydata',bodyParser,api_category);
-router.get('/apicategorydisplay',api_categorydisplay);
-router.delete('/apicategorydelete/:id',api_categorydelete);
-router.get('/apicategoryedit/:id',api_categoryedit);
-router.patch('/apicategoryupdate/:id',api_categoryupdate);
+router.post('/categorydata',bodyParser,api_category);// category insert api 
+router.get('/apicategorydisplay',api_categorydisplay);// category display api
+router.delete('/apicategorydelete/:id',api_categorydelete);// category delete api
+router.get('/apicategoryedit/:id',api_categoryedit);// category edit api
+router.patch('/apicategoryupdate/:id',api_categoryupdate);//category update api
 
 // API Subcategory Routes
-router.post('/apisubcategory',bodyParser,api_subcategory)
-router.get('/apisubcategorydisplay',api_subcategorydisplay)
-router.delete('/apisubcategorydelete/:id',api_subcategorydelete)
-router.get('/apisubcategoryedit/:id',api_subcategoryedit)
-router.patch('/apisubcategoryupdate/:id',api_subcategoryupdate)
+router.post('/apisubcategory',bodyParser,api_subcategory)// subcategory insert api
+router.get('/apisubcategorydisplay',api_subcategorydisplay)// subcategory display api
+router.delete('/apisubcategorydelete/:id',api_subcategorydelete)// subcategory delete api
+router.get('/apisubcategoryedit/:id',api_subcategoryedit)// subcategory edit api
+router.patch('/apisubcategoryupdate/:id',api_subcategoryupdate)// subcategory update api
 
 // API Products Routes
-router.post('/apiproductdata',upload.array('api_image'),bodyParser,api_productdata)
-router.get('/apiproductdisplay',api_productdisplay)
-router.delete('/apiproductdelete/:id',api_productdelete)
-router.get('/apiproductedit/:id',api_productedit)
-router.patch('/apiproductupdate/:id',upload.array('api_image'),api_productupdate)
+router.post('/apiproductdata',upload.array('api_image'),bodyParser,api_productdata) // product insert api
+router.get('/apiproductdisplay',api_productdisplay) // product display api
+router.delete('/apiproductdelete/:id',api_productdelete)// product delete api
+router.get('/apiproductedit/:id',api_productedit) // product edit api
+router.patch('/apiproductupdate/:id',upload.array('api_image'),api_productupdate) // product update api
 
 
 // other pages routes
