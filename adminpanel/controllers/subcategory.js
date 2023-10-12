@@ -3,6 +3,8 @@ const subcatModel = require('../models/subcategorymodel');
 const categoryModel = require('../models/categorymodel');
 const app = express();
 app.use(express.json());
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 
 

@@ -2,6 +2,8 @@ let categoryModel = require('../models/categorymodel');
 const subcatModel = require('../models/subcategorymodel')
 const express = require('express');
 const app = express();
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 // insert category
 const getcategorydata = async (req, res) => {
