@@ -11,9 +11,9 @@ passport.deserializeUser(function(user, done) {
   done(null, user); 
 }); 
 passport.use(new GoogleStrategy({
-    clientID:"44781859447-99mkikvutc97sqaivon4mvbe09p9bcrf.apps.googleusercontent.com",
-    clientSecret:"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",
-    callbackURL: "http://www.example.com/auth/google/callback"
+    clientID:"19376548750-am2fuuikpptnptv4nfkocpf7lpltc4gk.apps.googleusercontent.com",
+    clientSecret:"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",
+    callbackURL: "http://localhost:8004/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile)
