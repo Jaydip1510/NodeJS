@@ -27,6 +27,7 @@
     "localstorage": "^1.0.1",
     "localStorage": "^1.0.4",
     "mongoose": "^7.4.3",
+    "mongoose-findorcreate": "^4.0.0",
     "multer": "^1.4.5-lts.1",
     "node-localstorage": "^3.0.5",
     "nodemailer": "^6.9.4",

@@ -10,8 +10,9 @@ const maindata =  async ()=>{
 }
 maindata();
 const passport = require('passport');
-const router = express.Router();
+require('../models/googleauthconfing');
 
+const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 let imgfilename = '';
@@ -85,6 +86,18 @@ if(role === "admin"){
 router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
+
+// google routes
+router.get('/auth/google',
+
+  passport.authenticate('google', { scope: ['profile','email'] }));
+ 
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+        successRedirect:'/admin',
+        failureRedirect: '/'
+   }));
+
 //otp token routes
 router.get('/resetcred',vaildtoken);
 router.post('/resetcred',bodyParser,vaildtoken);
