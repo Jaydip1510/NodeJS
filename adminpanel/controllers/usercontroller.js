@@ -64,13 +64,14 @@ const dataUser = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-     var a = await checkUser(req, res);
-     let role = JSON.parse(localStorage.getItem('userRole'));
-     if (a === true) {
-         res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role});
-     } else {
-         res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role })
-     }
+    var a = await checkUser(req, res);
+    let role = JSON.parse(localStorage.getItem('userRole'));
+    res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: role })
+    /*if (a === true) {
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: role });
+    } else {
+        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: role })
+    }*/
 };
 
 
@@ -379,10 +380,29 @@ const vaildtoken = async (req, res) => {
     //let token = await
 
 }
-const getGoogleCallBack =  async (req, res) => {
-   
-    localStorage.setItem('userRole', JSON.stringify(role));
+const getGoogleCallBack = async (req, res) => {
+    
+    if (req.user.role_id == '' || req.user.role_id == undefined) {
+        let roleEmployee = await roleModel.findOne({ rolename: 'employee' });
+        const updata = await registerModel.updateOne({ _id: req.user._id }, { $set: { role_id: roleEmployee._id } });
+    }
+
+
+    let userdata = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
+    res.cookie('UserName', userdata.username !== undefined ? userdata.username : '');
+    res.cookie('Useremail', userdata.email !== undefined ? userdata.email : '');
+
+    let rolename = userdata.role_id.rolename;
+    localStorage.setItem('userToken', JSON.stringify(userdata.token));
+    localStorage.setItem('userRole', JSON.stringify(rolename));
+    let read = await profileModel.findOne({ email: userdata.email });
+    if (read) {
+        res.cookie('image', read.image);
+    }
+
     res.redirect('/admin');
+    // localStorage.setItem('userRole', JSON.stringify(role));
+
 }
 module.exports = {
     getDashboard,

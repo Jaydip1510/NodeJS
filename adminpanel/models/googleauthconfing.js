@@ -18,7 +18,7 @@ passport.use(new GoogleStrategy({
 
   async function (accessToken, refreshToken, profile, cb)  {
   
-    await model.findOrCreate({ googleId: profile.id}, function (err, user) {
+    await model.findOrCreate({ email :profile._json.email, googleId: profile.id }, function (err, user) {
        return cb(err, user);
     });
   }

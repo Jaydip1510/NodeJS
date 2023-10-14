@@ -71,12 +71,6 @@ const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} =
 
 // google routes
 router.get('/auth/google',  passport.authenticate('google', { scope: ['profile','email'] }));
- /*
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { 
-        successRedirect:'/admin',
-        failureRedirect: '/'
-   }));*/
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
@@ -84,7 +78,8 @@ router.get('/auth/google/callback',
   /*function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/admin');
-  }*/);
+  }*/
+  );
 
 let role = JSON.parse(localStorage.getItem('userRole'));
 
