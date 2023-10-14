@@ -64,15 +64,13 @@ const dataUser = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-    console.log("getDashboard------------ Method Call");
-    res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: 'admin' });
-    /* var a = await checkUser(req, res);
+     var a = await checkUser(req, res);
      let role = JSON.parse(localStorage.getItem('userRole'));
      if (a === true) {
          res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role});
      } else {
          res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role })
-     }*/
+     }
 };
 
 
@@ -381,7 +379,11 @@ const vaildtoken = async (req, res) => {
     //let token = await
 
 }
-
+const getGoogleCallBack =  async (req, res) => {
+   
+    localStorage.setItem('userRole', JSON.stringify(role));
+    res.redirect('/admin');
+}
 module.exports = {
     getDashboard,
     gettable,
@@ -397,5 +399,6 @@ module.exports = {
     getprofile,
     sendOtp,
     vaildtoken,
-    getregister
+    getregister,
+    getGoogleCallBack
 }

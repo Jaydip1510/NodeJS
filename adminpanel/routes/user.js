@@ -41,7 +41,7 @@ const upload = multer({ storage: storage });
 
 // usercontroller
 
-const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken,getregister} = require("../controllers/usercontroller");
+const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken,getregister,getGoogleCallBack} = require("../controllers/usercontroller");
 
 //category controller
 
@@ -80,10 +80,11 @@ router.get('/auth/google/callback',
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
+  getGoogleCallBack
+  /*function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/admin');
-  });
+  }*/);
 
 let role = JSON.parse(localStorage.getItem('userRole'));
 
