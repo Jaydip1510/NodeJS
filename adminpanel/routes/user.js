@@ -66,6 +66,20 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} = require("../controllers/rolecontroller");
 
+// google routes
+router.get('/auth/google',
+
+  passport.authenticate('google', { scope: ['profile','email'] }));
+ 
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+        successRedirect:'/admin',
+        failureRedirect: '/'
+   }));
+
+
+
+
 let role = JSON.parse(localStorage.getItem('userRole'));
 
 if(role === "admin"){
@@ -87,16 +101,7 @@ router.get('/forgetpassword',(req,res)=>{
   res.render('forget',{ message:''})
 })
 
-// google routes
-router.get('/auth/google',
 
-  passport.authenticate('google', { scope: ['profile','email'] }));
- 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { 
-        successRedirect:'/admin',
-        failureRedirect: '/'
-   }));
 
 //otp token routes
 router.get('/resetcred',vaildtoken);

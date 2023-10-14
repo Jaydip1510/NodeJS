@@ -9,7 +9,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const localization = require('./middeleware/localauth');
 app.use(cookie());
- app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
+app.use(session({secret:"secret-key",resave:true,saveUninitialized:true}));
 
 localization(passport);
 var LocalStorage = require('node-localstorage').LocalStorage,
