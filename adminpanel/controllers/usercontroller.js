@@ -187,7 +187,7 @@ const registerdata = async (req, res) => {
                 username: username,
                 token: '',
                 role_id: role_id,
-                roledata: roledata,
+                roledata: '',
             });
             const mailInfo = {
                 from: "makwanajaydip1510@gmail.com",
@@ -219,7 +219,7 @@ const checkUserData = async (req, res) => {
         res.redirect('/admin');
     } else {
         req.flash('danger', 'Email or password wrong !!!');
-        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata: roledata,role:role });
+        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata:'',role:role });
     }
 }
 
@@ -229,7 +229,7 @@ const checkLogindata = async (req, res) => {
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
+        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -237,7 +237,7 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
+            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
         } else {
         
             
@@ -276,7 +276,7 @@ const sendOtp = async (req, res) => {
     if (!getdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
+        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
     } else {
         otp = createOtp();
         /**
@@ -319,7 +319,7 @@ const sendOtp = async (req, res) => {
         }
         await transporter.sendMail(mailInfo)
         req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
-        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: roledata,role:role });
+        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: '',role:role });
     }
 
 }
@@ -336,7 +336,7 @@ const vaildtoken = async (req, res) => {
             req.flash('emsg_token', 'Invaild token');
             emsg_token = req.flash('emsg_token');
         }
-        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata: roledata,role:role });
+        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata:'',role:role });
     } else {
         console.log("body is:-");
         console.log(req.body.email);
@@ -355,24 +355,24 @@ const vaildtoken = async (req, res) => {
                 if (!getdata) {
                     req.flash('emsg_token', 'user not found');
                     emsg_token = req.flash('emsg_token');
-                    res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata });
+                    res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '' });
                 } else {
                     const hash_pwd = await bcrypt.hash(req.body.password, saltRounds)
                     const updata = await registerModel.updateOne({ email: email }, { $set: { password: hash_pwd } });
                     req.flash('emsg_token', 'Password sucessfully reset, kindy use new password to login.');
                     emsg_token = req.flash('emsg_token');
-                    res.render('login', { message: emsg_token, message_class: 'alert-success', roledata: roledata });
+                    res.render('login', { message: emsg_token, message_class: 'alert-success', roledata: '' });
                 }
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
                 emsg_token = req.flash('emsg_token');
-                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
+                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
             }
 
         } else {
             req.flash('emsg_token', 'Invalid token');
             emsg_token = req.flash('emsg_token');
-            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: roledata,role:role });
+            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
         }
 
 
