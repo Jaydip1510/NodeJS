@@ -16,9 +16,9 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8004/auth/google/callback"
   },
 
-  function(accessToken, refreshToken, profile, cb) {
-    console.log(profile)
-    model.findOrCreate({ googleId: profile.id }, function (err, user) {
+  async function (accessToken, refreshToken, profile, cb)  {
+  
+    await model.findOrCreate({ googleId: profile.id}, function (err, user) {
        return cb(err, user);
     });
   }

@@ -17,8 +17,9 @@ const multer = require("multer");
 const fs = require("fs");
 let imgfilename = '';
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+localStorage = new LocalStorage('./scratch')
 
+const rolemodel = require('../models/rolemodel');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -66,16 +67,23 @@ const {productdata,allproductdata,productDisplay,productDelete,productEdit,ajax_
 
 const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} = require("../controllers/rolecontroller");
 
-// google routes
-router.get('/auth/google',
+   
 
-  passport.authenticate('google', { scope: ['profile','email'] }));
- 
+// google routes
+router.get('/auth/google',  passport.authenticate('google', { scope: ['profile','email'] }));
+ /*
 router.get('/auth/google/callback', 
   passport.authenticate('google', { 
         successRedirect:'/admin',
         failureRedirect: '/'
-   }));
+   }));*/
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/admin');
+  });
 
 let role = JSON.parse(localStorage.getItem('userRole'));
 

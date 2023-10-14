@@ -12,7 +12,7 @@ const crypto = require('crypto');
 
 const secret_key = "secret1234";
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+    localStorage = new LocalStorage('./scratch');
 //Encrypting text
 const encrypt_text = async (plainText, password) => {
     try {
@@ -64,14 +64,15 @@ const dataUser = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-
-    var a = await checkUser(req, res);
-    let role = JSON.parse(localStorage.getItem('userRole'));
-    if (a === true) {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role});
-    } else {
-        res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role })
-    }
+    console.log("getDashboard------------ Method Call");
+    res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: 'admin' });
+    /* var a = await checkUser(req, res);
+     let role = JSON.parse(localStorage.getItem('userRole'));
+     if (a === true) {
+         res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role});
+     } else {
+         res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata:'',role:role })
+     }*/
 };
 
 
@@ -79,46 +80,46 @@ const getDashboard = async (req, res) => {
 const gettable = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('producttable', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata: '', selected: 'producttable' });
+    res.render('producttable', { username: req.cookies.UserName, role: role, userimage: req.cookies.image, roledata: '', selected: 'producttable' });
 }
 
 const getchart = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'chart',role:role });
+    res.render('chart', { username: req.cookies.UserName, userimage: req.cookies.image, roledata: '', selected: 'chart', role: role });
 }
 
 
 const getwidgets = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('widget', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'widget' });
+    res.render('widget', { username: req.cookies.UserName, role: role, userimage: req.cookies.image, roledata: '', selected: 'widget' });
 }
 
 const getbutton = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('button', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata: '', selected: 'button' });
+    res.render('button', { username: req.cookies.UserName, role: role, userimage: req.cookies.image, roledata: '', selected: 'button' });
 }
 
 const gettypography = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('typography', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'typography' });
+    res.render('typography', { username: req.cookies.UserName, role: role, userimage: req.cookies.image, roledata: '', selected: 'typography' });
 }
 
 
 const getotherElement = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
-    res.render('element', { username: req.cookies.UserName,role:role, userimage: req.cookies.image, roledata:'', selected: 'element' });
+    res.render('element', { username: req.cookies.UserName, role: role, userimage: req.cookies.image, roledata: '', selected: 'element' });
 }
 
 const getprofile = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     await checkUser(req, res)
     let profile_data = await profileModel.findOne({ email: req.cookies.Useremail });
-    res.render('profile', { profile_data: profile_data,role:role, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata:'', selected: 'profile', is_edit: false });
+    res.render('profile', { profile_data: profile_data, role: role, username: req.cookies.UserName, useremail: req.cookies.Useremail, userimage: req.cookies.image, roledata: '', selected: 'profile', is_edit: false });
 }
 
 const transpoter = nodemailer.createTransport({
@@ -142,7 +143,7 @@ const getregister = async (req, res) => {
         selected: 'register',
         message: req.flash('msg_category'),
         message_class: req.flash('msg_class'),
-        role:role
+        role: role
     })
 }
 
@@ -166,8 +167,7 @@ const registerdata = async (req, res) => {
     } else if (role_id == managerRoleId._id) {
         //STEP- 2 : Check if any user exists with "ADMIN" role
         const checkManagerRoleUser = await registerModel.find({ role_id: managerRoleId._id });
-        if(checkManagerRoleUser.length >= 2)
-        {
+        if (checkManagerRoleUser.length >= 2) {
             isAllowToCreate = false;
             req.flash('msg_category', 'Two Managers already exists');
             req.flash('msg_class', 'alert-danger');
@@ -219,7 +219,7 @@ const checkUserData = async (req, res) => {
         res.redirect('/admin');
     } else {
         req.flash('danger', 'Email or password wrong !!!');
-        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata:'',role:role });
+        res.render('login', { message: req.flash('danger'), message_class: 'alert-danger', roledata: '', role: role });
     }
 }
 
@@ -229,7 +229,7 @@ const checkLogindata = async (req, res) => {
     if (!userdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
+        res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '', role: role });
     } else {
 
         const isPasswordValid = await bcrypt.compare(req.body.password, userdata.password);
@@ -237,14 +237,14 @@ const checkLogindata = async (req, res) => {
         if (!isPasswordValid) {
             req.flash('emsg_token', 'Invalid password');
             emsg_token = req.flash('emsg_token');
-            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
+            res.render("login", { message: emsg_token, message_class: 'alert-danger', roledata: '', role: role });
         } else {
-        
-            
+
+
 
             res.cookie('UserName', userdata.username);
             res.cookie('Useremail', userdata.email);
- 
+
             let rolename = userdata.role_id.rolename;
             localStorage.setItem('userToken', JSON.stringify(userdata.token));
             localStorage.setItem('userRole', JSON.stringify(rolename));
@@ -276,7 +276,7 @@ const sendOtp = async (req, res) => {
     if (!getdata) {
         req.flash('emsg_token', 'User not found');
         emsg_token = req.flash('emsg_token');
-        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
+        res.render("forget", { message: emsg_token, message_class: 'alert-danger', roledata: '', role: role });
     } else {
         otp = createOtp();
         /**
@@ -319,7 +319,7 @@ const sendOtp = async (req, res) => {
         }
         await transporter.sendMail(mailInfo)
         req.flash('smsg_forget', 'Password reset link has been shared to your registerd email address, please check your email account.');
-        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: '',role:role });
+        res.render('forget', { message: req.flash('smsg_forget'), message_class: 'alert-success', roledata: '', role: role });
     }
 
 }
@@ -336,7 +336,7 @@ const vaildtoken = async (req, res) => {
             req.flash('emsg_token', 'Invaild token');
             emsg_token = req.flash('emsg_token');
         }
-        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata:'',role:role });
+        res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata: '', role: role });
     } else {
         console.log("body is:-");
         console.log(req.body.email);
@@ -366,13 +366,13 @@ const vaildtoken = async (req, res) => {
             } else {
                 req.flash('emsg_token', 'OTP not matched, please check your email or reprocess again.');
                 emsg_token = req.flash('emsg_token');
-                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
+                res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '', role: role });
             }
 
         } else {
             req.flash('emsg_token', 'Invalid token');
             emsg_token = req.flash('emsg_token');
-            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '',role:role });
+            res.render('resetpassword', { message: emsg_token, message_class: 'alert-danger', roledata: '', role: role });
         }
 
 
