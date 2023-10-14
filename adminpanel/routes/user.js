@@ -77,9 +77,6 @@ router.get('/auth/google/callback',
         failureRedirect: '/'
    }));
 
-
-
-
 let role = JSON.parse(localStorage.getItem('userRole'));
 
 if(role === "admin"){
