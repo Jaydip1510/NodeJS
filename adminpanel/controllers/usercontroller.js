@@ -383,11 +383,16 @@ const vaildtoken = async (req, res) => {
 const getGoogleCallBack = async (req, res) => {
     
     if (req.user.role_id == '' || req.user.role_id == undefined) {
+
+        
         let roleEmployee = await roleModel.findOne({ rolename: 'employee' });
         const updata = await registerModel.updateOne({ _id: req.user._id }, { $set: { role_id: roleEmployee._id } });
     }
 
 
+    let userdata_1 = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
+    var token = jwt.sign({ res2: userdata_1 }, secret_key);
+    const updata = await registerModel.updateOne({ _id: req.user._id }, { $set: { token: token } });
     let userdata = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
     res.cookie('UserName', userdata.username !== undefined ? userdata.username : '');
     res.cookie('Useremail', userdata.email !== undefined ? userdata.email : '');

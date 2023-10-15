@@ -4,6 +4,8 @@ const app = express();
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
 
+
+// get role form
 const getdata = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     res.render('role', {
@@ -15,6 +17,9 @@ const getdata = async (req, res) => {
         role:role
     })
 }
+
+
+// role data insert in role database & table
 
 const getroledata = async (req, res) => {
     const rolename = req.body.rolename;
@@ -36,6 +41,9 @@ const getroledata = async (req, res) => {
     }
 }
 
+
+//display role data in role table
+
 const allroledata = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     const role_data = await roleModel.find();
@@ -51,6 +59,8 @@ const allroledata = async (req, res) => {
     })
 }
 
+// delete role data in database & table
+
 const roledatadelete = async (req, res) => {
     const id = req.params.id;
     const data = await roleModel.findByIdAndRemove({ _id: id });
@@ -58,6 +68,8 @@ const roledatadelete = async (req, res) => {
     req.flash('msg_class', 'alert-success');
     res.redirect("/allroledata");
 }
+
+//role edit in table and display value textbox
 
 const roledataedit = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
@@ -75,6 +87,8 @@ const roledataedit = async (req, res) => {
     });
 }
 
+
+// role update in table & database
 const roleupdate = async (req, res) => {
     const rolename = req.body.rolename;
     const id = req.params.id

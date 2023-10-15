@@ -70,7 +70,7 @@ const {getroledata,getdata,allroledata,roledatadelete,roledataedit,roleupdate} =
    
 
 // google routes
-router.get('/auth/google',  passport.authenticate('google', { scope: ['profile','email'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile','email'] }));
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
@@ -82,6 +82,7 @@ router.get('/auth/google/callback',
   );
 
 let role = JSON.parse(localStorage.getItem('userRole'));
+
 
 if(role === "admin"){
     router.post('/roledata',getroledata)
