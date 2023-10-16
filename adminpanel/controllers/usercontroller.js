@@ -404,8 +404,8 @@ const getGoogleCallBack = async (req, res) => {
     if (read) {
         res.cookie('image', read.image);
     }
-
-    res.redirect('/admin');
+   
+    res.redirect('/getregister');
     // localStorage.setItem('userRole', JSON.stringify(role));
 
 }
