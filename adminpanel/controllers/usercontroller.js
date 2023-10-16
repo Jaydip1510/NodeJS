@@ -136,17 +136,17 @@ const getregister = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
     res.render('register', {
         roledata: roledata,
-        username: req.cookies.UserName,
-        useremail: req.cookies.Useremail,
-        userimage: req.cookies.image,
-        selected: 'register',
+        checkuser: '',
         message: req.flash('msg_category'),
         message_class: req.flash('msg_class'),
-        role: role
+        role: role,
+        asset_path: '../'
     })
 }
 
 const registerdata = async (req, res) => {
+    let mode = req.params.id !== undefined || req.params.id != '' ? 'GoogleReg' : '';
+    let reg_id = req.params.id !== undefined || req.params.id != '' ? req.params.id : '';
     let isAllowToCreate = true;
     const { username, password, email, role_id } = req.body
     //STEP - 1 : Find the role with "ADMIN" role
@@ -174,39 +174,71 @@ const registerdata = async (req, res) => {
         }
     }
     if (isAllowToCreate) {
-        const chackdata = await registerModel.findOne({ email: email });
-        if (chackdata) {
-            return res.send("Email already registered");
-        } else {
-            const crypted = await bcrypt.hash(password, saltRounds)
-            const res2 = new registerModel({
-                id: 1,
-                email: email,
-                password: crypted,
-                username: username,
-                token: '',
-                role_id: role_id,
-                roledata: '',
-            });
-            const mailInfo = {
-                from: "makwanajaydip1510@gmail.com",
-                to: email,
-                subject: "Admin Panel",
-                text: "Regidtration",
-                html: "<a>click here registere"
-            }
-            // await transpoter.sendMail(mailInfo);
+        if (mode == '') {
+            const chackdata = await registerModel.findOne({ email: email });
+            if (chackdata) {
+                return res.send("Email already registered");
+            } else {
+                const crypted = await bcrypt.hash(password, saltRounds)
 
-            await res2.save();
-            var token = jwt.sign({ res2: res2 }, secret_key)
-            console.log("generated token");
-            console.log(token);
-            let _id = res2._id;
-            console.log(_id);
-            const result = await registerModel.findByIdAndUpdate({ _id }, { $set: { token: token } })
+
+                const res2 = new registerModel({
+                    id: 1,
+                    email: email,
+                    password: crypted,
+                    username: username,
+                    token: '',
+                    role_id: role_id,
+                    roledata: '',
+                });
+                await res2.save();
+                var token = jwt.sign({ res2: res2 }, secret_key)
+                console.log("generated token");
+                console.log(token);
+                let _id = res2._id;
+                console.log(_id);
+                const result = await registerModel.findByIdAndUpdate({ _id }, { $set: { token: token } })
+                console.log(result);
+                res.redirect('/login');
+            }
+        } else if (mode == 'GoogleReg') {
+            const crypted = await bcrypt.hash(password, saltRounds)
+            const updateReqData = await registerModel.updateOne({ _id: reg_id }, {
+                $set:
+                {
+                    email: email,
+                    password: crypted,
+                    username: username,
+                    token: '',
+                    role_id: role_id,
+                    roledata: ''
+                }
+            })
+            const userRegData = await registerModel.findOne({ _id: reg_id }).populate('role_id');
+            var token = jwt.sign({ res2: userRegData }, secret_key);
+            const result = await registerModel.updateOne({ _id: reg_id }, { $set: { token: token } })
             console.log(result);
-            res.redirect('/login');
+            res.cookie('UserName', userRegData.username !== undefined ? userRegData.username : '');
+            res.cookie('Useremail', userRegData.email !== undefined ? userRegData.email : '');
+
+            let rolename = userRegData.role_id.rolename;
+            localStorage.setItem('userToken', JSON.stringify(userRegData.token));
+            localStorage.setItem('userRole', JSON.stringify(rolename));
+            let read = await profileModel.findOne({ email: userRegData.email });
+            if (read) {
+                res.cookie('image', read.image);
+            }
+            res.redirect('/admin');
         }
+
+        const mailInfo = {
+            from: "makwanajaydip1510@gmail.com",
+            to: email,
+            subject: "Admin Panel",
+            text: "Regidtration",
+            html: "<a>click here registere"
+        }
+        // await transpoter.sendMail(mailInfo);
     }
 }
 
@@ -381,34 +413,35 @@ const vaildtoken = async (req, res) => {
 
 }
 const getGoogleCallBack = async (req, res) => {
-    
-    if (req.user.role_id == '' || req.user.role_id == undefined) {
-
-        
-        let roleEmployee = await roleModel.findOne({ rolename: 'employee' });
-        const updata = await registerModel.updateOne({ _id: req.user._id }, { $set: { role_id: roleEmployee._id } });
+    const roledata = await roleModel.find({});
+    const checkuser = await registerModel.findOne({ _id: req.user._id });
+    if (checkuser.role_id == undefined || checkuser.role_id == '') {
+        res.render('register', {
+            checkuser: checkuser,
+            roledata: roledata,
+            message: req.flash('msg_category'),
+            message_class: req.flash('msg_class'),
+            asset_path: '../../'
+        })
+    } else {
+        req.flash('msg_category', 'Your email already registered,please sign in with Google');
+        req.flash('msg_class', 'alert-danger');
+        res.redirect("/getregister");
     }
 
-
-    let userdata_1 = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
-    var token = jwt.sign({ res2: userdata_1 }, secret_key);
-    const updata = await registerModel.updateOne({ _id: req.user._id }, { $set: { token: token } });
-    let userdata = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
-    res.cookie('UserName', userdata.username !== undefined ? userdata.username : '');
-    res.cookie('Useremail', userdata.email !== undefined ? userdata.email : '');
-
-    let rolename = userdata.role_id.rolename;
-    localStorage.setItem('userToken', JSON.stringify(userdata.token));
-    localStorage.setItem('userRole', JSON.stringify(rolename));
-    let read = await profileModel.findOne({ email: userdata.email });
-    if (read) {
-        res.cookie('image', read.image);
-    }
-   
-    res.redirect('/getregister');
-    // localStorage.setItem('userRole', JSON.stringify(role));
 
 }
+const googleregister = async (req, res) => {
+    const roleid = req.user.role_id;
+    const mode = await registerModel.updateOne({ _id: req.user._id },
+        {
+            $set: {
+                role_id: roleid
+            }
+        })
+    res.redirect('/admin');
+}
+
 module.exports = {
     getDashboard,
     gettable,
@@ -425,5 +458,6 @@ module.exports = {
     sendOtp,
     vaildtoken,
     getregister,
-    getGoogleCallBack
+    getGoogleCallBack,
+    googleregister
 }

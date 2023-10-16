@@ -41,7 +41,7 @@ const upload = multer({ storage: storage });
 
 // usercontroller
 
-const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken,getregister,getGoogleCallBack} = require("../controllers/usercontroller");
+const { getDashboard,  gettable, checkUserData, registerdata, getchart, getwidgets, getbutton, gettypography,getotherElement,checkLogindata,getprofile,sendOtp,vaildtoken,getregister,getGoogleCallBack,googleregister} = require("../controllers/usercontroller");
 
 //category controller
 
@@ -80,6 +80,8 @@ router.get('/auth/google/callback',
     res.redirect('/admin');
   }*/
   );
+
+  router.post('/googleregister/:id',bodyParser,registerdata);
 
     router.post('/roledata',getroledata)
     router.get('/rolealldata',getdata)
