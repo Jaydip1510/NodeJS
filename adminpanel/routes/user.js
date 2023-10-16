@@ -81,10 +81,6 @@ router.get('/auth/google/callback',
   }*/
   );
 
-let role = JSON.parse(localStorage.getItem('userRole'));
-
-
-if(role === "admin"){
     router.post('/roledata',getroledata)
     router.get('/rolealldata',getdata)
     router.get('/allroledata',allroledata);
@@ -92,11 +88,11 @@ if(role === "admin"){
     router.get('/roledataedit/:id',roledataedit)
     router.post('/roleupdate/:id',bodyParser,roleupdate)
     
-}else{
+
     router.get('/pagenotfound',(req,res)=>{
         res.render('pagenotfound',{username: req.cookies.UserName, useremail: req.cookies.Useremail,userimage: req.cookies.image,selected: 'pagenotfound',roledata:roledata})
     })
-}
+
 
 // forgetpassword routes
 router.get('/forgetpassword',(req,res)=>{

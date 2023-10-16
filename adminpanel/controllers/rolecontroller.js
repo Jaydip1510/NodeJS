@@ -2,7 +2,7 @@ const roleModel = require('../models/rolemodel')
 const express = require('express');
 const app = express();
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+    localStorage = new LocalStorage('./scratch');
 
 
 // get role form
@@ -14,7 +14,7 @@ const getdata = async (req, res) => {
         message: '',
         selected: '',
         AllRoleData: '',
-        role:role
+        role: role
     })
 }
 
@@ -46,17 +46,21 @@ const getroledata = async (req, res) => {
 
 const allroledata = async (req, res) => {
     let role = JSON.parse(localStorage.getItem('userRole'));
-    const role_data = await roleModel.find();
-    res.render('role', {
-        username: req.cookies.UserName,
-        AllRoleData: role_data,
-        userimage: req.cookies.image,
-        selected: 'subcat',
-        role_edit: '',
-        message: req.flash('msg_category'),
-        message_class: req.flash('msg_class'),
-        role:role
-    })
+    if (role === "admin") {
+
+
+        const role_data = await roleModel.find();
+        res.render('role', {
+            username: req.cookies.UserName,
+            AllRoleData: role_data,
+            userimage: req.cookies.image,
+            selected: 'subcat',
+            role_edit: '',
+            message: req.flash('msg_category'),
+            message_class: req.flash('msg_class'),
+            role: role
+        })
+    }
 }
 
 // delete role data in database & table
@@ -83,7 +87,7 @@ const roledataedit = async (req, res) => {
         selected: '',
         role_edit: result,
         message: '',
-        role:role
+        role: role
     });
 }
 
