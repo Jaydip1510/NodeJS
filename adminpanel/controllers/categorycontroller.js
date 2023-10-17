@@ -105,7 +105,8 @@ const categoryedit = async (req, res) => {
         details: categoryData,
         selected: 'category',
         userimage:req.cookies.image,
-        message: ''
+        message: '',
+        role:''
     });
 };
 
