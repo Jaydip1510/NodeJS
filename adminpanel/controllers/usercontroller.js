@@ -66,7 +66,13 @@ const dataUser = async (req, res) => {
 const getDashboard = async (req, res) => {
     var a = await checkUser(req, res);
     let role = JSON.parse(localStorage.getItem('userRole'));
-    res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: role })
+    res.render('index', 
+        { username: req.cookies.UserName, 
+          userimage: req.cookies.image,
+          selected: 'admin', 
+          roledata: '', 
+          role: role 
+        })
     /*if (a === true) {
         res.render('index', { username: req.cookies.UserName, userimage: req.cookies.image, selected: 'admin', roledata: '', role: role });
     } else {
@@ -422,11 +428,14 @@ const getGoogleCallBack = async (req, res) => {
             message: req.flash('msg_category'),
             message_class: req.flash('msg_class'),
             asset_path: '../../'
-        })
+        });
     } else {
-        req.flash('msg_category', 'Your email already registered,please sign in with Google');
-        req.flash('msg_class', 'alert-danger');
-        res.redirect("/getregister");
+        res.cookie('UserName', checkuser.username);
+        res.cookie('Useremail', checkuser.email);        
+        res.redirect('/admin');
+        //req.flash('msg_category', 'Your email already registered,please sign in with Google');
+        //req.flash('msg_class', 'alert-danger');
+        //res.redirect("/getregister");
     }
 
 
