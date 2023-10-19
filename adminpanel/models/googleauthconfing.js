@@ -18,8 +18,19 @@ passport.use(new GoogleStrategy({
 
   async function (accessToken, refreshToken, profile, cb)  {
   
-    await model.findOrCreate({ email :profile._json.email, googleId: profile.id }, function (err, user) {
-       return cb(err, user);
+    await model.findOrCreate({ email :profile._json.email, googleId: profile.id }, function (err, user,created) {
+      
+      if(created){
+        user.created = true;
+        user.profile = profile;
+        return cb(err, user);
+      }else{
+        user.created = false;
+        console.log('Updated "%s"', user.googleId);
+        return cb(err, user);
+      }
+      
+      
     });
   }
 ));
