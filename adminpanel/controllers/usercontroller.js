@@ -66,9 +66,13 @@ const dataUser = async (req, res) => {
 const getDashboard = async (req, res) => {
     var a = await checkUser(req, res);
     let role = JSON.parse(localStorage.getItem('userRole'));
+    let cookie_username = req.cookies.UserName !== undefined && req.cookies.UserName !== '' ? req.cookies.UserName : "",
+        cookie_image =  req.cookies.image !== undefined && req.cookies.image !== '' ? req.cookies.image : "";
+        console.log('cookie_username => '+cookie_username);
+        console.log('cookie_image => '+cookie_image);
     res.render('index', 
-        { username: req.cookies.UserName, 
-          userimage: req.cookies.image,
+        { username: cookie_username, 
+          userimage: cookie_image,
           selected: 'admin', 
           roledata: '', 
           role: role 
@@ -230,10 +234,7 @@ const registerdata = async (req, res) => {
             let rolename = userRegData.role_id.rolename;
             localStorage.setItem('userToken', JSON.stringify(userRegData.token));
             localStorage.setItem('userRole', JSON.stringify(rolename));
-            let read = await profileModel.findOne({ email: userRegData.email });
-            if (read) {
-                res.cookie('image', read.image);
-            }
+            res.cookie('image', userRegData.image);
             res.redirect('/admin');
         }
 
@@ -420,7 +421,7 @@ const vaildtoken = async (req, res) => {
 }
 const getGoogleCallBack = async (req, res) => {
     const roledata = await roleModel.find({});
-    const checkuser = await registerModel.findOne({ _id: req.user._id });
+    const checkuser = await registerModel.findOne({ _id: req.user._id }).populate('role_id');
     if (checkuser.role_id == undefined || checkuser.role_id == '') {
         res.render('register', {
             checkuser: checkuser,
@@ -430,8 +431,19 @@ const getGoogleCallBack = async (req, res) => {
             asset_path: '../../'
         });
     } else {
+   
+        let rolename = checkuser.role_id.rolename;
+        localStorage.setItem('userToken', JSON.stringify(checkuser.token));
+        localStorage.setItem('userRole', JSON.stringify(rolename));
+
+        /** Initialinse Empty value in Cookie to avoid undefine variable issue */
+        res.cookie('UserName', "");
+        res.cookie('Useremail', "");   
+        res.cookie('image', "");
+        /** Overwrite Cookie value */
         res.cookie('UserName', checkuser.username);
-        res.cookie('Useremail', checkuser.email);        
+        res.cookie('Useremail', checkuser.email); 
+        res.cookie('image', checkuser.image);       
         res.redirect('/admin');
         //req.flash('msg_category', 'Your email already registered,please sign in with Google');
         //req.flash('msg_class', 'alert-danger');
@@ -446,6 +458,7 @@ const googleregister = async (req, res) => {
         {
             $set: {
                 role_id: roleid
+
             }
         })
     res.redirect('/admin');
