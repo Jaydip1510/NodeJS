@@ -23,6 +23,10 @@ app.get('/login',(req,res)=>{
    res.render("login");
 })
 
+app.get('/logout', (req, res) => {
+   res.redirect('/')
+});
+
 app.listen(8500,"127.0.0.1",()=>{
     console.log("listening port in 8500...");
 })
