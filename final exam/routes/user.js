@@ -12,8 +12,10 @@ maindata();
 
 const router = express.Router();
 
-const getdeshboard = require("../controllers/usercontroller")
+const {getdeshboard} = require("../controllers/usercontroller")
 
 // main indexpage routes
 
 router.get('/admin', getdeshboard);
+
+module.exports = router;
