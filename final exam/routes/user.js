@@ -18,8 +18,8 @@ const {getdeshboard,getregister,register,checkUserData,getform,gettable} = requi
 
 router.get('/admin', getdeshboard);
 router.get('/register',getregister);
-router.post('/register',register);
-router.post('/login',checkUserData);
+router.post('/register',bodyParser,register);
+router.post('/login',bodyParser,checkUserData);
 router.get('/form',getform);
 router.get('/table',gettable);
 module.exports = router;
