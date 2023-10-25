@@ -33,9 +33,19 @@ const checkUserData = async (req, res) => {
     }
 }
 
+const getform = async (req, res) => {
+    res.render('form');
+}
+
+const gettable = async (req, res) => {
+    res.render('table');
+}
+
 module.exports = {
     getdeshboard,
     getregister,
     register,
-    checkUserData
+    checkUserData,
+    getform,
+    gettable
 } 

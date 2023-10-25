@@ -12,7 +12,7 @@ maindata();
 
 const router = express.Router();
 
-const {getdeshboard,getregister,register,checkUserData} = require("../controllers/usercontroller")
+const {getdeshboard,getregister,register,checkUserData,getform,gettable} = require("../controllers/usercontroller")
 
 // main indexpage routes
 
@@ -20,5 +20,6 @@ router.get('/admin', getdeshboard);
 router.get('/register',getregister);
 router.post('/register',register);
 router.post('/login',checkUserData);
-
+router.get('/form',getform);
+router.get('/table',gettable);
 module.exports = router;
