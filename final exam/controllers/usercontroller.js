@@ -1,4 +1,5 @@
 const registerModel = require('../models/registermodel');
+const employeeModel = require('../models/employeemodel');
 
 
 const getdeshboard = async (req,res) =>{
@@ -32,13 +33,56 @@ const checkUserData = async (req, res) => {
     }
 }
 
-const getform = async (req, res) => {
-    res.render('form');
-}
+
 
 const gettable = async (req, res) => {
-    res.render('table');
+    res.render('table',{
+        empData:''
+    });
 }
+
+const empgetdata = async (req, res) => {
+
+    const res2 = new employeeModel({
+        name: req.body.name,
+        age: req.body.age,
+        salary: req.body.salary,
+        address: req.body.address,
+        education: req.body.education
+
+    });
+    const abc = await res2.save()
+    res.redirect('/form');
+
+}
+
+const getform = async (req, res) => {
+    const empData = await employeeModel.find();
+    res.render('form',{
+        empData: empData,
+        editempdata:''
+    });
+}
+
+const deletedata = async (req, res) => {
+
+    let id = req.params.id;
+    console.log(id);
+    const deletedata = await employeeModel.findByIdAndRemove({_id:id});
+    res.redirect('/form');
+
+}
+
+const editdata = async (req, res) => {
+    let id = req.params.id;
+    let edata = await employeeModel.find();
+    result = await employeeModel.findOne({_id:id})
+    res.render('/form',{
+        empData: edata,
+        editempdata : result
+    })
+}
+
 
 module.exports = {
     getdeshboard,
@@ -46,5 +90,9 @@ module.exports = {
     register,
     checkUserData,
     getform,
-    gettable
+    gettable,
+    empgetdata,
+    deletedata,
+    editdata
+   
 } 
