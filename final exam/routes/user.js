@@ -12,7 +12,7 @@ maindata();
 
 const router = express.Router();
 
-const {getdeshboard,getregister,register,checkUserData,getform,gettable,empgetdata,deletedata,editdata} = require("../controllers/usercontroller")
+const {getdeshboard,getregister,register,checkUserData,getform,gettable,empgetdata,deletedata,editdata,updatedata} = require("../controllers/usercontroller")
 
 // main indexpage routes
 
@@ -25,5 +25,6 @@ router.get('/table',gettable);
 router.post('/empgetdata',empgetdata);
 router.get('/empdelete/:id',deletedata)
 router.get('/editdata/:id',editdata)
+router.post('/updatedata/:id',bodyParser,updatedata)
 
 module.exports = router;

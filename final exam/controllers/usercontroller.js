@@ -75,12 +75,31 @@ const deletedata = async (req, res) => {
 
 const editdata = async (req, res) => {
     let id = req.params.id;
-    let edata = await employeeModel.find();
-    result = await employeeModel.findOne({_id:id})
-    res.render('/form',{
+    const  result = await employeeModel.findOne({_id:id})
+    let edata = await employeeModel.find({});
+    res.render('form',{
         empData: edata,
         editempdata : result
     })
+}
+
+const updatedata = async (req, res) => {
+    const name = req.body.name;
+    const age = req.body.age;
+    const salary = req.body.salary;
+    const address = req.body.address;
+    const education = req.body.education;
+    const id = req.params.id;
+    const result = await employeeModel.findByIdAndUpdate({ _id:id }, {
+        $set: {
+            name: name,
+            age: age,
+            salary: salary,
+            address: address,
+            education: education
+        }
+    })
+    res.redirect('/form');
 }
 
 
@@ -93,6 +112,7 @@ module.exports = {
     gettable,
     empgetdata,
     deletedata,
-    editdata
+    editdata,
+    updatedata
    
 } 
