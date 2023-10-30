@@ -376,11 +376,7 @@ const vaildtoken = async (req, res) => {
         }
         res.render('resetpassword', { email: dcrypted, message: emsg_token, roledata: '', role: role });
     } else {
-        console.log("body is:-");
-        console.log(req.body.email);
-        console.log(req.body.otp);
-        console.log(req.body.password);
-        console.log(req.body.cpassword);
+        
         // step 1: check otp in schema: tokendatas
         let tok_exists = await tokenModel.findOne({ email: req.body.email })
         if (tok_exists) {
