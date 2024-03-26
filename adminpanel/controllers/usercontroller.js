@@ -136,7 +136,7 @@ const transpoter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     auth: {
         user: "makwanajaydip1510@gmail.com",
-        pass: 'iovdaxolhzltlptu',
+        pass: 'bmtj bjli qtso lalj',
     },
     secure: true,
 });
@@ -342,7 +342,7 @@ const sendOtp = async (req, res) => {
             host: "smtp.gmail.com",
             auth: {
                 user: "makwanajaydip1510@gmail.com",
-                pass: 'iovdaxolhzltlptu',
+                pass: 'bmtj bjli qtso lalj',
             },
             secure: true,
         });
